@@ -3,7 +3,7 @@ slug: daha-once-de-burada-miydik
 baslik: Daha önce de burada mıydık?
 dizi:
 bolum:
-alt:
+alt: Yazılmakta olan bir kitabın eşiğinden: tekrar, sorumluluk ve tanıklık üzerine bir deneme
 tarih: 2026-09-08
 eski: daha-önce-de-burada-mıydık
 ---
