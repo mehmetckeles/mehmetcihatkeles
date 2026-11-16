@@ -45,7 +45,7 @@ def parse(path):
 
 def inline(t):
     t = html.escape(t, quote=False)
-    t = re.sub(r"\[(\d+)\]", r'<sup><a href="#k-\1" id="g-\1">\1</a></sup>', t)
+    t = re.sub(r"\[(\d+)\]", r'<sup><button type="button" class="fn" data-k="\1" aria-expanded="false" aria-label="Kaynak \1">\1</button></sup>', t)
     return t
 
 def render_body(blocks):
@@ -213,7 +213,18 @@ def main():
         page += """<script>
 (function(){var b=document.getElementById('bar'),a=document.querySelector('.prose-read');
 function u(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}
-addEventListener('scroll',u,{passive:true});addEventListener('resize',u);u();})();
+addEventListener('scroll',u,{passive:true});addEventListener('resize',u);u();
+/* dipnotlar: kaynak, numaranın hemen altında açılır; sayfa kaymaz */
+document.querySelectorAll('.fn').forEach(function(btn){btn.addEventListener('click',function(){
+  var p=btn.closest('p'),k=btn.dataset.k,id='fn-pop-'+k+'-'+[].indexOf.call(document.querySelectorAll('.fn'),btn),ex=document.getElementById(id);
+  if(ex){ex.remove();btn.setAttribute('aria-expanded','false');return}
+  var src=document.getElementById('k-'+k);if(!src)return;
+  var box=document.createElement('div');box.className='fn-pop';box.id=id;
+  box.innerHTML='<span class="fn-n">'+k+'</span>'+src.innerHTML+'<button type="button" class="fn-x" aria-label="Kapat">×</button>';
+  box.querySelector('.fn-x').addEventListener('click',function(){box.remove();btn.setAttribute('aria-expanded','false');btn.focus({preventScroll:true})});
+  p.insertAdjacentElement('afterend',box);btn.setAttribute('aria-expanded','true');
+})});
+})();
 </script>
 </body>
 </html>
@@ -281,8 +292,7 @@ addEventListener('scroll',u,{passive:true});addEventListener('resize',u);u();})(
 
     # ---- eski Wix sayfaları için yönlendirmeler
     ESKI = {
-        "blog": "/yazilar.html", "on-rezervasyon": "/konaklama.html#on-rezervasyon",
-        "tanisma-gorusmesi": "/konaklama.html#tanisma-formu", "fiyat-gecmisi": "/konaklama.html#fiyat-gecmisi",
+        "blog": "/yazilar.html", "fiyat-gecmisi": "/konaklama.html#fiyat-gecmisi",
         "contact": "/#iletisim", "kopekegitmeni": "/", "about-1": "/", "about-4": "/", "services-7": "/tut.html",
         "akademi": "/", "kidu": "/", "projects": "/", "loves": "/", "photography": "/", "challenges": "/",
         "test": "/", "sevgiligunluk": "/",
