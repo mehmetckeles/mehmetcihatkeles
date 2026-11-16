@@ -193,4 +193,4 @@ nav.main a[aria-current]{color:var(--ink);border-bottom-color:var(--ink)}
 .page-hero h1 b{font-weight:600}
 .page-hero .lead{max-width:38rem;margin-top:24px;font-size:var(--t-giris);line-height:1.7;color:var(--ink-2)}
 .school .peek{position:relative}
-.school .peek::after{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(to bottom,transparent,var(--paper));pointer-events:none}
+.school .peek::after{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(to bottom,transparent,var(--fade,var(--paper)));pointer-events:none}
