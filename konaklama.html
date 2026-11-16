@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konaklama · Mehmet Cihat Keleş</title>
+<meta name="description" content="Ataşehir'de bahçeli bir evde kafessiz köpek konaklaması. Aynı anda yalnızca birkaç misafir; önce tanışma, sonra gündüz misafirliği, sonra konaklama.">
+<meta property="og:title" content="Köpeğiniz otelde değil, evde kalır.">
+<meta property="og:description" content="Ataşehir · bahçeli ev · kafessiz konaklama. Mehmet Cihat Keleş.">
+<meta name="theme-color" content="#F6F6F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23151515%27/%3E%3Crect x=%2710%27 y=%2734%27 width=%2744%27 height=%2714%27 fill=%27%23F3FF53%27/%3E%3Ctext x=%2732%27 y=%2745%27 text-anchor=%27middle%27 font-family=%27Poppins,Arial,sans-serif%27 font-weight=%27600%27 font-size=%2726%27 fill=%27%23F6F6F2%27%3Emck%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/site.css">
+<style>
+/* ---------- konaklama sayfası ---------- */
+.k-hero{padding:clamp(40px,8vw,96px) 0 clamp(28px,5vw,48px)}
+.k-hero .label{margin-bottom:24px}
+.k-hero h1{font-family:var(--display);font-weight:300;font-size:clamp(2.3rem,8vw,4.6rem);line-height:1.06;letter-spacing:-.025em;max-width:12ch}
+.k-hero h1 b{font-weight:600}
+.k-hero .lead{max-width:34rem;margin-top:26px;font-size:clamp(1.05rem,2.4vw,1.2rem);line-height:1.7;color:var(--ink-2)}
+.k-hero .actions{margin-top:28px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.tags span{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:99px;padding:4px 10px}
+
+.photos{display:grid;grid-auto-flow:column;grid-auto-columns:78%;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:0 var(--pad) 6px;margin:0 calc(var(--pad)*-1);scrollbar-width:none}
+.photos::-webkit-scrollbar{display:none}
+@media(min-width:860px){.photos{grid-auto-flow:row;grid-template-columns:1.3fr 1fr 1fr;grid-auto-columns:auto;overflow:visible;padding:0;margin:0}}
+.photo{position:relative;aspect-ratio:4/5;background:var(--paper-2);border-radius:4px;overflow:hidden;scroll-snap-align:start}
+@media(min-width:860px){.photo{aspect-ratio:auto;height:clamp(320px,34vw,460px)}}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo .ph{position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px;
+  background:repeating-linear-gradient(135deg,transparent 0 14px,color-mix(in srgb,var(--rule) 55%,transparent) 14px 15px)}
+.photo .ph span{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--paper);padding:3px 7px}
+
+.block{padding:clamp(48px,8vw,96px) 0;border-top:1px solid var(--rule)}
+.block-head{display:grid;gap:14px;margin-bottom:clamp(24px,4vw,40px)}
+@media(min-width:860px){.block-head{grid-template-columns:240px 1fr;gap:40px;align-items:baseline}}
+.block-head h2{font-family:var(--display);font-weight:300;font-size:clamp(1.75rem,4.8vw,2.6rem);line-height:1.12;letter-spacing:-.02em;max-width:20ch}
+.block-head h2 b{font-weight:600}
+.block-body{display:grid;gap:0;min-width:0}
+.block-body > *{min-width:0}
+@media(min-width:860px){.block-body{margin-left:280px}.block-body.wide{margin-left:0}}
+.prose p{color:var(--ink-2);font-size:1.06rem;line-height:1.75;max-width:36rem}
+.prose p + p{margin-top:14px}
+
+.steps-list{list-style:none;counter-reset:s}
+.steps-list li{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;padding:22px 0;border-top:1px solid var(--rule)}
+.steps-list li:last-child{border-bottom:1px solid var(--rule)}
+.steps-list .n{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:7px}
+.steps-list h3{font-family:var(--display);font-weight:500;font-size:clamp(1.2rem,3.4vw,1.45rem);letter-spacing:-.015em}
+.steps-list p{grid-column:2;color:var(--ink-2);line-height:1.7;max-width:36rem}
+
+.two{display:grid;gap:28px}
+@media(min-width:700px){.two{grid-template-columns:1fr 1fr;gap:40px}}
+.two h3{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:400;margin-bottom:6px}
+.checks{list-style:none}
+.checks li{position:relative;padding:14px 0 14px 30px;border-top:1px solid var(--rule);line-height:1.6;color:var(--ink-2)}
+.checks li::before{content:"";position:absolute;left:2px;top:22px;width:14px;height:8px;background:var(--hl);border:1px solid var(--ink)}
+.checks.no li::before{background:none;border:none;border-top:1.5px solid var(--muted);height:0;top:26px}
+.note{margin-top:22px;padding:18px 20px;background:var(--paper-2);border-radius:4px;color:var(--ink-2);line-height:1.65;font-size:1rem}
+.note a{color:var(--ink);border-bottom:1px solid var(--ink)}
+
+/* ücret + hesaplayıcı */
+.price-big{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.price-big strong{font-family:var(--display);font-weight:600;font-size:clamp(2.6rem,9vw,4.2rem);letter-spacing:-.03em;line-height:1}
+.price-big span{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.price-sub{margin-top:10px;color:var(--ink-2)}
+.price-sub b{font-weight:500}
+.calc{margin-top:32px;border:1px solid var(--ink);border-radius:4px;padding:clamp(20px,4vw,32px);background:var(--paper)}
+.calc h3{font-family:var(--display);font-weight:500;font-size:1.25rem;letter-spacing:-.01em}
+.calc > p{color:var(--muted);font-size:.95rem;margin-top:4px}
+.grid-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:20px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label,.field .lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.field label em{font-style:normal;color:var(--ink)}
+.field input,.field select,.field textarea{font:inherit;font-family:var(--display);font-size:16px;color:var(--ink);background:var(--paper);
+  border:1px solid var(--rule);border-radius:4px;padding:12px 12px;min-height:48px;width:100%;min-width:0;-webkit-appearance:none;appearance:none}
+.field textarea{min-height:96px;resize:vertical;font-family:var(--serif)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px color-mix(in srgb,var(--hl) 70%,transparent)}
+.field .hint{font-size:.85rem;color:var(--muted);font-family:var(--serif)}
+.stepper{display:flex;align-items:stretch;border:1px solid var(--rule);border-radius:4px;overflow:hidden;min-height:48px}
+.stepper button{width:48px;background:var(--paper-2);border:none;font-family:var(--display);font-size:20px;color:var(--ink);cursor:pointer}
+.stepper output{flex:1;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:17px;font-weight:500}
+.result{margin-top:22px;border-top:1px solid var(--rule);padding-top:16px}
+.result .row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;font-family:var(--display);font-size:15px;color:var(--ink-2)}
+.result .row.minus span:last-child{color:var(--ink)}
+.result .row.total{border-top:1px solid var(--ink);margin-top:8px;padding-top:14px;font-size:20px;font-weight:600;color:var(--ink)}
+.result .err{color:var(--ink);font-family:var(--display);font-size:15px;padding:6px 0}
+.result .fine{margin-top:12px;font-size:.9rem;color:var(--muted)}
+.result .actions{margin-top:18px}
+.disc{margin-top:22px;display:grid;gap:4px;font-size:.95rem;color:var(--muted)}
+
+/* tanışalım */
+.paths{display:grid;gap:12px}
+@media(min-width:860px){.paths{grid-template-columns:repeat(3,1fr)}}
+.path{display:flex;flex-direction:column;border:1px solid var(--rule);border-radius:4px;padding:22px;background:var(--paper)}
+.path.main{border-color:var(--ink)}
+.path .label{margin-bottom:12px}
+.path h3{font-family:var(--display);font-weight:500;font-size:1.3rem;letter-spacing:-.015em;line-height:1.25}
+.path p{margin-top:8px;color:var(--ink-2);line-height:1.6;flex:1}
+.path .actions{margin-top:18px}
+.path .btn{width:100%;justify-content:center}
+.path small{display:block;margin-top:10px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+
+/* formlar */
+.form-panel{display:none;margin-top:28px;border:1px solid var(--ink);border-radius:4px;padding:clamp(20px,4vw,36px);scroll-margin-top:84px}
+.form-panel.open{display:block}
+.form-panel h3{font-family:var(--display);font-weight:500;font-size:clamp(1.4rem,4vw,1.8rem);letter-spacing:-.02em}
+.form-panel > p{margin-top:8px;color:var(--ink-2);max-width:36rem;line-height:1.65}
+.form-grid{display:grid;gap:16px;margin-top:24px}
+@media(min-width:700px){.form-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices label{position:relative;cursor:pointer}
+.choices input{position:absolute;opacity:0;pointer-events:none}
+.choices span{display:inline-block;font-family:var(--display);font-size:15px;border:1px solid var(--rule);border-radius:99px;padding:10px 16px;min-height:44px;color:var(--ink-2);text-transform:none;letter-spacing:0}
+.choices input:checked + span{background:var(--hl);color:var(--hl-ink);border-color:var(--ink)}
+.choices input:focus-visible + span{outline:2px solid var(--ink);outline-offset:2px}
+.form-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:24px}
+.form-foot p{font-size:.9rem;color:var(--muted);max-width:30rem}
+.done{display:none;margin-top:24px;padding:20px;background:var(--paper-2);border-radius:4px}
+.done.show{display:block}
+.done strong{font-family:var(--display);font-weight:600;font-size:1.2rem}
+.done p{margin-top:6px;color:var(--ink-2)}
+.draft-flag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);margin-top:8px}
+
+/* fiyat geçmişi */
+details.history{margin-top:28px;border-top:1px solid var(--rule)}
+details.history summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-family:var(--display);font-weight:500;font-size:16px}
+details.history summary::-webkit-details-marker{display:none}
+details.history summary::after{content:"+";font-weight:300;font-size:22px;color:var(--muted)}
+details.history[open] summary::after{content:"−"}
+.hist{width:100%;border-collapse:collapse;font-family:var(--display);font-size:15px;margin-top:4px}
+.hist td{padding:10px 0;border-top:1px solid var(--rule);color:var(--ink-2)}
+.hist td:nth-child(2){text-align:right;color:var(--ink);font-weight:500;white-space:nowrap}
+.hist td:nth-child(3){text-align:right;font-family:var(--mono);font-size:12px;color:var(--muted);width:30%}
+.hist tr:last-child td{color:var(--ink)}
+.hist-note{margin-top:12px;font-size:.9rem;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Mehmet Cihat Keleş</a>
+    <nav class="main" aria-label="Ana menü">
+      <a href="konaklama.html" aria-current="page">Konaklama</a>
+      <a href="tut.html">Temel Uyum Terapisi</a>
+      <a href="yazilar.html">Yazılar</a>
+      <a href="cv.html">CV</a>
+      <button class="theme" type="button" data-theme-toggle>Gece</button>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-menu>Menü</button>
+  </div>
+</header>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menü">
+  <div class="sheet-top">
+    <a class="brand" href="index.html">Mehmet Cihat Keleş</a>
+    <button class="menu-btn" type="button" data-menu-close style="display:inline-block">Kapat</button>
+  </div>
+  <ol>
+    <li><a href="konaklama.html" data-close><small>01</small>Konaklama</a></li>
+    <li><a href="tut.html" data-close><small>02</small>Temel Uyum Terapisi</a></li>
+    <li><a href="yazilar.html" data-close><small>03</small>Yazılar</a></li>
+    <li><a href="cv.html" data-close><small>04</small>CV</a></li>
+  </ol>
+  <div class="sheet-foot">
+    <span class="label">Ataşehir · İstanbul</span>
+    <button class="theme" type="button" data-theme-toggle>Gece</button>
+  </div>
+</div>
+
+<main>
+  <section class="k-hero">
+    <div class="wrap">
+      <p class="label">Konaklama</p>
+      <h1>Köpeğiniz otelde değil, <b>evde</b> <span class="hl">kalır.</span></h1>
+      <p class="lead">Ataşehir'de bahçeli bir evdeyiz. Kafes yok, ayrı oda yok; aynı anda yalnızca birkaç misafir ağırlıyorum ve günün her saati köpeğinizle ilgilenen kişi benim. Köpeğiniz burada misafir, evine kendisi olarak döner.</p>
+      <div class="tags"><span>Ataşehir</span><span>Bahçeli ev</span><span>Kafessiz</span><span>5 yıldır</span></div>
+      <div class="actions">
+        <a class="btn primary" href="#tanisalim">Tanışma planla <span class="ar">→</span></a>
+        <a class="btn ghost" href="#ucret">Ücreti hesapla</a>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Evden fotoğraflar" style="padding-bottom:clamp(48px,8vw,88px)">
+    <div class="wrap">
+      <div class="photos">
+        <figure class="photo"><img src="img/konaklama-1.jpg" alt="Misafir köpeklerle yatakta uyurken"></figure>
+        <figure class="photo"><img src="img/konaklama-2.jpg" alt="Akşam, kanepede misafir köpeklerle" loading="lazy"></figure>
+        <figure class="photo"><img src="img/konaklama-3.jpg" alt="Bahçede oynayan iki misafir köpek" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="nasil" aria-labelledby="nasil-h">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="label">Nasıl başlıyoruz</p>
+        <h2 id="nasil-h">Önce <b>tanışıyoruz.</b> Gerisi köpeğinizin hızında.</h2>
+      </div>
+      <div class="block-body">
+        <ol class="steps-list">
+          <li><span class="n">01</span><h3>Tanışma</h3>
+            <p>Köpeğinizle birlikte evime gelirsiniz. O evi, bahçeyi ve diğer misafirleri tanırken ben de onu tanırım. Acele etmeyiz; burası onun için yabancı bir yer olmaktan yavaş yavaş çıkar.</p></li>
+          <li><span class="n">02</span><h3>Gündüz misafirliği</h3>
+            <p>İlk konaklamadan önce köpeğiniz burada 3–4 saatlik bir gündüz geçirir. Ardından onu almaya geldiğinizi görür ve buraya gelmenin eve dönmekle bittiğini öğrenir.</p></li>
+          <li><span class="n">03</span><h3>Konaklama</h3>
+            <p>Bu iki adımdan sonra köpeğiniz artık bu evin misafiri. Sonraki konaklamalar için ön rezervasyon formunu doldurmanız ya da bana yazmanız yeterli.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="gun" aria-labelledby="gun-h">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="label">Evde bir gün</p>
+        <h2 id="gun-h">Sürekli oyun değil; oyunla <b>dinlenme</b> arasında bir ritim.</h2>
+      </div>
+      <div class="block-body prose">
+        <p>Sabahlar bahçede başlar. Gün, oyun ve dinlenme arasında akar; akşama doğru ev sakinleşir ve geceyi hep birlikte, evin içinde geçiririz. Her köpeğin alıştığı mama düzeni aynen korunur.</p>
+        <p>Köpeğiniz geldikten kısa bir süre sonra size ilk videoyu gönderirim. Gün içinde fotoğraf ve videolarla haber vermeye devam ederim; aklınıza bir şey takıldığında istediğiniz an yazabilirsiniz.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="kimler" aria-labelledby="kimler-h">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="label">Kimler için</p>
+        <h2 id="kimler-h">Bu ev her köpeğe <b>uygun olmayabilir.</b></h2>
+      </div>
+      <div class="block-body">
+        <div class="two">
+          <div>
+            <h3>Uygun</h3>
+            <ul class="checks">
+              <li>Başka köpeklerle vakit geçirmekten hoşlanan köpekler</li>
+              <li>Aşıları ve iç-dış parazit uygulamaları güncel olanlar</li>
+              <li>Tanışma ve gündüz misafirliğini tamamlamış olanlar</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Şimdilik uygun değil</h3>
+            <ul class="checks no">
+              <li>Başka köpeklere karşı saldırgan davranan köpekler</li>
+              <li>Maması, oyuncağı ya da yeri söz konusu olduğunda gerginleşen köpekler</li>
+            </ul>
+          </div>
+        </div>
+        <p class="note">Köpeğinizde böyle bir durum varsa önce konuşalım; burası aynı zamanda bir köpek eğitmeninin evi. Nasıl düşündüğümü merak ederseniz <a href="https://okula.mehmetcihatkeles.com/">Köpeksel Bilgiler Okulası</a>'ndaki yazılar iyi bir başlangıç olur.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="hazirlik" aria-labelledby="hazirlik-h">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="label">Hazırlık</p>
+        <h2 id="hazirlik-h">Yanınızda <b>getirmeniz</b> gerekenler</h2>
+      </div>
+      <div class="block-body">
+        <ul class="checks">
+          <li>Köpeğinizin aşı karnesi</li>
+          <li>Alıştığı mama ve günlük porsiyonu</li>
+          <li>Varsa ilaçları ve nasıl verileceği</li>
+          <li>İsterseniz evden, onun kokusunu taşıyan bir eşya ya da oyuncak</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="ucret" aria-labelledby="ucret-h">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="label">Ücret</p>
+        <h2 id="ucret-h">Gecelik <b>tek fiyat.</b></h2>
+      </div>
+      <div class="block-body">
+        <div class="price-big"><strong data-price="night">2.550 TL</strong><span>gecelik · 2026 boyunca sabit</span></div>
+        <p class="price-sub">Gündüz misafirliği <b data-price="day">1.900 TL</b>. Birden fazla köpek ve uzun konaklamalarda indirim, hesaplamaya kendiliğinden yansır.</p>
+
+        <form class="calc" id="calc" novalidate>
+          <h3>Ücret hesaplama</h3>
+          <p>Tarihleri girin, toplam tutarı görün.</p>
+          <div class="grid-in">
+            <div class="field"><label for="c-in">Giriş günü</label><input type="date" id="c-in" required></div>
+            <div class="field"><label for="c-out">Çıkış günü</label><input type="date" id="c-out" required></div>
+            <div class="field"><label for="c-time">Teslim saati</label><input type="time" id="c-time" value="12:00" step="900"></div>
+            <div class="field"><span class="lbl" id="c-n-l">Köpek sayısı</span>
+              <div class="stepper" role="group" aria-labelledby="c-n-l">
+                <button type="button" data-step="-1" aria-label="Azalt">−</button><output id="c-n">1</output><button type="button" data-step="1" aria-label="Artır">+</button>
+              </div></div>
+          </div>
+          <div class="result" id="c-res" aria-live="polite"></div>
+        </form>
+
+        <div class="disc">
+          <span>· Çıkış günü 15.00'ten sonra teslim alırsanız o gün gündüz misafirliği olarak eklenir.</span>
+          <span>· 2 köpekte %10, 3 ve daha fazla köpekte %15 indirim.</span>
+          <span>· 5–9 gecede %5, 10 gece ve üzerinde %10 indirim.</span>
+        </div>
+
+        <div class="prose" style="margin-top:36px">
+          <p>Aynı anda yalnızca birkaç köpek ağırlıyorum; bu bilinçli bir tercih. Personel çalıştırmıyorum, köpeğinizle günün her saati ben ilgileniyorum. Kafes ya da ayrı oda yok; gün evin içinde ve bahçede, gece de birlikte geçiyor.</p>
+          <p>Ücreti başından beri aynı kuralla belirliyorum: İstanbul'un yaşam maliyetine göre. Daha kalabalık yerlerde gecelik ücret bunun altında olabilir; aradaki farkı, köpeğinize ayrılan yer ve zaman olarak düşünebilirsiniz.</p>
+        </div>
+
+        <details class="history" id="fiyat-gecmisi">
+          <summary>Fiyat geçmişi</summary>
+          <table class="hist">
+            <tbody>
+              <tr><td>2023 · ilk yarı</td><td>500 TL</td><td>%1,7</td></tr>
+              <tr><td>2023 · ikinci yarı</td><td>750 TL</td><td>%1,9</td></tr>
+              <tr><td>2024 · ilk yarı</td><td>1.100 TL</td><td>%2,0</td></tr>
+              <tr><td>2024 · ikinci yarı</td><td>1.375 TL</td><td>%2,0</td></tr>
+              <tr><td>2025 · ilk yarı</td><td>1.650 TL</td><td>%2,0</td></tr>
+              <tr><td>2025 · ikinci yarı</td><td>2.150 TL</td><td>%2,3</td></tr>
+              <tr><td>2026</td><td>2.550 TL</td><td>%2,3</td></tr>
+            </tbody>
+          </table>
+          <p class="hist-note">Yüzdeler, gecelik ücretin dört kişilik bir hanenin İstanbul'daki aylık yaşam maliyetine oranı. Kaynak: İPA (İstanbul Planlama Ajansı) İstanbul yaşam maliyeti verileri; Ocak ve Haziran 2023, Ocak ve Haziran 2024, Ocak, Haziran ve Kasım 2025. Rakamları paylaşıyorum, çünkü ücretin nereden geldiğini bilmeniz bana önemli geliyor.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="tanisalim" aria-labelledby="tanis-h">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="label">Tanışalım</p>
+        <h2 id="tanis-h">Size en <b>kolay</b> gelen yoldan.</h2>
+      </div>
+      <div class="block-body wide">
+        <div class="paths">
+          <div class="path main">
+            <p class="label">İlk kez geliyorsanız</p>
+            <h3>Tanışma görüşmesi</h3>
+            <p>Formu birkaç dakikada doldurursunuz; okuyup sizi ararım ve uygun bir günü birlikte belirleriz.</p>
+            <div class="actions"><button class="btn primary" type="button" data-open="f-tanisma">Tanışma formunu aç <span class="ar">→</span></button></div>
+          </div>
+          <div class="path">
+            <p class="label">Daha önce tanıştıysak</p>
+            <h3>Ön rezervasyon</h3>
+            <p>Konaklama tarihlerinizi gönderin; talebiniz gelince sizi arayıp teyit ederim.</p>
+            <div class="actions"><button class="btn ghost" type="button" data-open="f-rez">Ön rezervasyon oluştur</button></div>
+          </div>
+          <div class="path">
+            <p class="label">Yazmayı tercih ederseniz</p>
+            <h3>Instagram ya da WhatsApp</h3>
+            <p>Köpeğinizi kısaca anlatın, gerisini mesajla konuşalım.</p>
+            <div class="actions"><a class="btn ghost" href="https://www.instagram.com/ikinciev.cihat">Instagram'dan yaz</a></div>
+            <small>WhatsApp · <a href="https://wa.me/905052806448">0505 280 64 48</a></small>
+          </div>
+        </div>
+
+        <!-- Tanışma formu -->
+        <form class="form-panel" id="f-tanisma" novalidate data-form="tanisma">
+          <h3>Tanışma görüşmesi</h3>
+          <p>Bu bir rezervasyon değil, tanışma talebi. Cevaplarınızı okuduktan sonra sizi arayıp uygun bir gün belirleriz.</p>
+          <div class="form-grid">
+            <div class="field"><label for="t-ad">Adınız <em>*</em></label><input id="t-ad" name="ad" autocomplete="given-name" required></div>
+            <div class="field"><label for="t-soyad">Soyadınız</label><input id="t-soyad" name="soyad" autocomplete="family-name"></div>
+            <div class="field"><label for="t-tel">Telefon <em>*</em></label><input id="t-tel" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx" required></div>
+            <div class="field"><label for="t-semt">Semtiniz</label><input id="t-semt" name="semt" autocomplete="address-level2"></div>
+            <div class="field"><label for="t-kopek">Köpeğinizin adı ve cinsi <em>*</em></label><input id="t-kopek" name="kopek" required></div>
+            <div class="field"><label for="t-yas">Yaşı <em>*</em></label><input id="t-yas" name="yas" required placeholder="örn. 3 yaş, 8 aylık"></div>
+            <div class="field"><span class="lbl">Cinsiyeti <em>*</em></span><div class="choices">
+              <label><input type="radio" name="cinsiyet" value="Dişi" required><span>Dişi</span></label>
+              <label><input type="radio" name="cinsiyet" value="Erkek"><span>Erkek</span></label></div></div>
+            <div class="field"><span class="lbl">Kısırlaştırıldı mı? <em>*</em></span><div class="choices">
+              <label><input type="radio" name="kisir" value="Evet" required><span>Evet</span></label>
+              <label><input type="radio" name="kisir" value="Hayır"><span>Hayır</span></label></div></div>
+            <div class="field full"><span class="lbl">Diğer köpeklerle arası nasıl? <em>*</em></span><div class="choices">
+              <label><input type="radio" name="iliski" value="Rahat" required><span>Rahat</span></label>
+              <label><input type="radio" name="iliski" value="Seçici"><span>Seçici</span></label>
+              <label><input type="radio" name="iliski" value="Gergin"><span>Gergin</span></label>
+              <label><input type="radio" name="iliski" value="Bilmiyorum"><span>Bilmiyorum</span></label></div></div>
+            <div class="field full"><span class="lbl">Aşıları ve iç-dış parazit uygulamaları güncel mi? <em>*</em></span><div class="choices">
+              <label><input type="radio" name="asi" value="Evet" required><span>Evet</span></label>
+              <label><input type="radio" name="asi" value="Hayır"><span>Hayır</span></label>
+              <label><input type="radio" name="asi" value="Emin değilim"><span>Emin değilim</span></label></div></div>
+            <div class="field full"><label for="t-alerji">Bilinen bir alerjisi var mı? <em>*</em></label><input id="t-alerji" name="alerji" required placeholder="Mama, ilaç ya da başka; yoksa “yok” yazın"></div>
+            <div class="field full"><label for="t-karakter">Biraz anlatır mısınız?</label><textarea id="t-karakter" name="karakter" placeholder="Nelerden hoşlanır, nelerden çekinir, günü nasıl geçer…"></textarea></div>
+            <div class="field"><label for="t-tarih">Düşündüğünüz konaklama tarihleri</label><input id="t-tarih" name="konaklama_tarihleri" placeholder="Varsa"></div>
+            <div class="field"><label for="t-uygun">Tanışma için uygun gün ve saatler <em>*</em></label><input id="t-uygun" name="uygun_zaman" required placeholder="örn. hafta içi öğleden sonra"></div>
+          </div>
+          <div class="form-foot">
+            <button class="btn primary" type="submit">Tanışma talebini gönder <span class="ar">→</span></button>
+            <p>Bilgileriniz yalnızca köpeğinizin bakımı ve sizinle iletişim için kullanılır.</p>
+          </div>
+                    <div class="done" role="status"><strong>Teşekkürler, aldım.</strong><p>Cevaplarınızı okuyup sizi arayacağım.</p></div>
+        </form>
+
+        <!-- Ön rezervasyon formu -->
+        <form class="form-panel" id="f-rez" novalidate data-form="rezervasyon">
+          <h3>Ön rezervasyon</h3>
+          <p>Tarihlerinizi gönderin; talebiniz gelince sizi arayıp teyit ederim.</p>
+          <div class="form-grid">
+            <div class="field"><label for="r-ad">Adınız <em>*</em></label><input id="r-ad" name="ad" autocomplete="given-name" required></div>
+            <div class="field"><label for="r-soyad">Soyadınız</label><input id="r-soyad" name="soyad" autocomplete="family-name"></div>
+            <div class="field"><label for="r-tel">Telefon <em>*</em></label><input id="r-tel" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx" required></div>
+            <div class="field"><label for="r-kopek">Köpeğinizin adı ve cinsi <em>*</em></label><input id="r-kopek" name="kopek" required></div>
+            <div class="field"><label for="r-in">Giriş günü <em>*</em></label><input id="r-in" name="giris" type="date" required></div>
+            <div class="field"><label for="r-out">Çıkış günü <em>*</em></label><input id="r-out" name="cikis" type="date" required><span class="hint">Köpeğinizi teslim alacağınız gün.</span></div>
+            <div class="field full"><label for="r-degisim">Son görüşmemizden bu yana sağlığında ya da davranışında bir değişiklik oldu mu?</label><textarea id="r-degisim" name="degisiklik"></textarea></div>
+            <div class="field"><label for="r-ilac">İlaç ya da özel bakım ihtiyacı</label><input id="r-ilac" name="ilac"></div>
+            <div class="field"><label for="r-alerji">Bilinen bir alerjisi var mı? <em>*</em></label><input id="r-alerji" name="alerji" required placeholder="Yoksa “yok” yazın"></div>
+          </div>
+          <div class="form-foot">
+            <button class="btn primary" type="submit">Ön rezervasyon talebini gönder <span class="ar">→</span></button>
+            <p>Bilgileriniz yalnızca köpeğinizin bakımı ve sizinle iletişim için kullanılır.</p>
+          </div>
+                    <div class="done" role="status"><strong>Teşekkürler, aldım.</strong><p>Tarihleri kontrol edip sizi arayacağım.</p></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="iletisim">
+  <div class="wrap">
+    <div class="reach">
+      <p class="label" style="margin-bottom:18px">İletişim</p>
+      <h2>Bir sorunuz varsa <b>yazmanız yeterli.</b></h2>
+      <p>Instagram'dan ya da WhatsApp'tan yazabilirsiniz; size kendim dönerim.</p>
+      <div class="actions">
+        <a class="btn ghost" href="https://www.instagram.com/ikinciev.cihat">Instagram <span class="ar">→</span></a>
+        <a class="btn ghost" href="https://wa.me/905052806448">WhatsApp <span class="ar">→</span></a>
+      </div>
+    </div>
+    <div class="foot">
+      <nav aria-label="Alt menü">
+        <a href="index.html">Ana sayfa</a>
+        <a href="konaklama.html">Konaklama</a>
+        <a href="tut.html">Temel Uyum Terapisi</a>
+        <a href="yazilar.html">Yazılar</a>
+        <a href="cv.html">CV</a>
+      </nav>
+      <small>© 2026 Mehmet Cihat Keleş · Powered and secured by Randle Patrick McMurphy</small>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+<script>
+/* ---- tek yerden fiyatlar: Ocak 2027 güncellemesinde yalnızca burası değişir ---- */
+var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
+  kopekIndirimi:function(n){return n>=3?15:(n===2?10:0)},
+  geceIndirimi:function(g){return g>=10?10:(g>=5?5:0)}};
+
+/* ortak davranış: js/site.js */
+
+(function(){
+  var tl=function(n){return n.toLocaleString('tr-TR')+' TL'};
+  document.querySelectorAll('[data-price="night"]').forEach(function(e){e.textContent=tl(FIYAT.gece)});
+  document.querySelectorAll('[data-price="day"]').forEach(function(e){e.textContent=tl(FIYAT.gunduz)});
+
+  var $=function(id){return document.getElementById(id)};
+  var n=1, out=$('c-n'), res=$('c-res');
+  document.querySelectorAll('[data-step]').forEach(function(b){b.addEventListener('click',function(){
+    n=Math.min(10,Math.max(1,n+(+b.dataset.step))); out.textContent=n; calc();})});
+  ['c-in','c-out','c-time'].forEach(function(id){$(id).addEventListener('input',calc);$(id).addEventListener('change',calc)});
+
+  // varsayılan tarihler: yarın → 3 gece sonra
+  var d=new Date(); d.setDate(d.getDate()+1);
+  var iso=function(x){return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
+  $('c-in').value=iso(d); var d2=new Date(d); d2.setDate(d2.getDate()+3); $('c-out').value=iso(d2);
+
+  function nights(a,b){var A=new Date(a+'T12:00'),B=new Date(b+'T12:00');return Math.round((B-A)/864e5)}
+  function row(l,v,cls){return '<div class="row'+(cls?' '+cls:'')+'"><span>'+l+'</span><span>'+v+'</span></div>'}
+
+  function calc(){
+    var a=$('c-in').value,b=$('c-out').value,t=$('c-time').value||'12:00';
+    if(!a||!b){res.innerHTML='';return}
+    var g=nights(a,b);
+    if(g<0){res.innerHTML='<p class="err">Çıkış günü, giriş gününden önce olamaz.</p>';return}
+    var h='',per=0;
+    if(g===0){per=FIYAT.gunduz;h+=row('Gündüz misafirliği · aynı gün teslim',tl(FIYAT.gunduz));}
+    else{
+      per=g*FIYAT.gece; h+=row(g+' gece × '+tl(FIYAT.gece),tl(g*FIYAT.gece));
+      if(t>FIYAT.teslimSiniri){per+=FIYAT.gunduz;h+=row('Çıkış günü '+FIYAT.teslimSiniri.replace(':','.')+' sonrası · gündüz misafirliği',tl(FIYAT.gunduz));}
+      else h+=row('Çıkış günü '+FIYAT.teslimSiniri.replace(':','.')+' öncesi teslim','0 TL');
+    }
+    var sub=per*n, kd=FIYAT.kopekIndirimi(n), gd=g>0?FIYAT.geceIndirimi(g):0;
+    if(n>1) h+=row(n+' köpek','× '+n);
+    if(kd||gd||n>1) h+=row('Ara toplam',tl(sub));
+    var tot=sub;
+    if(kd){var x=Math.round(sub*kd/100);tot-=x;h+=row(n+' köpek indirimi (%'+kd+')','−'+tl(x),'minus');}
+    if(gd){var y=Math.round(sub*gd/100);tot-=y;h+=row(g+' gece indirimi (%'+gd+')','−'+tl(y),'minus');}
+    h+=row('Toplam',tl(tot),'total');
+    h+='<p class="fine">Tutarı ön rezervasyondan sonra telefonda birlikte teyit ederiz.</p>';
+    if(g>0) h+='<div class="actions"><button type="button" class="btn ghost" id="c-go">Bu tarihlerle ön rezervasyon <span class="ar">→</span></button></div>';
+    res.innerHTML=h;
+    var go=$('c-go'); if(go) go.addEventListener('click',function(){ $('r-in').value=a; $('r-out').value=b; openPanel('f-rez'); });
+  }
+  calc();
+
+
+  /* Talepler: Google Form'a gider, Drive'daki "Site talepleri" tablosuna düşer, e-posta bildirimi gelir. */
+  var FORM='https://docs.google.com/forms/d/e/1FAIpQLSdfu0jZr6BJRK3GxRTbwdAbm5t7yUwNxJz2gHfAoy1aWvlW6g/formResponse';
+  var ALAN={tur:'entry.1679659265',ad:'entry.1228144126',tel:'entry.1329993373',kopek:'entry.2127242662',tarih:'entry.130478542',ayrinti:'entry.71232531'};
+  var ETIKET={semt:'Semt',yas:'Yaşı',cinsiyet:'Cinsiyeti',kisir:'Kısırlaştırıldı mı',iliski:'Diğer köpeklerle',asi:'Aşı ve parazit',alerji:'Alerji',karakter:'Anlatılanlar',konaklama_tarihleri:'Düşünülen konaklama',uygun_zaman:'Tanışma için uygun zaman',degisiklik:'Son görüşmeden beri değişiklik',ilac:'İlaç / özel bakım'};
+  function trTarih(v){if(!v)return'';var p=v.split('-');return p[2]+'.'+p[1]+'.'+p[0]}
+  function gonder(f){
+    var fd=new FormData(f), tur=f.dataset.form==='tanisma'?'Tanışma':'Ön rezervasyon', satir=[];
+    Object.keys(ETIKET).forEach(function(k){var v=(fd.get(k)||'').toString().trim(); if(v) satir.push(ETIKET[k]+': '+v)});
+    var tarih=tur==='Tanışma'?(fd.get('konaklama_tarihleri')||''):(trTarih(fd.get('giris'))+' → '+trTarih(fd.get('cikis')));
+    var p=new URLSearchParams();
+    p.append(ALAN.tur,tur);
+    p.append(ALAN.ad,((fd.get('ad')||'')+' '+(fd.get('soyad')||'')).trim());
+    p.append(ALAN.tel,fd.get('telefon')||'');
+    p.append(ALAN.kopek,fd.get('kopek')||'');
+    p.append(ALAN.tarih,tarih);
+    p.append(ALAN.ayrinti,satir.join('\n'));
+    return fetch(FORM,{method:'POST',mode:'no-cors',body:p});
+  }
+  /* formlar */
+  function openPanel(id){
+    document.querySelectorAll('.form-panel').forEach(function(p){p.classList.toggle('open',p.id===id)});
+    var p=$(id); p.scrollIntoView({behavior:'smooth',block:'start'});
+    var f=p.querySelector('input'); setTimeout(function(){try{f.focus({preventScroll:true})}catch(e){}},400);
+  }
+  document.querySelectorAll('[data-open]').forEach(function(b){b.addEventListener('click',function(){openPanel(b.dataset.open)})});
+  if(location.hash==='#tanisma-formu') openPanel('f-tanisma');
+  if(location.hash==='#on-rezervasyon') openPanel('f-rez');
+  if(location.hash==='#fiyat-gecmisi'){var h=document.getElementById('fiyat-gecmisi');h.open=true;setTimeout(function(){h.scrollIntoView({block:'start'})},200);}
+
+  document.querySelectorAll('.form-panel').forEach(function(f){
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var bad=[].slice.call(f.querySelectorAll('[required]')).filter(function(el){
+        if(el.type==='radio') return !f.querySelector('input[name="'+el.name+'"]:checked');
+        return !el.value.trim();});
+      f.querySelectorAll('.field').forEach(function(x){x.style.removeProperty('--bad')});
+      if(bad.length){
+        bad.forEach(function(el){var fl=el.closest('.field'); fl.querySelector('input,textarea')&&(fl.querySelector('input,textarea').style.borderColor='var(--ink)'); });
+        var first=bad[0]; first.closest('.field').scrollIntoView({behavior:'smooth',block:'center'});
+        try{first.focus({preventScroll:true})}catch(_){}
+        return;
+      }
+      var btn=f.querySelector('button[type=submit]'); btn.disabled=true;
+      gonder(f).then(function(){
+        f.querySelector('.done').classList.add('show');
+        f.querySelectorAll('input,textarea').forEach(function(el){el.disabled=true});
+      }).catch(function(){
+        btn.disabled=false;
+        var d=f.querySelector('.done'); d.classList.add('show');
+        d.innerHTML='<strong>Gönderilemedi.</strong><p>Bağlantıda bir sorun olmuş olabilir. Biraz sonra yeniden deneyebilir ya da WhatsApp\'tan yazabilirsiniz: 0505 280 64 48</p>';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Temel Uyum Terapisi · Mehmet Cihat Keleş</title>
+<meta name="description" content="Temel Uyum Terapisi (TUT): köpeğin dış dünyada sakin kalmayı, beklemeyi ve yanındaki insana güvenmeyi öğrendiği birebir çalışma yöntemi. İtaat değil, uyum.">
+<meta property="og:title" content="İtaat değil, uyum. · Temel Uyum Terapisi">
+<meta property="og:description" content="Mehmet Cihat Keleş'in köpeklerle birebir çalışma yöntemi.">
+<meta name="theme-color" content="#F6F6F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23151515%27/%3E%3Crect x=%2710%27 y=%2734%27 width=%2744%27 height=%2714%27 fill=%27%23F3FF53%27/%3E%3Ctext x=%2732%27 y=%2745%27 text-anchor=%27middle%27 font-family=%27Poppins,Arial,sans-serif%27 font-weight=%27600%27 font-size=%2726%27 fill=%27%23F6F6F2%27%3Emck%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/site.css">
+<style>
+.p-hero{padding:clamp(40px,8vw,96px) 0 clamp(32px,6vw,64px)}
+.p-hero .label{margin-bottom:24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.p-hero h1{font-family:var(--display);font-weight:300;font-size:clamp(2.5rem,9vw,5rem);line-height:1.04;letter-spacing:-.03em}
+.p-hero h1 b{font-weight:600}
+.p-hero .lead{max-width:36rem;margin-top:26px;font-size:clamp(1.05rem,2.4vw,1.2rem);line-height:1.7;color:var(--ink-2)}
+.pause-pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);border:1px solid var(--ink);border-radius:99px;padding:3px 9px}
+.pause{margin-top:32px;max-width:36rem;border-left:3px solid var(--hl);padding:4px 0 4px 18px}
+.pause strong{font-family:var(--display);font-weight:600;font-size:1.05rem;display:block}
+.pause p{margin-top:6px;color:var(--ink-2);line-height:1.65}
+.pause a{color:var(--ink);border-bottom:1px solid var(--ink)}
+
+.block{padding:clamp(48px,8vw,96px) 0;border-top:1px solid var(--rule)}
+.block-head{display:grid;gap:14px;margin-bottom:clamp(24px,4vw,40px)}
+@media(min-width:860px){.block-head{grid-template-columns:240px 1fr;gap:40px;align-items:baseline}}
+.block-head h2{font-family:var(--display);font-weight:300;font-size:clamp(1.75rem,4.8vw,2.6rem);line-height:1.12;letter-spacing:-.02em;max-width:22ch}
+.block-head h2 b{font-weight:600}
+.block-body{min-width:0}
+@media(min-width:860px){.block-body{margin-left:280px}}
+.prose p{color:var(--ink-2);font-size:1.06rem;line-height:1.75;max-width:36rem}
+.prose p + p{margin-top:14px}
+.prose .pull{font-family:var(--display);font-weight:300;font-size:clamp(1.3rem,3.6vw,1.6rem);line-height:1.35;color:var(--ink);letter-spacing:-.01em;margin:6px 0 4px}
+
+.facts-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--rule)}
+@media(min-width:700px){.facts-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.facts-grid div{padding:18px 14px 18px 0;border-bottom:1px solid var(--rule)}
+.facts-grid strong{display:block;font-family:var(--display);font-weight:500;font-size:clamp(1.15rem,3.4vw,1.4rem);letter-spacing:-.01em}
+.facts-grid span{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+.phase + .phase{margin-top:36px}
+.phase h3{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:400;margin-bottom:6px}
+.session{list-style:none}
+.session li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:2px 12px;padding:16px 0;border-top:1px solid var(--rule)}
+.session .n{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:3px}
+.session b{font-family:var(--display);font-weight:500;font-size:1.06rem}
+.session p{grid-column:2;color:var(--ink-2);line-height:1.65}
+
+.faq details{border-top:1px solid var(--rule)}
+.faq details:last-child{border-bottom:1px solid var(--rule)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:18px 0;font-family:var(--display);font-weight:500;font-size:clamp(1.02rem,2.8vw,1.15rem);line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:300;font-size:22px;color:var(--muted);flex:none}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding:0 0 20px;color:var(--ink-2);line-height:1.7;max-width:36rem}
+
+.aside-card{border:1px solid var(--ink);border-radius:4px;padding:clamp(20px,4vw,32px);max-width:44rem}
+.aside-card .label{margin-bottom:12px}
+.aside-card h3{font-family:var(--display);font-weight:500;font-size:1.35rem;letter-spacing:-.015em}
+.aside-card p{margin-top:10px;color:var(--ink-2);line-height:1.7}
+.aside-card .actions{margin-top:18px}
+.two-cards{display:grid;gap:14px}
+@media(min-width:860px){.two-cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Mehmet Cihat Keleş</a>
+    <nav class="main" aria-label="Ana menü">
+      <a href="konaklama.html">Konaklama</a>
+      <a href="tut.html" aria-current="page">Temel Uyum Terapisi</a>
+      <a href="yazilar.html">Yazılar</a>
+      <a href="cv.html">CV</a>
+      <button class="theme" type="button" data-theme-toggle>Gece</button>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-menu>Menü</button>
+  </div>
+</header>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menü">
+  <div class="sheet-top">
+    <a class="brand" href="index.html">Mehmet Cihat Keleş</a>
+    <button class="menu-btn" type="button" data-menu-close style="display:inline-block">Kapat</button>
+  </div>
+  <ol>
+    <li><a href="konaklama.html" data-close><small>01</small>Konaklama</a></li>
+    <li><a href="tut.html" data-close><small>02</small>Temel Uyum Terapisi</a></li>
+    <li><a href="yazilar.html" data-close><small>03</small>Yazılar</a></li>
+    <li><a href="cv.html" data-close><small>04</small>CV</a></li>
+  </ol>
+  <div class="sheet-foot">
+    <span class="label">Ataşehir · İstanbul</span>
+    <button class="theme" type="button" data-theme-toggle>Gece</button>
+  </div>
+</div>
+
+<main>
+  <section class="p-hero">
+    <div class="wrap">
+      <p class="label">Temel Uyum Terapisi <span class="pause-pill">şu an ara</span></p>
+      <h1>İtaat değil, <span class="hl"><b>uyum.</b></span></h1>
+      <p class="lead">Temel Uyum Terapisi, köpeğin dış dünyada sakin kalmayı, beklemeyi ve yanındaki insana güvenmeyi öğrendiği birebir bir çalışma yöntemi. Amacı komut öğretmek değil; köpekle insan arasında birlikte yürüyebilen bir ilişki kurmak.</p>
+      <div class="pause">
+        <strong>Şu an yeni eğitim talebi almıyorum.</strong>
+        <p>Eğitim çalışmalarıma bir süre ara verdim. Yeniden başladığımda burada duyuracağım. O zamana kadar yöntemi bu sayfada, arkasındaki düşünceyi de <a href="https://okula.mehmetcihatkeles.com/">Köpeksel Bilgiler Okulası</a>'nda okuyabilirsiniz.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="yontem-h">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="label">Yöntem</p>
+        <h2 id="yontem-h">Önce <b>dışarıyı</b> iyileştiriyoruz.</h2>
+      </div>
+      <div class="block-body prose">
+        <p>Köpek sahiplerinin en sık sorduğu soru şudur: Komutları ne zaman öğrenecek? Bu yaklaşımda soru değişir:</p>
+        <p class="pull">Birlikte yürümeyi, sakin kalmayı, dış dünyaya alışmayı ve bana güvenmeyi ne zaman öğrenecek?</p>
+        <p>Çalışmalar köpeğin gündelik hayatının geçtiği yerde, dışarıda yapılır. Köpek yeni seslere, kokulara ve zeminlere alıştıkça duyusal eşiği genişler, panik hâli azalır, dikkat süresi uzar. En önemlisi, bir insanla birlikte olmanın güvenli ve keyifli bir şey olduğunu yeniden deneyimler.</p>
+        <p>Bu yüzden Temel Uyum Terapisi bir komut eğitimi değil, bir bağ kurma pratiği. Sonunda ortaya birlikte yürüyebilen, birbirine saygı duyan bir ikili çıkar: bir köpek ve bir insan.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="program-h">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="label">Program</p>
+        <h2 id="program-h">Birebir, <b>haftada bir gün.</b></h2>
+      </div>
+      <div class="block-body">
+        <div class="facts-grid">
+          <div><strong>90 dakika</strong><span>her seans</span></div>
+          <div><strong>Haftada bir</strong><span>birebir</span></div>
+          <div><strong>4–8 hafta</strong><span>genellikle</span></div>
+          <div><strong>Yalnızca köpek</strong><span>seansa katılır</span></div>
+          <div><strong>Mama yok</strong><span>sosyal ödüller</span></div>
+          <div><strong>Not defteri</strong><span>her seansın sonunda</span></div>
+        </div>
+        <div class="prose" style="margin-top:24px">
+          <p>Her köpek için program, onun ihtiyacına ve karakterine göre şekillenir. Seanslara yalnızca köpek katılır; köpeğiniz eğitmeniyle, dikkatini dağıtmayan güvenli bir ortamda deneyim kazanır. Gözlemlerimi ve evde yapabileceklerinizi sizinle paylaşırım.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="seans-h">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="label">Bir seans</p>
+        <h2 id="seans-h">90 dakikada <b>neler yapıyoruz?</b></h2>
+      </div>
+      <div class="block-body">
+        <div class="phase">
+          <h3>Başlarken</h3>
+          <ol class="session">
+            <li><span class="n">01</span><b>Dinlemek</b><p>Seansa, köpeğin bize ne anlatmak istediğini dinleyerek başlarız. Ruh hâline uyumlanır, neye ihtiyacı olduğunu anlamaya çalışırız.</p></li>
+            <li><span class="n">02</span><b>Güven</b><p>Bizi tanımasına ve güvenmesine zaman tanırız. İlk adımda "yeterince iyi" biri olduğumuzu hissetmesini isteriz.</p></li>
+            <li><span class="n">03</span><b>Araçlar</b><p>Hayatına dokunmadan önce, kullandığı tasmanın ve diğer araçların bedenine ne hissettirdiğine bakarız.</p></li>
+            <li><span class="n">04</span><b>Birlikte beklemek</b><p>Bir yere gitmeden önce bir arada kalmayı, harekete geçmeden önce birlikte beklemeyi deneyimleriz.</p></li>
+          </ol>
+        </div>
+        <div class="phase">
+          <h3>Yolda</h3>
+          <ol class="session" start="5">
+            <li><span class="n">05</span><b>Birlikte yürümek</b><p>Yürümek yalnızca adım atmak değil. Kimin önde olduğuna değil, kimin kiminle yürüyebildiğine bakarız.</p></li>
+            <li><span class="n">06</span><b>Fazla gelenler</b><p>Dışarının sesleri ve görüntüleri arasında onun duyularını izler, ona fazla gelen şeyleri fark ederiz.</p></li>
+            <li><span class="n">07</span><b>Yön değiştirmek</b><p>Birlikte yön değiştirir, değişimi fark etmesini ve onunla uyum içinde kalmasını destekleriz.</p></li>
+            <li><span class="n">08</span><b>Mesafe ve sınır</b><p>Her canlıya nasıl yaklaşabileceğini, mesafeyi ve saygıyı birlikte keşfederiz.</p></li>
+            <li><span class="n">09</span><b>Sakinlik</b><p>Aşırı heyecanı sakinliğe dönüştürmenin yollarını ararız. Amaç susmak değil, huzur içinde var olabilmek.</p></li>
+            <li><span class="n">10</span><b>Durmak</b><p>Durmak, düşünmek ve geçmek arasında küçük ritüeller kurarız. "Nereye gideceğiz" kadar "nerede duracağız" sorusunu da önemseriz.</p></li>
+            <li><span class="n">11</span><b>Koklamak</b><p>Koklamak, onun dünyayı anlama biçimi. Bu ihtiyacı bastırmadan, güvenli bir biçimde yaşamasını sağlarız.</p></li>
+            <li><span class="n">12</span><b>Çekmek</b><p>Tasmayı çekmesini bir anda durdurmaya çalışmayız, yavaşlatırız. Köpek bedenini yeniden hissetmeye başlar.</p></li>
+            <li><span class="n">13</span><b>Farklı zeminler</b><p>Farklı zeminlerde yürür; korktuğu, çekindiği ve hoşlandığı şeyleri birlikte keşfederiz.</p></li>
+            <li><span class="n">14</span><b>Beklenmedik sesler</b><p>Ani sesler karşısında birlikte kalmayı öğreniriz. Korkuyu bastırmak yerine onunla baş etmeyi gösteririz.</p></li>
+            <li><span class="n">15</span><b>Dokunmak</b><p>Dokunmayı bir ödül ya da ceza olmaktan çıkarır, ilişkinin diline dönüştürürüz.</p></li>
+            <li><span class="n">16</span><b>Beden dili</b><p>Jestler, bakışlar, duruşlar… Aramızda sessiz bir konuşma büyür.</p></li>
+          </ol>
+        </div>
+        <div class="phase">
+          <h3>Kapanış</h3>
+          <ol class="session" start="17">
+            <li><span class="n">17</span><b>Mola</b><p>Molalar yorgunluk için değil, duygusal yükü hafifletmek için. Ona düşünme ve toparlanma fırsatı verir.</p></li>
+            <li><span class="n">18</span><b>Dengeye dönüş</b><p>Seansın sonunda onu duygusal dengesine geri davet ederiz.</p></li>
+            <li><span class="n">19</span><b>Not almak</b><p>Günün sonunda yalnızca davranışları değil, hissettiklerini de yazarım: Ne hissetti, ne öğrendi, neye hazır?</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="sss-h">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="label">Sık sorulanlar</p>
+        <h2 id="sss-h">Merak <b>edilenler</b></h2>
+      </div>
+      <div class="block-body faq">
+        <details><summary>Seanslara neden yalnızca köpek katılıyor?</summary>
+          <p>Bu çalışma, köpeğin bireysel gelişimi ve dış dünyaya alışması için tasarlandı. Köpek, eğitmeniyle dikkatini dağıtmayan güvenli bir ortamda deneyim kazanır. Sahibinin seansta olması dikkatini bölebilir ve süreci yavaşlatabilir.</p></details>
+        <details><summary>Komut öğretiliyor mu?</summary>
+          <p>Hayır. Amaç komut öğretmek değil, köpeğin duyusal ve sosyal uyum becerilerini geliştirmek. Komutların yerine odaklanma, sakinlik, dikkat ve birlikte yürüme gibi temel davranışlar desteklenir.</p></details>
+        <details><summary>Program ne kadar sürüyor?</summary>
+          <p>Her seans 90 dakika. Programın uzunluğunu köpeğin ihtiyacı belirler; genellikle 4 ile 8 hafta arasında sürer.</p></details>
+        <details><summary>Sonunda nasıl bir değişiklik görürüm?</summary>
+          <p>Daha sakin bir ruh hâli, yürüyüşlerde daha fazla uyum, dışarıya karşı daha az panik ve evde genel bir denge görmeyi bekleyebilirsiniz.</p></details>
+        <details><summary>Saldırgan davranan köpekler için uygun mu?</summary>
+          <p>Evet. Saldırgan davranış burada bir başlangıç noktası. Amaç, bu tepkilerin altındaki deneyim eksikliğini ve stresi azaltmak, köpeğin dengesini yeniden kurmak.</p></details>
+        <details><summary>Köpeğim çok çekingen. Bu program ona göre mi?</summary>
+          <p>Kesinlikle. Çekingen köpekler için dış dünya deneyimi, kendine güven kazanmanın en önemli yollarından biri; bu program tam olarak bu ihtiyaca göre kuruldu.</p></details>
+        <details><summary>Ödül maması kullanılıyor mu?</summary>
+          <p>Hayır. Ödül olarak dokunma, ses tonu ve birlikte hareket etmek gibi sosyal ve duygusal ödüller kullanılır. Amaç, köpeğin içinden gelen motivasyonu güçlendirmek.</p></details>
+        <details><summary>Program bittikten sonra bana ne düşüyor?</summary>
+          <p>Sizinle paylaşacağım gözlemlere ve yönlendirmelere göre hareket etmeniz yeterli. Gerekirse evdeki rutinlerinize küçük dokunuşlar öneririm.</p></details>
+        <details><summary>Her köpek bu programa ihtiyaç duyar mı?</summary>
+          <p>Şehirde yaşayan ve gün içinde pek çok uyaranla karşılaşan hemen her köpek bu temel çalışmadan fayda görür.</p></details>
+        <details><summary>Sonrasında başka aşamalar var mı?</summary>
+          <p>Temel Uyum Terapisi bir başlangıç. Gerekirse bu temelin üzerine köpeğe özel gelişim programları ya da ileri sosyal uyum çalışmaları eklenebilir.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="ek-h">
+    <div class="wrap">
+      <div class="block-head">
+        <p class="label">Ayrıca</p>
+        <h2 id="ek-h">Başlamadan <b>önce</b></h2>
+      </div>
+      <div class="block-body">
+        <div class="two-cards">
+          <div class="aside-card">
+            <p class="label">TUT + BAT 2.0</p>
+            <h3>Gerektiğinde birlikte</h3>
+            <p>Korku, aşırı heyecan ya da saldırganlık gibi tepkilerde Temel Uyum Terapisi'ni Grisha Stewart'ın geliştirdiği BAT 2.0 (Behavior Adjustment Training) ile birlikte kullanıyorum. BAT, köpeğin tetikleyiciden uzaklaşmak, serbestçe hareket etmek ya da koklamak gibi işlevsel ödüllerle kendini sakinleştirmeyi öğrenmesine alan açar; mama yalnızca gerektiğinde devreye girer.</p>
+          </div>
+          <div class="aside-card">
+            <p class="label">Okuma</p>
+            <h3>Köpeksel Bilgiler Okulası</h3>
+            <p>Bu yöntemin arkasındaki düşünceyi Okula'daki yazılarda bulabilirsiniz. Nereden başlayacağınızı bilmiyorsanız ilk rota "Başlarken" iyi bir kapı.</p>
+            <div class="actions"><a class="btn ghost" href="https://okula.mehmetcihatkeles.com/">Okumaya başla <span class="ar">→</span></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="iletisim">
+  <div class="wrap">
+    <div class="reach">
+      <p class="label" style="margin-bottom:18px">İletişim</p>
+      <h2>Bir sorunuz varsa <b>yazmanız yeterli.</b></h2>
+      <p>Instagram'dan ya da WhatsApp'tan yazabilirsiniz; size kendim dönerim.</p>
+      <div class="actions">
+        <a class="btn ghost" href="https://www.instagram.com/mehmetckeles">Instagram <span class="ar">→</span></a>
+        <a class="btn ghost" href="https://wa.me/905052806448">WhatsApp <span class="ar">→</span></a>
+      </div>
+    </div>
+    <div class="foot">
+      <nav aria-label="Alt menü">
+        <a href="index.html">Ana sayfa</a>
+        <a href="konaklama.html">Konaklama</a>
+        <a href="tut.html">Temel Uyum Terapisi</a>
+        <a href="yazilar.html">Yazılar</a>
+        <a href="cv.html">CV</a>
+      </nav>
+      <small>© 2026 Mehmet Cihat Keleş · Powered and secured by Randle Patrick McMurphy</small>
+    </div>
+  </div>
+</footer>
+<script src="js/site.js"></script>
+</body>
+</html>

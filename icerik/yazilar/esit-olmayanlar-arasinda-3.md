@@ -1,0 +1,80 @@
+---
+slug: esit-olmayanlar-arasinda-3
+baslik: Kendi İyiliği İçin
+dizi: Eşit Olmayanlar Arasında
+bolum: 3
+alt: Kendinden daha az anlayanla kurulan ilişki üzerine
+tarih: 2026-11-04
+eski: eşit-olmayanlar-arasında-bölüm-3
+---
+> "Birinin bana iyilik etmek gibi bilinçli bir niyetle evime doğru geldiğini kesin olarak bilseydim, canımı kurtarmak için kaçardım." | Henry David Thoreau, Walden (1854)
+
+Kaliforniya kondoru, Kuzey Amerika'nın kanat açıklığı en geniş kuşu. Amerika akbabaları ailesinden bir leş kuşu, kanatlarını açtığında genişliği üç metreye yaklaşıyor. Altmış yıla kadar yaşayabiliyor, ama çok yavaş çoğalıyor. Dişi kondor ancak altı yaşına geldiğinde üremeye başlıyor ve çoğu zaman iki yılda bir tek yumurta bırakıyor. Bir zamanlar Kanada'dan Meksika'ya uzanan geniş bir alanda yaşayan bu kuşun sayısı, yirminci yüzyıl boyunca avcılık, zehirlenme ve yaşam alanı kaybı yüzünden hızla düştü. Bu kadar yavaş çoğalan bir tür, kaybettiği bireylerin yerini dolduramıyordu.
+
+1987 baharında Kaliforniya'da bir grup biyolog, doğada kalan son kondoru yakaladı. O gün türün yeryüzündeki bütün üyeleri, toplam yirmi yedi kuş, insanların elindeydi. Karar tartışmalıydı. Bazı koruma kuruluşları, son kuşları da kafese almanın türü kurtarmak değil, onu doğadan silmek anlamına geldiğini savunuyordu. Kararı verenler ise başka bir yol görmüyordu.
+
+Biyologlar kuşları San Diego ve Los Angeles'taki hayvanat bahçelerinde üretti. Bakıcılar, yumurtadan çıkan yavruların insanlara alışmaması için onları kondor başı biçiminde yapılmış el kuklalarıyla besledi. Yavrular kendilerini besleyen eli görmedi, yalnızca bir kondor başı gördü. Biyologlar ilk kuşları 1992'de doğaya bıraktı. 2025'in sonunda türün dünyadaki nüfusu 607 kuşa ulaşmıştı. Bunların 392'si gökyüzünde uçuyor, 215'i ise insan bakımında yaşıyordu.
+
+Gökyüzündeki kondorun hayatı ise eskisi gibi değil. Kuşların çoğu, biyologların kanatlarına taktığı numaralı etiketleri ve vericileri taşıyor. Avcıların bıraktığı leşlerdeki kurşun parçaları hâlâ en büyük tehlike. Nedeni bilinen ölümlerin yarısında kuşu öldüren şey kurşun zehirlenmesi. Bu yüzden saha ekipleri kuşları düzenli olarak yakalıyor, kanlarındaki kurşunu ölçüyor, gerekirse tedavi edip yeniden salıyor. Bazı bölgelerde ekipler onlar için kurşunsuz leşler bırakıyor. Kondor özgürce uçuyor. Ne yiyeceğine, nerede dolaşacağına, ne zaman yakalanıp ne zaman bırakılacağına ise büyük ölçüde onu izleyen insanlar karar veriyor. Kuş bunların hiçbirini bilmiyor.
+
+Kondor bugün yaşıyorsa bu yönetim sayesinde yaşıyor. Öte yandan kondorun hayatını baştan sona başka bir varlık düzenliyor ve kondor o varlığı anlayamıyor. İkisi de doğru: İnsanlar kondoru hem kurtardı hem de kendi hayatının sahibi olmaktan çıkardı. Bu yazı, iki gerçeğin arasında duran soruyla ilgili: Korumak, ne zaman karşıdakinin hayatını elinden almaya dönüşür?
+
+Dizinin ikinci yazısında, kendinden daha az anlayanla kurulan ilişkide güçlü tarafı bekleyen ilk tehlikeye bakmıştık: güç farkını anlayış farkı sanmak. Bu yazının konusu ikinci tehlike. Güçlü taraf karşısındakini anlamaya çalışsa bile, onun iyiliği adına onun yerine karar vermeye başlayabilir.
+
+## Korumanın mantığı
+
+İyi niyetli kontrolü tehlikeli kılan şey, çoğu zaman haklı olmasıdır. Ateşi çıkan çocuğa anne babası ilacını, istese de istemese de içirir. Yola fırlamak isteyen köpeğin tasmasını sahibi bırakmaz. Unutkanlığı ilerlemiş bir yaşlının ocakla baş başa kalmasına ailesi izin vermez. Bu müdahalelerin hiçbiri kötülük değildir. Yapmasalardı asıl kötülük o olurdu.
+
+Felsefeciler bu tür müdahalelere paternalizm, yani babacılık der. Gerald Dworkin 1972'de yaptığı ve sonradan yerleşik hâle gelen tanımda paternalizmi, bir kişinin özgürlüğüne yalnızca o kişinin kendi iyiliği gerekçesiyle müdahale etmek olarak tarif eder. Tanımdaki kilit kelime "yalnızca"dır. Başkasını korumak için yapılan müdahale paternalizm sayılmaz. Paternalizm, kişiyi kendisinden korumaktır.
+
+John Stuart Mill, Dworkin'den yüz yılı aşkın bir süre önce bu tür müdahalelere karşı en güçlü itirazı dile getirmişti. 1859'da yayımlanan Özgürlük Üzerine'de bir toplumun, üyelerinden birinin özgürlüğüne iradesi dışında karışmasının tek meşru gerekçesinin başkalarına verilen zarar olduğunu yazar. Kişinin kendi iyiliği, ister bedensel ister ahlaki olsun, Mill'e göre yeterli bir gerekçe değildir. Toplum ona öğüt verebilir, onu ikna etmeye çalışabilir, onunla tartışabilir. Onu zorlayamaz. Mill ilkeyi tek bir cümleyle özetler: Birey kendisi üzerinde, kendi bedeni ve zihni üzerinde egemendir.
+
+Mill'in ilkesinin daha az anılan bir devamı var. Mill, ilkenin yalnızca yetileri olgunlaşmış insanlar için geçerli olduğunu hemen ekler. Çocuklar ilkenin dışında kalır. Mill bununla da yetinmez. Kendi deyişiyle barbarlarla ilişkide despotizmin meşru bir yönetim biçimi olduğunu yazar. Bir koşulu vardır: Despotizmin amacı onların gelişmesi olmalı ve bu amaca gerçekten ulaşmalıdır. Koşul ilk bakışta bir sınır gibi görünür. Biraz yakından baktığımızda koşulun önemli bir şeyi söylemediğini fark ederiz: Kimin geliştiğine, gelişmenin ne zaman tamamlandığına ve despotizmin ne zaman sona ereceğine kim karar verecek? Bu soruların cevabını veren, despotizmi uygulayan taraftır.
+
+Mill bu satırları yazarken boş bir kuram kurmuyordu. 1823'ten 1858'e kadar otuz beş yıl boyunca Doğu Hindistan Şirketi'nde çalıştı. Şirket o yıllarda Hindistan'ı yönetiyordu. Mill, Şirket'in yönetimini savunan resmî metinleri de kaleme aldı. Özgürlüğün en güçlü savunularından biri, kimin özgürlüğe hazır olduğuna güçlü tarafın karar vermesine izin veren bir kapı bırakıyordu. Mill o kapının hem yazarı hem de bekçisiydi.
+
+İkinci yazıda gördüğümüz karışıklık burada başka bir biçimde karşımıza çıkar. Kimin olgun, kimin barbar olduğuna karar veren taraf, kimin korunması gerektiğine de karar verir. Kararı veren de her zaman güçlü olandır.
+
+## Güvenli hayat
+
+İyi niyetli kontrolün bedeli, korunan tarafın hayatından eksilen şeylerde görünür. Hekim Atul Gawande, Being Mortal (Ölümlü Olmak) adlı kitabında huzurevlerini anlatırken bu bedele dikkat çeker. Huzurevi yönetimleri kurumlarını uzun süre tek bir ölçüte göre tasarladı: güvenlik. Düşmeleri önlediler, ilaçları zamanında verdiler, sakinlerin kendi başına risk almasına izin vermediler. Sakinler ise çoğu zaman başka şeyler istiyordu. Kapısını kilitleyebileceği bir oda, ne zaman yemek yiyeceğine kendisinin karar vermesi, bir hayvan beslemek, gerekirse düşme pahasına kendi başına yürüyebilmek. Güvenli bir hayat, yaşanmaya değer bir hayatla aynı şey değildi.
+
+Gawande bu durumu tek bir gözlemle özetler: Kendimiz için özerklik, sevdiklerimiz için güvenlik isteriz. Bu gözlem dizinin ilk yazısındaki kabul masasına doğrudan bağlanır. Güçlü taraftayken karşımızdakine güvenlik sunarız. Zayıf tarafa geçtiğimizde ise bizden alınan şeyin özerklik olduğunu fark ederiz. İki istek de içtendir. Sorun, ikisini hiçbir zaman aynı anda ve aynı kişi için istememizdir.
+
+Aynı bedel insanla birlikte yaşayan hayvanlarda da görünür. Sahibinin hiç tasmasız koşturmadığı, başka köpeklerle karşılaşmasına ve bir kokunun peşine düşmesine izin vermediği bir köpek güvendedir. Yaralanmaz, kaybolmaz, kavgaya karışmaz. Hayatı ise kendi türünün yaşayabileceği bir hayatın küçük bir parçasına sıkışmıştır. Kondorun hayatı gibi onun hayatı da anlayamadığı bir varlığın korkularına göre biçimlenmiştir.
+
+## Kimin iyiliği
+
+İyi niyetli kontrolün sinsi bir yanı daha var. "Kendi iyiliği için" dediğimiz şey, çoğu zaman koruyanın iyiliğine de hizmet eder. Annesinin yerine cevap veren kadın zaman kazanır. Huzurevi yönetimi kendini şikâyetten ve davadan korur. Köpeğini hiç serbest bırakmayan sahip, kendi kaygısından korunur. Koruma, koruyanın huzurunu da korur. Bu kendi başına kötü değildir. Kötü olan, koruyanın kendi huzuru ile korunanın iyiliğini birbirinden ayırt edememesidir.
+
+Bu ayırt edememenin kökü ikinci yazıda gördüğümüz yerdedir. Güçlü taraf karşısındakini yeterince tanımıyorsa, onun iyiliğinin ne olduğunu da bilemez. Bildiğini sandığı iyilik, kendi korkularından ve alışkanlıklarından türettiği bir iyiliktir. İkinci yazının başında Montaigne'in barbarlık hakkında söylediği cümle iyilik için de geçerlidir: Herkes kendi alışkanlığına uyan şeye iyilik der.
+
+C. S. Lewis 1949'da yazdığı "İnsancıl Ceza Kuramı" adlı denemede bu tehlikenin neden bu kadar büyük olduğunu açıklar. Lewis'in eleştirdiği fikir ilk bakışta merhametli görünür: Suç işleyeni cezalandırmak yerine onu tedavi etmek. Lewis'e göre ceza, ne kadar sert olursa olsun, kişiye sorumlu bir insan olarak muamele eder. Cezanın hak edilmiş bir ölçüsü vardır ve o ölçü dolunca biter. Tedavinin ise böyle bir ölçüsü yoktur. Tedavi, iyileşme sağlanana kadar sürer. Ne zaman sağlandığına da tedavi eden karar verir. Lewis bir adım daha ileri gider: İnsanı iradesi dışında "tedavi etmek", onu henüz akıl çağına ulaşmamış ya da hiç ulaşamayacak olanlarla, çocuklarla ve evcil hayvanlarla aynı yere koymak demektir.
+
+Lewis sonunda sert bir cümleye varır: Kurbanlarının iyiliği için içtenlikle uygulanan bir zorbalık, zorbalıkların en ezici olanı olabilir. Kötü niyetli bir zorba bir noktada doyar ya da yorulur. Bizi kendi iyiliğimiz için yönetenler ise hiç durmaz, çünkü vicdanları rahattır. Bize yaptıkları her şeyi kendi gözlerinde bir iyilik olarak görürler. Durmaları için bir nedenleri yoktur.
+
+Lewis'in kaygısı, ilk yazıda sorduğumuz soruya başka bir yerden varır. Ceza, kişiye hâlâ konuştuğumuz biri olarak muamele eder. Tedavi ise onu hakkında konuştuğumuz bir vakaya çevirir.
+
+## Korumanın sınırı
+
+Korumak ile karşıdakinin hayatını elinden almak arasındaki çizgiyi nereden çekmeli? Kesin bir cevap yok. Yine de birkaç soru, çizginin hangi tarafında durduğumuzu gösterebilir.
+
+İlk soru, korunanın kendi kararlarına ne kadar yer kaldığıdır. İyi bir koruma, karşıdakinin seçebileceği alanı daraltmaz, mümkün olduğunca korur. Ateşi çıkan çocuk ilacını içer, ama hangi bardaktan içeceğini kendisi seçebilir. Küçük görünen bu alanlar, korunanın hâlâ kendi hayatının sahibi olduğunu hem ona hem de koruyana hatırlatır.
+
+İkinci soru, korumanın neyi hedeflediğidir. Koruma, karşıdakinin kendi hayatını yaşayabilmesini mi amaçlıyor, yoksa yalnızca riskin koruyanın gözünün önünden kalkmasını mı? İlki korunanın hayatını genişletir. İkincisi koruyanın içini rahatlatır ve bunun bedelini korunana ödetir.
+
+Üçüncü soru, korumanın geri alınabilir olup olmadığıdır. İyi bir koruma, gerekçesi ortadan kalktığında çekilebilmelidir. Çocuk büyüyünce elini bırakmak, hasta iyileşince kararları ona geri vermek gibi. Kendini kalıcı kılan koruma, zamanla korumak olmaktan çıkıp yönetmeye dönüşür. Mill'in istisnasının sorunu da buydu: Despotizmin ne zaman sona ereceğine despotizmi uygulayan karar veriyordu.
+
+Kondor programını tasarlayan biyologlar bu sorulardan birine dikkat çekici bir cevap vermişti. Yavruları kuklalarla beslemelerinin nedeni, kuşların insanı değil kendi türünü tanımasıydı. Koruyanlar, korudukları varlık onlara benzemesin diye kendilerini görünmez kılmıştı. Bir kondoru kurtarmanın, onu insanın kuşu olmaktan da korumak anlamına geldiğini anlamışlardı.
+
+İyi niyetli korumanın belki de en olgun hâli bu. Korunan kendisi olarak kalır. Koruyan ise elini göstermeden çalışır. Aynı tabloya başka bir yerden baktığımızda gördüğümüz şey daha az rahatlatıcıdır. Kondor, hayatını düzenleyen eli hiç görmedi. Ne zaman yakalanacağını, neyi yiyeceğini, hangi gökyüzünde uçacağını belirleyen bir iradenin varlığından haberi yok. Kendini özgür sanıyor ve bir bakıma özgür.
+
+Güçlü tarafın karşısındaki için ne hissettiği de bu ilişkinin bir parçası. Merhamet ile acıma arasındaki fark, dizinin dördüncü yazısının konusu olacak.
+
+## Kaynaklar
+
+- John Stuart Mill, On Liberty (1859), Bölüm I.
+- Gerald Dworkin, "Paternalism", The Monist (1972).
+- Atul Gawande, Being Mortal: Medicine and What Matters in the End (2014).
+- C. S. Lewis, "The Humanitarian Theory of Punishment" (1949).
+- U.S. Fish and Wildlife Service, 2025 California Condor Population Status (2026).
