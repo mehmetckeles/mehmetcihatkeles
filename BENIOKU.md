@@ -20,3 +20,7 @@ Cevaplar Drive'daki "Site talepleri · mehmetcihatkeles.com" tablosuna düşer; 
 
 ## Eski adresler
 `post/…` ve `blog/`, `on-rezervasyon/` gibi klasörler, Wix'teki eski adresleri yeni sayfalara yönlendirir.
+
+## Yazı boyutları
+
+Sitedeki bütün yazı boyutları `css/site.css` dosyasının başındaki dokuz basamaklı ölçekten gelir (`--t-etiket`, `--t-kucuk`, `--t-metin`, `--t-govde`, `--t-giris`, `--t-ara`, `--t-bolum`, `--t-sayfa`, `--t-vitrin`). Yeni bir öğe eklerken bunlardan birini kullanın; yeni bir piksel değeri yazmayın. Bir basamağı değiştirmek, o basamağı kullanan her yeri birlikte değiştirir.

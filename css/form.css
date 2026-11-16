@@ -1,33 +1,33 @@
 /* ücret + hesaplayıcı */
 .price-big{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
-.price-big strong{font-family:var(--display);font-weight:600;font-size:clamp(2.6rem,9vw,4.2rem);letter-spacing:-.03em;line-height:1}
-.price-big span{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.price-big strong{font-family:var(--display);font-weight:600;font-size:var(--t-sayfa);letter-spacing:-.03em;line-height:1}
+.price-big span{font-family:var(--mono);font-size:var(--t-etiket);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .price-sub{margin-top:10px;color:var(--ink-2)}
 .price-sub b{font-weight:500}
 .calc{margin-top:32px;border:1px solid var(--ink);border-radius:4px;padding:clamp(20px,4vw,32px);background:var(--paper)}
-.calc h3{font-family:var(--display);font-weight:500;font-size:1.25rem;letter-spacing:-.01em}
-.calc > p{color:var(--muted);font-size:.95rem;margin-top:4px}
+.calc h3{font-family:var(--display);font-weight:500;font-size:var(--t-giris);letter-spacing:-.01em}
+.calc > p{color:var(--muted);font-size:var(--t-metin);margin-top:4px}
 .grid-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:20px}
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}
 .field.full{grid-column:1/-1}
-.field label,.field .lbl{font-family:var(--display);font-size:15px;font-weight:500;line-height:1.35;color:var(--ink);letter-spacing:0;text-transform:none}
+.field label,.field .lbl{font-family:var(--display);font-size:var(--t-metin);font-weight:500;line-height:1.35;color:var(--ink);letter-spacing:0;text-transform:none}
 .field label em,.field .lbl em{font-style:normal;color:var(--muted);font-weight:400}
-.field input,.field select,.field textarea{font:inherit;font-family:var(--display);font-size:16px;color:var(--ink);background:var(--paper);
+.field input,.field select,.field textarea{font:inherit;font-family:var(--display);font-size:var(--t-metin);color:var(--ink);background:var(--paper);
   border:1px solid var(--rule);border-radius:6px;padding:11px 13px;min-height:48px;width:100%;min-width:0;-webkit-appearance:none;appearance:none}
-.field input::placeholder,.field textarea::placeholder{color:var(--muted);opacity:.75;font-size:15px}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted);opacity:.75;font-size:var(--t-metin)}
 .field textarea{min-height:110px;resize:vertical;font-family:var(--serif);line-height:1.6}
-.field .hint{font-size:.9rem;line-height:1.5;color:var(--muted);font-family:var(--serif);margin-top:-2px}
+.field .hint{font-size:var(--t-kucuk);line-height:1.5;color:var(--muted);font-family:var(--serif);margin-top:-2px}
 .stepper{display:flex;align-items:stretch;border:1px solid var(--rule);border-radius:4px;overflow:hidden;min-height:48px}
-.stepper button{width:48px;background:var(--paper-2);border:none;font-family:var(--display);font-size:20px;color:var(--ink);cursor:pointer}
-.stepper output{flex:1;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:17px;font-weight:500}
+.stepper button{width:48px;background:var(--paper-2);border:none;font-family:var(--display);font-size:var(--t-giris);color:var(--ink);cursor:pointer}
+.stepper output{flex:1;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:var(--t-govde);font-weight:500}
 .result{margin-top:22px;border-top:1px solid var(--rule);padding-top:16px}
-.result .row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;font-family:var(--display);font-size:15px;color:var(--ink-2)}
+.result .row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;font-family:var(--display);font-size:var(--t-metin);color:var(--ink-2)}
 .result .row.minus span:last-child{color:var(--ink)}
-.result .row.total{border-top:1px solid var(--ink);margin-top:8px;padding-top:14px;font-size:20px;font-weight:600;color:var(--ink)}
-.result .err{color:var(--ink);font-family:var(--display);font-size:15px;padding:6px 0}
-.result .fine{margin-top:12px;font-size:.9rem;color:var(--muted)}
+.result .row.total{border-top:1px solid var(--ink);margin-top:8px;padding-top:14px;font-size:var(--t-giris);font-weight:600;color:var(--ink)}
+.result .err{color:var(--ink);font-family:var(--display);font-size:var(--t-metin);padding:6px 0}
+.result .fine{margin-top:12px;font-size:var(--t-kucuk);color:var(--muted)}
 .result .actions{margin-top:18px}
-.disc{margin-top:22px;display:grid;gap:4px;font-size:.95rem;color:var(--muted)}
+.disc{margin-top:22px;display:grid;gap:4px;font-size:var(--t-metin);color:var(--muted)}
 
 /* tanışalım */
 .paths{display:grid;gap:12px}
@@ -35,51 +35,51 @@
 .path{display:flex;flex-direction:column;border:1px solid var(--rule);border-radius:4px;padding:22px;background:var(--paper)}
 .path.main{border-color:var(--ink)}
 .path .label{margin-bottom:12px}
-.path h3{font-family:var(--display);font-weight:500;font-size:1.3rem;letter-spacing:-.015em;line-height:1.25}
+.path h3{font-family:var(--display);font-weight:500;font-size:var(--t-ara);letter-spacing:-.015em;line-height:1.25}
 .path p{margin-top:8px;color:var(--ink-2);line-height:1.6;flex:1}
 .path .actions{margin-top:18px}
 .path .btn{width:100%;justify-content:center}
-.path small{display:block;margin-top:10px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.path small{display:block;margin-top:10px;font-family:var(--mono);font-size:var(--t-etiket);color:var(--muted)}
 
 /* formlar */
 .form-panel{display:none;margin-top:28px;border:1px solid var(--ink);border-radius:4px;padding:clamp(20px,4vw,36px);scroll-margin-top:84px}
 .form-panel.open{display:block}
-.form-panel h3{font-family:var(--display);font-weight:500;font-size:clamp(1.4rem,4vw,1.8rem);letter-spacing:-.02em}
+.form-panel h3{font-family:var(--display);font-weight:500;font-size:var(--t-ara);letter-spacing:-.02em}
 .form-panel > p{margin-top:8px;color:var(--ink-2);max-width:36rem;line-height:1.65}
 .form-panel fieldset{border:none;margin:0;padding:0;margin-top:clamp(28px,5vw,40px);padding-top:clamp(22px,4vw,30px);border-top:1px solid var(--rule)}
-.form-panel legend{display:flex;align-items:baseline;gap:12px;float:left;width:100%;margin-bottom:20px;font-family:var(--display);font-weight:500;font-size:clamp(1.15rem,3.4vw,1.3rem);letter-spacing:-.01em;color:var(--ink)}
+.form-panel legend{display:flex;align-items:baseline;gap:12px;float:left;width:100%;margin-bottom:20px;font-family:var(--display);font-weight:500;font-size:var(--t-giris);letter-spacing:-.01em;color:var(--ink)}
 .form-panel legend + *{clear:both}
-.form-panel legend span{font-family:var(--mono);font-size:11.5px;font-weight:400;color:var(--muted);letter-spacing:.06em}
+.form-panel legend span{font-family:var(--mono);font-size:var(--t-etiket);font-weight:400;color:var(--muted);letter-spacing:.06em}
 .form-grid{display:grid;gap:22px 18px}
 @media(min-width:700px){.form-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 .choices{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
 .choices label{position:relative;cursor:pointer}
 .choices input{position:absolute;opacity:0;pointer-events:none}
-.choices span{display:inline-flex;align-items:center;font-family:var(--display);font-size:14.5px;border:1px solid var(--rule);border-radius:99px;padding:7px 15px;min-height:40px;color:var(--ink-2);text-transform:none;letter-spacing:0;transition:background .15s,border-color .15s}
+.choices span{display:inline-flex;align-items:center;font-family:var(--display);font-size:var(--t-kucuk);border:1px solid var(--rule);border-radius:99px;padding:7px 15px;min-height:40px;color:var(--ink-2);text-transform:none;letter-spacing:0;transition:background .15s,border-color .15s}
 .choices label:hover span{border-color:var(--ink)}
 .choices input:checked + span{background:var(--hl);color:var(--hl-ink);border-color:var(--ink)}
 .choices input:focus-visible + span{outline:2px solid var(--ink);outline-offset:2px}
 .form-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:clamp(28px,5vw,40px);padding-top:24px;border-top:1px solid var(--rule)}
-.form-foot p{font-size:.9rem;color:var(--muted);max-width:30rem}
+.form-foot p{font-size:var(--t-kucuk);color:var(--muted);max-width:30rem}
 .done{display:none;margin-top:24px;padding:20px;background:var(--paper-2);border-radius:4px}
 .done.show{display:block}
-.done strong{font-family:var(--display);font-weight:600;font-size:1.2rem}
+.done strong{font-family:var(--display);font-weight:600;font-size:var(--t-giris)}
 .done p{margin-top:6px;color:var(--ink-2)}
-.draft-flag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);margin-top:8px}
+.draft-flag{font-family:var(--mono);font-size:var(--t-etiket);letter-spacing:.06em;color:var(--muted);margin-top:8px}
 
 
 /* form sayfaları */
 .field.bad input,.field.bad textarea{border-color:var(--ink);box-shadow:0 0 0 3px color-mix(in srgb,var(--hl) 70%,transparent)}
-.field.bad .lbl::after,.field.bad label:first-child::after{content:" · eksik";font-family:var(--mono);font-size:11px;font-weight:400;color:var(--ink);background:var(--hl);padding:1px 6px;margin-left:6px;color:var(--hl-ink)}
-.warn{margin-top:4px;padding:12px 14px;border-left:3px solid var(--hl);background:var(--paper-2);font-size:.95rem;color:var(--ink)}
+.field.bad .lbl::after,.field.bad label:first-child::after{content:" · eksik";font-family:var(--mono);font-size:var(--t-etiket);font-weight:400;color:var(--ink);background:var(--hl);padding:1px 6px;margin-left:6px;color:var(--hl-ink)}
+.warn{margin-top:4px;padding:12px 14px;border-left:3px solid var(--hl);background:var(--paper-2);font-size:var(--t-metin);color:var(--ink)}
 .form-page{padding:clamp(28px,6vw,64px) 0 clamp(48px,8vw,96px)}
-.form-page .back{display:inline-block;font-family:var(--display);font-size:14px;color:var(--muted);margin-bottom:22px;border-bottom:1px solid var(--rule)}
-.form-page h1{font-family:var(--display);font-weight:300;font-size:clamp(2rem,7vw,3.2rem);line-height:1.08;letter-spacing:-.025em}
+.form-page .back{display:inline-block;font-family:var(--display);font-size:var(--t-kucuk);color:var(--muted);margin-bottom:22px;border-bottom:1px solid var(--rule)}
+.form-page h1{font-family:var(--display);font-weight:300;font-size:var(--t-sayfa);line-height:1.08;letter-spacing:-.025em}
 .form-page h1 b{font-weight:600}
-.form-page .lead{margin-top:14px;max-width:34rem;color:var(--ink-2);line-height:1.7;font-size:1.05rem}
+.form-page .lead{margin-top:14px;max-width:34rem;color:var(--ink-2);line-height:1.7;font-size:var(--t-govde)}
 .form-page form,.form-page .thanks{max-width:44rem}
 .thanks{margin-top:8px}
-.thanks h2{font-family:var(--display);font-weight:600;font-size:clamp(1.6rem,5vw,2.2rem);letter-spacing:-.02em}
+.thanks h2{font-family:var(--display);font-weight:600;font-size:var(--t-bolum);letter-spacing:-.02em}
 .thanks p{margin-top:12px;color:var(--ink-2);line-height:1.7;max-width:34rem}
 .thanks .actions{margin-top:22px}
 

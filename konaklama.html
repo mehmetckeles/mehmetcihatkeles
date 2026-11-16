@@ -18,12 +18,12 @@
 /* ---------- konaklama sayfası ---------- */
 .k-hero{padding:clamp(40px,8vw,96px) 0 clamp(28px,5vw,48px)}
 .k-hero .label{margin-bottom:24px}
-.k-hero h1{font-family:var(--display);font-weight:300;font-size:clamp(2.3rem,8vw,4.6rem);line-height:1.06;letter-spacing:-.025em;max-width:12ch}
+.k-hero h1{font-family:var(--display);font-weight:300;font-size:var(--t-vitrin);line-height:1.06;letter-spacing:-.025em;max-width:12ch}
 .k-hero h1 b{font-weight:600}
-.k-hero .lead{max-width:34rem;margin-top:26px;font-size:clamp(1.05rem,2.4vw,1.2rem);line-height:1.7;color:var(--ink-2)}
+.k-hero .lead{max-width:34rem;margin-top:26px;font-size:var(--t-giris);line-height:1.7;color:var(--ink-2)}
 .k-hero .actions{margin-top:28px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
-.tags span{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:99px;padding:4px 10px}
+.tags span{font-family:var(--mono);font-size:var(--t-etiket);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:99px;padding:4px 10px}
 
 .photos{display:grid;grid-auto-flow:column;grid-auto-columns:78%;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;
   padding:0 var(--pad) 6px;margin:0 calc(var(--pad)*-1);scrollbar-width:none}
@@ -34,48 +34,48 @@
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .photo .ph{position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px;
   background:repeating-linear-gradient(135deg,transparent 0 14px,color-mix(in srgb,var(--rule) 55%,transparent) 14px 15px)}
-.photo .ph span{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--paper);padding:3px 7px}
+.photo .ph span{font-family:var(--mono);font-size:var(--t-etiket);color:var(--muted);background:var(--paper);padding:3px 7px}
 
 .block{padding:clamp(48px,8vw,96px) 0;border-top:1px solid var(--rule)}
 .block-head{display:grid;gap:14px;margin-bottom:clamp(24px,4vw,40px)}
 @media(min-width:860px){.block-head{grid-template-columns:240px 1fr;gap:40px;align-items:baseline}}
-.block-head h2{font-family:var(--display);font-weight:300;font-size:clamp(1.75rem,4.8vw,2.6rem);line-height:1.12;letter-spacing:-.02em;max-width:20ch}
+.block-head h2{font-family:var(--display);font-weight:300;font-size:var(--t-bolum);line-height:1.12;letter-spacing:-.02em;max-width:20ch}
 .block-head h2 b{font-weight:600}
 .block-body{display:grid;gap:0;min-width:0}
 .block-body > *{min-width:0}
 @media(min-width:860px){.block-body{margin-left:280px}.block-body.wide{margin-left:0}}
-.prose p{color:var(--ink-2);font-size:1.06rem;line-height:1.75;max-width:36rem}
+.prose p{color:var(--ink-2);font-size:var(--t-govde);line-height:1.75;max-width:36rem}
 .prose p + p{margin-top:14px}
 
 .steps-list{list-style:none;counter-reset:s}
 .steps-list li{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;padding:22px 0;border-top:1px solid var(--rule)}
 .steps-list li:last-child{border-bottom:1px solid var(--rule)}
-.steps-list .n{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:7px}
-.steps-list h3{font-family:var(--display);font-weight:500;font-size:clamp(1.2rem,3.4vw,1.45rem);letter-spacing:-.015em}
+.steps-list .n{font-family:var(--mono);font-size:var(--t-etiket);color:var(--muted);padding-top:7px}
+.steps-list h3{font-family:var(--display);font-weight:500;font-size:var(--t-ara);letter-spacing:-.015em}
 .steps-list p{grid-column:2;color:var(--ink-2);line-height:1.7;max-width:36rem}
 
 .two{display:grid;gap:28px}
 @media(min-width:700px){.two{grid-template-columns:1fr 1fr;gap:40px}}
-.two h3{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:400;margin-bottom:6px}
+.two h3{font-family:var(--mono);font-size:var(--t-etiket);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:400;margin-bottom:6px}
 .checks{list-style:none}
 .checks li{position:relative;padding:14px 0 14px 30px;border-top:1px solid var(--rule);line-height:1.6;color:var(--ink-2)}
 .checks li::before{content:"";position:absolute;left:2px;top:22px;width:14px;height:8px;background:var(--hl);border:1px solid var(--ink)}
 .checks.no li::before{background:none;border:none;border-top:1.5px solid var(--muted);height:0;top:26px}
-.note{margin-top:22px;padding:18px 20px;background:var(--paper-2);border-radius:4px;color:var(--ink-2);line-height:1.65;font-size:1rem}
+.note{margin-top:22px;padding:18px 20px;background:var(--paper-2);border-radius:4px;color:var(--ink-2);line-height:1.65;font-size:var(--t-metin)}
 .note a{color:var(--ink);border-bottom:1px solid var(--ink)}
 
 /* fiyat geçmişi */
 details.history{margin-top:28px;border-top:1px solid var(--rule)}
-details.history summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-family:var(--display);font-weight:500;font-size:16px}
+details.history summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-family:var(--display);font-weight:500;font-size:var(--t-metin)}
 details.history summary::-webkit-details-marker{display:none}
-details.history summary::after{content:"+";font-weight:300;font-size:22px;color:var(--muted)}
+details.history summary::after{content:"+";font-weight:300;font-size:var(--t-giris);color:var(--muted)}
 details.history[open] summary::after{content:"−"}
-.hist{width:100%;border-collapse:collapse;font-family:var(--display);font-size:15px;margin-top:4px}
+.hist{width:100%;border-collapse:collapse;font-family:var(--display);font-size:var(--t-metin);margin-top:4px}
 .hist td{padding:10px 0;border-top:1px solid var(--rule);color:var(--ink-2)}
 .hist td:nth-child(2){text-align:right;color:var(--ink);font-weight:500;white-space:nowrap}
-.hist td:nth-child(3){text-align:right;font-family:var(--mono);font-size:12px;color:var(--muted);width:30%}
+.hist td:nth-child(3){text-align:right;font-family:var(--mono);font-size:var(--t-etiket);color:var(--muted);width:30%}
 .hist tr:last-child td{color:var(--ink)}
-.hist-note{margin-top:12px;font-size:.9rem;color:var(--muted);line-height:1.6}
+.hist-note{margin-top:12px;font-size:var(--t-kucuk);color:var(--muted);line-height:1.6}
 </style>
 </head>
 <body>
