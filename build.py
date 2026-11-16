@@ -116,6 +116,7 @@ def header(prefix):
     <a class="brand" href="{p}index.html">Mehmet Cihat Keleş</a>
     <nav class="main" aria-label="Ana menü">
       <a href="{p}konaklama.html">Konaklama</a>
+      <a href="{p}okullar.html">Okullar</a>
       <a href="{p}tut.html">Temel Uyum Terapisi</a>
       <a href="{p}yazilar.html" aria-current="page">Yazılar</a>
       <a href="{p}cv.html">CV</a>
@@ -131,9 +132,10 @@ def header(prefix):
   </div>
   <ol>
     <li><a href="{p}konaklama.html" data-close><small>01</small>Konaklama</a></li>
-    <li><a href="{p}tut.html" data-close><small>02</small>Temel Uyum Terapisi</a></li>
-    <li><a href="{p}yazilar.html" data-close><small>03</small>Yazılar</a></li>
-    <li><a href="{p}cv.html" data-close><small>04</small>CV</a></li>
+    <li><a href="{p}okullar.html" data-close><small>02</small>Okullar</a></li>
+    <li><a href="{p}tut.html" data-close><small>03</small>Temel Uyum Terapisi</a></li>
+    <li><a href="{p}yazilar.html" data-close><small>04</small>Yazılar</a></li>
+    <li><a href="{p}cv.html" data-close><small>05</small>CV</a></li>
   </ol>
   <div class="sheet-foot">
     <span class="label">Ataşehir · İstanbul</span>
@@ -150,6 +152,7 @@ def footer(prefix):
       <nav aria-label="Alt menü">
         <a href="{p}index.html">Ana sayfa</a>
         <a href="{p}konaklama.html">Konaklama</a>
+        <a href="{p}okullar.html">Okullar</a>
         <a href="{p}tut.html">Temel Uyum Terapisi</a>
         <a href="{p}yazilar.html">Yazılar</a>
         <a href="{p}cv.html">CV</a>
