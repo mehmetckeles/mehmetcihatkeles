@@ -75,13 +75,13 @@
 .grid-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:20px}
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}
 .field.full{grid-column:1/-1}
-.field label,.field .lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.field label em{font-style:normal;color:var(--ink)}
+.field label,.field .lbl{font-family:var(--display);font-size:15px;font-weight:500;line-height:1.35;color:var(--ink);letter-spacing:0;text-transform:none}
+.field label em,.field .lbl em{font-style:normal;color:var(--muted);font-weight:400}
 .field input,.field select,.field textarea{font:inherit;font-family:var(--display);font-size:16px;color:var(--ink);background:var(--paper);
-  border:1px solid var(--rule);border-radius:4px;padding:12px 12px;min-height:48px;width:100%;min-width:0;-webkit-appearance:none;appearance:none}
-.field textarea{min-height:96px;resize:vertical;font-family:var(--serif)}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px color-mix(in srgb,var(--hl) 70%,transparent)}
-.field .hint{font-size:.85rem;color:var(--muted);font-family:var(--serif)}
+  border:1px solid var(--rule);border-radius:6px;padding:11px 13px;min-height:48px;width:100%;min-width:0;-webkit-appearance:none;appearance:none}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted);opacity:.75;font-size:15px}
+.field textarea{min-height:110px;resize:vertical;font-family:var(--serif);line-height:1.6}
+.field .hint{font-size:.9rem;line-height:1.5;color:var(--muted);font-family:var(--serif);margin-top:-2px}
 .stepper{display:flex;align-items:stretch;border:1px solid var(--rule);border-radius:4px;overflow:hidden;min-height:48px}
 .stepper button{width:48px;background:var(--paper-2);border:none;font-family:var(--display);font-size:20px;color:var(--ink);cursor:pointer}
 .stepper output{flex:1;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:17px;font-weight:500}
@@ -111,15 +111,20 @@
 .form-panel.open{display:block}
 .form-panel h3{font-family:var(--display);font-weight:500;font-size:clamp(1.4rem,4vw,1.8rem);letter-spacing:-.02em}
 .form-panel > p{margin-top:8px;color:var(--ink-2);max-width:36rem;line-height:1.65}
-.form-grid{display:grid;gap:16px;margin-top:24px}
+.form-panel fieldset{border:none;margin:0;padding:0;margin-top:clamp(28px,5vw,40px);padding-top:clamp(22px,4vw,30px);border-top:1px solid var(--rule)}
+.form-panel legend{display:flex;align-items:baseline;gap:12px;float:left;width:100%;margin-bottom:20px;font-family:var(--display);font-weight:500;font-size:clamp(1.15rem,3.4vw,1.3rem);letter-spacing:-.01em;color:var(--ink)}
+.form-panel legend + *{clear:both}
+.form-panel legend span{font-family:var(--mono);font-size:11.5px;font-weight:400;color:var(--muted);letter-spacing:.06em}
+.form-grid{display:grid;gap:22px 18px}
 @media(min-width:700px){.form-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
-.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
 .choices label{position:relative;cursor:pointer}
 .choices input{position:absolute;opacity:0;pointer-events:none}
-.choices span{display:inline-block;font-family:var(--display);font-size:15px;border:1px solid var(--rule);border-radius:99px;padding:10px 16px;min-height:44px;color:var(--ink-2);text-transform:none;letter-spacing:0}
+.choices span{display:inline-flex;align-items:center;font-family:var(--display);font-size:14.5px;border:1px solid var(--rule);border-radius:99px;padding:7px 15px;min-height:40px;color:var(--ink-2);text-transform:none;letter-spacing:0;transition:background .15s,border-color .15s}
+.choices label:hover span{border-color:var(--ink)}
 .choices input:checked + span{background:var(--hl);color:var(--hl-ink);border-color:var(--ink)}
 .choices input:focus-visible + span{outline:2px solid var(--ink);outline-offset:2px}
-.form-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:24px}
+.form-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:clamp(28px,5vw,40px);padding-top:24px;border-top:1px solid var(--rule)}
 .form-foot p{font-size:.9rem;color:var(--muted);max-width:30rem}
 .done{display:none;margin-top:24px;padding:20px;background:var(--paper-2);border-radius:4px}
 .done.show{display:block}
@@ -239,18 +244,18 @@ details.history[open] summary::after{content:"−"}
       <div class="block-body">
         <div class="two">
           <div>
+            <h3>Şimdilik uygun değil</h3>
+            <ul class="checks no">
+              <li>Başka köpeklere karşı saldırgan davranan köpekler</li>
+              <li>Maması, oyuncağı ya da yeri söz konusu olduğunda gerginleşen köpekler</li>
+            </ul>
+          </div>
+          <div>
             <h3>Uygun</h3>
             <ul class="checks">
               <li>Başka köpeklerle vakit geçirmekten hoşlanan köpekler</li>
               <li>Aşıları ve iç-dış parazit uygulamaları güncel olanlar</li>
               <li>Tanışma ve gündüz misafirliğini tamamlamış olanlar</li>
-            </ul>
-          </div>
-          <div>
-            <h3>Şimdilik uygun değil</h3>
-            <ul class="checks no">
-              <li>Başka köpeklere karşı saldırgan davranan köpekler</li>
-              <li>Maması, oyuncağı ya da yeri söz konusu olduğunda gerginleşen köpekler</li>
             </ul>
           </div>
         </div>
@@ -363,61 +368,87 @@ details.history[open] summary::after{content:"−"}
         <!-- Tanışma formu -->
         <form class="form-panel" id="f-tanisma" novalidate data-form="tanisma">
           <h3>Tanışma görüşmesi</h3>
-          <p>Bu bir rezervasyon değil, tanışma talebi. Cevaplarınızı okuduktan sonra sizi arayıp uygun bir gün belirleriz.</p>
-          <div class="form-grid">
-            <div class="field"><label for="t-ad">Adınız <em>*</em></label><input id="t-ad" name="ad" autocomplete="given-name" required></div>
-            <div class="field"><label for="t-soyad">Soyadınız</label><input id="t-soyad" name="soyad" autocomplete="family-name"></div>
-            <div class="field"><label for="t-tel">Telefon <em>*</em></label><input id="t-tel" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx" required></div>
-            <div class="field"><label for="t-semt">Semtiniz</label><input id="t-semt" name="semt" autocomplete="address-level2"></div>
-            <div class="field"><label for="t-kopek">Köpeğinizin adı ve cinsi <em>*</em></label><input id="t-kopek" name="kopek" required></div>
-            <div class="field"><label for="t-yas">Yaşı <em>*</em></label><input id="t-yas" name="yas" required placeholder="örn. 3 yaş, 8 aylık"></div>
-            <div class="field"><span class="lbl">Cinsiyeti <em>*</em></span><div class="choices">
-              <label><input type="radio" name="cinsiyet" value="Dişi" required><span>Dişi</span></label>
-              <label><input type="radio" name="cinsiyet" value="Erkek"><span>Erkek</span></label></div></div>
-            <div class="field"><span class="lbl">Kısırlaştırıldı mı? <em>*</em></span><div class="choices">
-              <label><input type="radio" name="kisir" value="Evet" required><span>Evet</span></label>
-              <label><input type="radio" name="kisir" value="Hayır"><span>Hayır</span></label></div></div>
-            <div class="field full"><span class="lbl">Diğer köpeklerle arası nasıl? <em>*</em></span><div class="choices">
-              <label><input type="radio" name="iliski" value="Rahat" required><span>Rahat</span></label>
-              <label><input type="radio" name="iliski" value="Seçici"><span>Seçici</span></label>
-              <label><input type="radio" name="iliski" value="Gergin"><span>Gergin</span></label>
-              <label><input type="radio" name="iliski" value="Bilmiyorum"><span>Bilmiyorum</span></label></div></div>
-            <div class="field full"><span class="lbl">Aşıları ve iç-dış parazit uygulamaları güncel mi? <em>*</em></span><div class="choices">
-              <label><input type="radio" name="asi" value="Evet" required><span>Evet</span></label>
-              <label><input type="radio" name="asi" value="Hayır"><span>Hayır</span></label>
-              <label><input type="radio" name="asi" value="Emin değilim"><span>Emin değilim</span></label></div></div>
-            <div class="field full"><label for="t-alerji">Bilinen bir alerjisi var mı? <em>*</em></label><input id="t-alerji" name="alerji" required placeholder="Mama, ilaç ya da başka; yoksa “yok” yazın"></div>
-            <div class="field full"><label for="t-karakter">Biraz anlatır mısınız?</label><textarea id="t-karakter" name="karakter" placeholder="Nelerden hoşlanır, nelerden çekinir, günü nasıl geçer…"></textarea></div>
-            <div class="field"><label for="t-tarih">Düşündüğünüz konaklama tarihleri</label><input id="t-tarih" name="konaklama_tarihleri" placeholder="Varsa"></div>
-            <div class="field"><label for="t-uygun">Tanışma için uygun gün ve saatler <em>*</em></label><input id="t-uygun" name="uygun_zaman" required placeholder="örn. hafta içi öğleden sonra"></div>
-          </div>
+          <p>Bu bir rezervasyon değil, tanışma talebi. Cevaplarınızı okuduktan sonra sizi arayıp uygun bir gün belirleriz. Birkaç dakikanızı alır.</p>
+          <fieldset>
+            <legend><span>01</span>Size nasıl ulaşalım?</legend>
+            <div class="form-grid">
+              <div class="field"><label for="t-ad">Adınız <em>*</em></label><input id="t-ad" name="ad" autocomplete="given-name" required></div>
+              <div class="field"><label for="t-soyad">Soyadınız</label><input id="t-soyad" name="soyad" autocomplete="family-name"></div>
+              <div class="field"><label for="t-tel">Telefonunuz <em>*</em></label><input id="t-tel" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx" required></div>
+              <div class="field"><label for="t-semt">Semtiniz</label><input id="t-semt" name="semt" autocomplete="address-level2"></div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>02</span>Köpeğinizi tanıyalım</legend>
+            <div class="form-grid">
+              <div class="field"><label for="t-kopek">Adı ve cinsi <em>*</em></label><input id="t-kopek" name="kopek" required placeholder="örn. Pamuk, golden"></div>
+              <div class="field"><label for="t-yas">Yaşı <em>*</em></label><input id="t-yas" name="yas" required placeholder="örn. 3 yaş ya da 8 aylık"></div>
+              <div class="field"><span class="lbl">Cinsiyeti <em>*</em></span><div class="choices">
+                <label><input type="radio" name="cinsiyet" value="Dişi" required><span>Dişi</span></label>
+                <label><input type="radio" name="cinsiyet" value="Erkek"><span>Erkek</span></label></div></div>
+              <div class="field"><span class="lbl">Kısırlaştırıldı mı? <em>*</em></span><div class="choices">
+                <label><input type="radio" name="kisir" value="Evet" required><span>Evet</span></label>
+                <label><input type="radio" name="kisir" value="Hayır"><span>Hayır</span></label></div></div>
+              <div class="field full"><span class="lbl">Diğer köpeklerle arası nasıl? <em>*</em></span><div class="choices">
+                <label><input type="radio" name="iliski" value="Rahat" required><span>Rahat</span></label>
+                <label><input type="radio" name="iliski" value="Seçici"><span>Seçici</span></label>
+                <label><input type="radio" name="iliski" value="Gergin"><span>Gergin</span></label>
+                <label><input type="radio" name="iliski" value="Bilmiyorum"><span>Bilmiyorum</span></label></div></div>
+              <div class="field full"><span class="lbl">Aşıları ve iç-dış parazit uygulamaları güncel mi? <em>*</em></span><div class="choices">
+                <label><input type="radio" name="asi" value="Evet" required><span>Evet</span></label>
+                <label><input type="radio" name="asi" value="Hayır"><span>Hayır</span></label>
+                <label><input type="radio" name="asi" value="Emin değilim"><span>Emin değilim</span></label></div></div>
+              <div class="field full"><label for="t-alerji">Bilinen bir alerjisi var mı? <em>*</em></label><input id="t-alerji" name="alerji" required placeholder="Yoksa “yok” yazmanız yeterli"></div>
+              <div class="field full"><label for="t-karakter">Biraz anlatır mısınız?</label><span class="hint">Nelerden hoşlanır, nelerden çekinir, günü nasıl geçer…</span><textarea id="t-karakter" name="karakter"></textarea></div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>03</span>Tanışma</legend>
+            <div class="form-grid">
+              <div class="field"><label for="t-uygun">Tanışma için size uygun gün ve saatler <em>*</em></label><input id="t-uygun" name="uygun_zaman" required placeholder="örn. hafta içi öğleden sonra"></div>
+              <div class="field"><label for="t-tarih">Düşündüğünüz konaklama tarihleri</label><input id="t-tarih" name="konaklama_tarihleri" placeholder="Varsa"></div>
+            </div>
+          </fieldset>
           <div class="form-foot">
             <button class="btn primary" type="submit">Tanışma talebini gönder <span class="ar">→</span></button>
-            <p>Bilgileriniz yalnızca köpeğinizin bakımı ve sizinle iletişim için kullanılır.</p>
+            <p>Yıldızlı sorular zorunlu. Bilgileriniz yalnızca köpeğinizin bakımı ve sizinle iletişim için kullanılır.</p>
           </div>
-                    <div class="done" role="status"><strong>Teşekkürler, aldım.</strong><p>Cevaplarınızı okuyup sizi arayacağım.</p></div>
+          <div class="done" role="status"><strong>Teşekkürler, aldım.</strong><p>Cevaplarınızı okuyup sizi arayacağım.</p></div>
         </form>
 
         <!-- Ön rezervasyon formu -->
         <form class="form-panel" id="f-rez" novalidate data-form="rezervasyon">
           <h3>Ön rezervasyon</h3>
           <p>Tarihlerinizi gönderin; talebiniz gelince sizi arayıp teyit ederim.</p>
-          <div class="form-grid">
-            <div class="field"><label for="r-ad">Adınız <em>*</em></label><input id="r-ad" name="ad" autocomplete="given-name" required></div>
-            <div class="field"><label for="r-soyad">Soyadınız</label><input id="r-soyad" name="soyad" autocomplete="family-name"></div>
-            <div class="field"><label for="r-tel">Telefon <em>*</em></label><input id="r-tel" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx" required></div>
-            <div class="field"><label for="r-kopek">Köpeğinizin adı ve cinsi <em>*</em></label><input id="r-kopek" name="kopek" required></div>
-            <div class="field"><label for="r-in">Giriş günü <em>*</em></label><input id="r-in" name="giris" type="date" required></div>
-            <div class="field"><label for="r-out">Çıkış günü <em>*</em></label><input id="r-out" name="cikis" type="date" required><span class="hint">Köpeğinizi teslim alacağınız gün.</span></div>
-            <div class="field full"><label for="r-degisim">Son görüşmemizden bu yana sağlığında ya da davranışında bir değişiklik oldu mu?</label><textarea id="r-degisim" name="degisiklik"></textarea></div>
-            <div class="field"><label for="r-ilac">İlaç ya da özel bakım ihtiyacı</label><input id="r-ilac" name="ilac"></div>
-            <div class="field"><label for="r-alerji">Bilinen bir alerjisi var mı? <em>*</em></label><input id="r-alerji" name="alerji" required placeholder="Yoksa “yok” yazın"></div>
-          </div>
+          <fieldset>
+            <legend><span>01</span>Size nasıl ulaşalım?</legend>
+            <div class="form-grid">
+              <div class="field"><label for="r-ad">Adınız <em>*</em></label><input id="r-ad" name="ad" autocomplete="given-name" required></div>
+              <div class="field"><label for="r-soyad">Soyadınız</label><input id="r-soyad" name="soyad" autocomplete="family-name"></div>
+              <div class="field full"><label for="r-tel">Telefonunuz <em>*</em></label><input id="r-tel" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx" required></div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>02</span>Köpeğiniz ve tarihler</legend>
+            <div class="form-grid">
+              <div class="field full"><label for="r-kopek">Köpeğinizin adı ve cinsi <em>*</em></label><input id="r-kopek" name="kopek" required></div>
+              <div class="field"><label for="r-in">Giriş günü <em>*</em></label><input id="r-in" name="giris" type="date" required></div>
+              <div class="field"><label for="r-out">Çıkış günü <em>*</em></label><input id="r-out" name="cikis" type="date" required><span class="hint">Köpeğinizi teslim alacağınız gün.</span></div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>03</span>Bilmem gerekenler</legend>
+            <div class="form-grid">
+              <div class="field full"><label for="r-degisim">Son görüşmemizden bu yana sağlığında ya da davranışında bir değişiklik oldu mu?</label><textarea id="r-degisim" name="degisiklik"></textarea></div>
+              <div class="field"><label for="r-ilac">İlaç ya da özel bakım ihtiyacı</label><input id="r-ilac" name="ilac" placeholder="Varsa"></div>
+              <div class="field"><label for="r-alerji">Bilinen bir alerjisi var mı? <em>*</em></label><input id="r-alerji" name="alerji" required placeholder="Yoksa “yok” yazmanız yeterli"></div>
+            </div>
+          </fieldset>
           <div class="form-foot">
             <button class="btn primary" type="submit">Ön rezervasyon talebini gönder <span class="ar">→</span></button>
-            <p>Bilgileriniz yalnızca köpeğinizin bakımı ve sizinle iletişim için kullanılır.</p>
+            <p>Yıldızlı sorular zorunlu. Bilgileriniz yalnızca köpeğinizin bakımı ve sizinle iletişim için kullanılır.</p>
           </div>
-                    <div class="done" role="status"><strong>Teşekkürler, aldım.</strong><p>Tarihleri kontrol edip sizi arayacağım.</p></div>
+          <div class="done" role="status"><strong>Teşekkürler, aldım.</strong><p>Tarihleri kontrol edip sizi arayacağım.</p></div>
         </form>
       </div>
     </div>
