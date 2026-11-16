@@ -156,7 +156,7 @@ def footer(prefix):
         <a href="{p}tut.html">Temel Uyum Terapisi</a>
         <a href="{p}yazilar.html">Yazılar</a>
         <a href="{p}cv.html">CV</a>
-        <a href="https://okula.mehmetcihatkeles.com/">Köpeksel Bilgiler Okulası</a> <a href="https://www.linkedin.com/in/mckeles/" rel="noopener">LinkedIn</a>
+        <a href="/okula/">Köpeksel Bilgiler Okulası</a> <a href="https://www.linkedin.com/in/mckeles/" rel="noopener">LinkedIn</a>
       </nav>
       <small>© 2026 Mehmet Cihat Keleş · Powered and secured by Randle Patrick McMurphy</small>
     </div>
@@ -262,7 +262,7 @@ document.querySelectorAll('.fn').forEach(function(btn){btn.addEventListener('cli
     <div class="wrap">
       <p class="label">Yazılar</p>
       <h1>Okuduklarım, <b>düşündüklerim.</b></h1>
-      <p class="lead">Köpeklerin dışında kalan kişisel denemelerim burada. Köpekler üzerine yazdıklarımın hepsi <a href="https://okula.mehmetcihatkeles.com/">Köpeksel Bilgiler Okulası</a>'nda.</p>
+      <p class="lead">Köpeklerin dışında kalan kişisel denemelerim burada. Köpekler üzerine yazdıklarımın hepsi <a href="/okula/">Köpeksel Bilgiler Okulası</a>'nda.</p>
     </div>
   </section>
   <section class="list-body">
