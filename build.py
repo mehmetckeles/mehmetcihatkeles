@@ -24,7 +24,7 @@ from datetime import date
 ROOT = os.path.dirname(os.path.abspath(__file__))
 AYLAR = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"]
 FAVICON = "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23151515%27/%3E%3Crect x=%2710%27 y=%2734%27 width=%2744%27 height=%2714%27 fill=%27%23F3FF53%27/%3E%3Ctext x=%2732%27 y=%2745%27 text-anchor=%27middle%27 font-family=%27Poppins,Arial,sans-serif%27 font-weight=%27600%27 font-size=%2726%27 fill=%27%23F6F6F2%27%3Emck%3C/text%3E%3C/svg%3E"
-SITE = "https://www.mehmetcihatkeles.com"
+SITE = "https://mehmetcihatkeles.com"
 
 def tr_date(s):
     y, m, d = map(int, s.split("-"))
@@ -92,6 +92,12 @@ def head(title, desc, prefix, extra=""):
 <meta name="description" content="{html.escape(desc)}">
 <meta property="og:title" content="{html.escape(title)}">
 <meta property="og:description" content="{html.escape(desc)}">
+<meta property="og:image" content="https://mehmetcihatkeles.com/img/paylasim.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Mehmet Cihat Keleş">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F6F6F2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -147,7 +153,7 @@ def footer(prefix):
         <a href="{p}tut.html">Temel Uyum Terapisi</a>
         <a href="{p}yazilar.html">Yazılar</a>
         <a href="{p}cv.html">CV</a>
-        <a href="https://okula.mehmetcihatkeles.com/">Köpeksel Bilgiler Okulası</a>
+        <a href="https://okula.mehmetcihatkeles.com/">Köpeksel Bilgiler Okulası</a> <a href="https://www.linkedin.com/in/mckeles/" rel="noopener">LinkedIn</a>
       </nav>
       <small>© 2026 Mehmet Cihat Keleş · Powered and secured by Randle Patrick McMurphy</small>
     </div>

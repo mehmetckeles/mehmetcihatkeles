@@ -1,4 +1,4 @@
-:root{
+:root{color-scheme:light;
   --paper:#F6F6F2; --paper-2:#EEEEE8; --ink:#151515; --ink-2:#3A3A36; --muted:#6B6B64;
   --rule:#D9D9D1; --hl:#F3FF53; --hl-ink:#151515;
   --display:"Poppins",system-ui,sans-serif; --serif:"Lora",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
@@ -14,7 +14,7 @@
   --t-vitrin:clamp(2.35rem,8.4vw,4.8rem);   /* Sayfa açılış başlıkları */
   --wrap:1080px; --pad:clamp(20px,5vw,40px);
 }
-:root[data-theme="dark"]{
+:root[data-theme="dark"]{color-scheme:dark;
   --paper:#131312; --paper-2:#1C1C1A; --ink:#EDEDE6; --ink-2:#CFCFC7; --muted:#97978E;
   --rule:#2E2E2A;
 }
@@ -97,7 +97,7 @@ nav.main a:hover{color:var(--ink);border-bottom-color:var(--ink)}
 .price span{font-family:var(--mono);font-size:var(--t-etiket);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:500;font-size:var(--t-metin);
-  border-radius:99px;padding:13px 22px;border:1px solid var(--ink);transition:transform .15s,background .15s}
+  border-radius:99px;padding:13px 22px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:transform .15s,background .15s}
 .btn:active{transform:scale(.98)}
 .btn.primary{background:var(--hl);color:var(--hl-ink);border-color:var(--hl-ink)}
 :root[data-theme="dark"] .btn.primary{border-color:var(--hl)}
