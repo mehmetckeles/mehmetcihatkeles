@@ -40,7 +40,7 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
       if(gd){var y=Math.round(sub*gd/100);tot-=y;h+=row(g+' gece indirimi (%'+gd+')','−'+tl(y),'minus');}
       h+=row('Toplam',tl(tot),'total');
       h+='<p class="fine">Tutarı ön rezervasyondan sonra telefonda birlikte teyit ederiz.</p>';
-      if(g>0) h+='<div class="actions"><a class="btn ghost" href="'+rezLink+'?giris='+a+'&cikis='+b+'">Bu tarihlerle ön rezervasyon <span class="ar">→</span></a></div>';
+      h+='<div class="actions"><a class="btn ghost" href="'+rezLink+'?giris='+a+'&cikis='+b+'">'+(g>0?'Bu tarihlerle ön rezervasyon':'Bu gün için ön rezervasyon')+' <span class="ar">→</span></a></div>';
       res.innerHTML=h;
     }
     calc();

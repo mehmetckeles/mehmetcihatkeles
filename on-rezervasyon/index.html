@@ -22,6 +22,16 @@
 <link rel="stylesheet" href="../css/site.css">
 <link rel="stylesheet" href="../css/form.css">
 <style>.form-panel.flat{display:block;border:none;padding:0;margin-top:8px}</style>
+<style>
+.gunduz[hidden]{display:none}
+.gunduz{border:1px solid var(--rule);border-radius:14px;padding:16px 16px 18px;gap:10px}
+.ek-gunler{display:flex;flex-direction:column;gap:10px}
+.ek-gun{display:flex;gap:10px;align-items:center}
+.ek-gun input{flex:1;min-width:0}
+.ek-gun button{font:inherit;font-family:var(--display);font-size:var(--t-kucuk);color:var(--muted);background:none;border:0;padding:8px 4px;cursor:pointer}
+.ek-gun button:hover{color:var(--ink)}
+.ek-ekle{align-self:flex-start}
+</style>
 </head>
 <body>
 <header class="top" id="top">
@@ -77,6 +87,12 @@
               <div class="field full"><label for="r-kopek">Köpeğinizin adı ve cinsi <em>*</em></label><input id="r-kopek" name="kopek" required></div>
               <div class="field"><label for="r-in">Giriş günü <em>*</em></label><input id="r-in" name="giris" type="date" required></div>
               <div class="field"><label for="r-out">Çıkış günü <em>*</em></label><input id="r-out" name="cikis" type="date" required><span class="hint">Köpeğinizi teslim alacağınız gün.</span></div>
+<div class="field full gunduz" id="r-gunduz" hidden>
+<span class="lbl">Gündüz misafirliği</span>
+<span class="hint">Giriş ve çıkış aynı gün: köpeğiniz akşam evine dönüyor. Başka günler de gelecekse buraya ekleyebilirsiniz.</span>
+<div class="ek-gunler" id="r-ekgunler"></div>
+<button class="btn ghost ek-ekle" type="button" id="r-ekle">+ Bir gün daha ekle</button>
+</div>
             </div>
           </fieldset>
           <fieldset>

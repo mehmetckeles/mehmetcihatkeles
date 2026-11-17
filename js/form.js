@@ -7,7 +7,10 @@
   function gonder(f){
     var fd=new FormData(f), tur=f.dataset.form==='tanisma'?'Tanışma':'Ön rezervasyon', satir=[];
     Object.keys(ETIKET).forEach(function(k){var v=(fd.get(k)||'').toString().trim(); if(v) satir.push(ETIKET[k]+': '+v)});
-    var tarih=tur==='Tanışma'?(fd.get('konaklama_tarihleri')||''):(trTarih(fd.get('giris'))+' → '+trTarih(fd.get('cikis')));
+    var ek=fd.getAll('ek_gun').filter(Boolean).map(trTarih);
+    var ayniGun=tur!=='Tanışma'&&fd.get('giris')&&fd.get('giris')===fd.get('cikis');
+    var tarih=tur==='Tanışma'?(fd.get('konaklama_tarihleri')||''):(ayniGun?('Gündüz: '+[trTarih(fd.get('giris'))].concat(ek).join(', ')):(trTarih(fd.get('giris'))+' → '+trTarih(fd.get('cikis'))));
+    if(ayniGun&&ek.length) satir.unshift('Gündüz misafirliği günleri: '+[trTarih(fd.get('giris'))].concat(ek).join(', '));
     var p=new URLSearchParams();
     p.append(ALAN.tur,tur);
     p.append(ALAN.ad,((fd.get('ad')||'')+' '+(fd.get('soyad')||'')).trim());
@@ -20,6 +23,21 @@
   /* hesaplayıcıdan gelen tarihler */
   var u=new URLSearchParams(location.search);
   ['giris','cikis'].forEach(function(k){var el=document.querySelector('[name="'+k+'"]'); if(el&&u.get(k)) el.value=u.get(k)});
+
+  /* giriş ve çıkış aynı günse: gündüz misafirliği, birden çok gün eklenebilir */
+  var gIn=document.querySelector('[name="giris"]'), gOut=document.querySelector('[name="cikis"]'), kutu=document.getElementById('r-gunduz');
+  if(gIn&&gOut&&kutu){
+    var liste=document.getElementById('r-ekgunler');
+    function bak(){kutu.hidden=!(gIn.value&&gIn.value===gOut.value)}
+    gIn.addEventListener('change',bak);gOut.addEventListener('change',bak);gIn.addEventListener('input',bak);gOut.addEventListener('input',bak);bak();
+    document.getElementById('r-ekle').addEventListener('click',function(){
+      if(liste.children.length>=14) return;
+      var r=document.createElement('div'); r.className='ek-gun';
+      r.innerHTML='<input type="date" name="ek_gun" aria-label="Ek gün"><button type="button" aria-label="Bu günü çıkar">Çıkar</button>';
+      r.querySelector('button').addEventListener('click',function(){r.remove()});
+      liste.appendChild(r); r.querySelector('input').focus({preventScroll:true});
+    });
+  }
 
   document.querySelectorAll('form[data-form]').forEach(function(f){
     f.addEventListener('submit',function(e){
