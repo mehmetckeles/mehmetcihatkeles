@@ -52,7 +52,7 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
       var a=q('.c-in').value,b=q('.c-out').value,t=q('.c-time').value||'12:00';
       if(!a||!b){res.innerHTML='';kutu.hidden=true;return}
       var g=nights(a,b);
-      if(g<0){res.innerHTML='<p class="err">Çıkış günü, giriş gününden önce olamaz.</p>';return}
+      if(g<0){res.innerHTML='<p class="err">Alacağınız gün, bırakacağınız günden önce olamaz.</p>';return}
       var h='',per=0,sinir=FIYAT.teslimSiniri.replace(':','.');
       kutu.hidden=g!==0;
       var gunler=[a], kres=0;
@@ -61,14 +61,14 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
         gunler.sort();
         var k=gunler.length, aralik=nights(gunler[0],gunler[k-1]);
         per=k*FIYAT.gunduz;
-        h+=row(k===1?'Gündüz misafirliği · aynı gün teslim':k+' gün kreş × '+tl(FIYAT.gunduz),tl(per));
+        h+=row(k===1?'Gündüz misafirliği':k+' gün kreş × '+tl(FIYAT.gunduz),tl(per));
         kres=FIYAT.kresIndirimi(k,aralik);
         var kresNot=(k>=4&&!kres)?'<p class="fine">Dört günlük kreş indirimi, üç ay içindeki günlere uygulanır.</p>':'';
       }
       else{
         per=g*FIYAT.gece; h+=row(g+' gece × '+tl(FIYAT.gece),tl(g*FIYAT.gece));
-        if(t>FIYAT.teslimSiniri){per+=FIYAT.gunduz;h+=row('Çıkış günü '+sinir+' sonrası · gündüz misafirliği',tl(FIYAT.gunduz));}
-        else h+=row('Çıkış günü '+sinir+' öncesi teslim','0 TL');
+        if(t>FIYAT.teslimSiniri){per+=FIYAT.gunduz;h+=row(sinir+"'ten sonra alıyorsunuz · gündüz misafirliği",tl(FIYAT.gunduz));}
+        else h+=row(sinir+"'ten önce alıyorsunuz",'0 TL');
       }
       var sub=per*n, kd=FIYAT.kopekIndirimi(n), gd=g>0?FIYAT.geceIndirimi(g):0;
       if(n>1) h+=row(n+' köpek','× '+n);

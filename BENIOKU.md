@@ -29,3 +29,7 @@ Sitedeki bütün yazı boyutları `css/site.css` dosyasının başındaki dokuz 
 
 - Bağlantı WhatsApp, Instagram ya da başka bir yerde paylaşıldığında görünen görsel `img/paylasim.jpg` (1200×630). Değiştirmek için aynı adla yenisini koymak yeterli.
 - `sitemap.xml` ve `robots.txt` arama motorları için. Yeni bir yazı eklendiğinde `sitemap.xml`'e bir satır eklenir.
+
+## Dil
+
+Müşteriye dönük her kelime, müşterinin yerinden ve onun yaptığı işle yazılır; işletmenin iç terimi yazılmaz. Sitede bir zamanlar "Teslim saati" yazıyordu. Müşteri bunu "köpeğimi size teslim edeceğim saat" diye okudu, oysa kastedilen köpeği geri alacağı saatti. Bu yüzden hesaplamada ve formlarda "Bırakacağınız gün", "Alacağınız gün", "Alacağınız saat" yazar. Yeni bir metin eklerken şunu sorun: Bunu ilk kez okuyan biri kendi kafasında hangi sahneyi kuruyor?

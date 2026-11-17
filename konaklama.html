@@ -237,9 +237,9 @@ details.history[open] summary::after{content:"−"}
           <h3>Ücret hesaplama</h3>
           <p>Tarihleri girin, toplam tutarı görün.</p>
           <div class="grid-in">
-            <div class="field"><label for="c-in">Giriş günü</label><input type="date" id="c-in" class="c-in"></div>
-            <div class="field"><label for="c-out">Çıkış günü</label><input type="date" id="c-out" class="c-out"></div>
-            <div class="field"><label for="c-time">Teslim saati</label><input type="time" id="c-time" class="c-time" value="12:00" step="900"></div>
+            <div class="field"><label for="c-in">Bırakacağınız gün</label><input type="date" id="c-in" class="c-in"></div>
+            <div class="field"><label for="c-out">Alacağınız gün</label><input type="date" id="c-out" class="c-out"></div>
+            <div class="field"><label for="c-time">Alacağınız saat</label><input type="time" id="c-time" class="c-time" value="12:00" step="900"></div>
             <div class="field"><span class="lbl" id="c-n-l">Köpek sayısı</span>
               <div class="stepper" role="group" aria-labelledby="c-n-l">
                 <button type="button" data-step="-1" aria-label="Azalt">−</button><output class="c-n">1</output><button type="button" data-step="1" aria-label="Artır">+</button>
@@ -249,7 +249,7 @@ details.history[open] summary::after{content:"−"}
         </form>
 
         <div class="disc">
-          <span>· Çıkış günü 15.00'ten sonra teslim alırsanız o gün gündüz misafirliği olarak eklenir.</span>
+          <span>· Köpeğinizi 15.00'ten sonra alırsanız o gün gündüz misafirliği olarak eklenir.</span>
           <span>· 2 köpekte %10, 3 ve daha fazla köpekte %15 indirim.</span>
           <span>· 5–9 gecede %5, 10 gece ve üzerinde %10 indirim.</span>
         </div>
@@ -319,9 +319,9 @@ details.history[open] summary::after{content:"−"}
     <div class="sheet-head"><p class="label" id="hp-h">Ücret hesaplama</p><button class="menu-btn sheet-close" type="button" data-close-calc>Kapat</button></div>
     <form class="calc" novalidate data-calc data-rez="on-rezervasyon/" onsubmit="return false">
                     <div class="grid-in">
-            <div class="field"><label for="h-in">Giriş günü</label><input type="date" id="h-in" class="c-in"></div>
-            <div class="field"><label for="h-out">Çıkış günü</label><input type="date" id="h-out" class="c-out"></div>
-            <div class="field"><label for="h-time">Teslim saati</label><input type="time" id="h-time" class="c-time" value="12:00" step="900"></div>
+            <div class="field"><label for="h-in">Bırakacağınız gün</label><input type="date" id="h-in" class="c-in"></div>
+            <div class="field"><label for="h-out">Alacağınız gün</label><input type="date" id="h-out" class="c-out"></div>
+            <div class="field"><label for="h-time">Alacağınız saat</label><input type="time" id="h-time" class="c-time" value="12:00" step="900"></div>
             <div class="field"><span class="lbl" id="h-n-l">Köpek sayısı</span>
               <div class="stepper" role="group" aria-labelledby="h-n-l">
                 <button type="button" data-step="-1" aria-label="Azalt">−</button><output class="c-n">1</output><button type="button" data-step="1" aria-label="Artır">+</button>
