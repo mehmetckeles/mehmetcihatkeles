@@ -26,6 +26,13 @@
 
   /* giriş ve çıkış aynı günse: gündüz misafirliği, birden çok gün eklenebilir */
   var gIn=document.querySelector('[name="giris"]'), gOut=document.querySelector('[name="cikis"]'), kutu=document.getElementById('r-gunduz');
+  (function(){
+    if(!gIn||!gOut) return;
+    var t=new Date(), bugun=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+    gIn.min=bugun; gOut.min=gIn.value||bugun;
+    function ayarla(){ if(!gIn.value) return; gOut.min=gIn.value; if(gOut.value&&gOut.value<gIn.value) gOut.value=gIn.value; }
+    gIn.addEventListener('change',ayarla); gIn.addEventListener('input',ayarla);
+  })();
   if(gIn&&gOut&&kutu){
     var liste=document.getElementById('r-ekgunler');
     function bak(){kutu.hidden=!(gIn.value&&gIn.value===gOut.value)}
@@ -33,7 +40,7 @@
     function ekle(deger){
       if(liste.children.length>=14) return;
       var r=document.createElement('div'); r.className='ek-gun';
-      r.innerHTML='<input type="date" name="ek_gun" aria-label="Ek gün"><button type="button" aria-label="Bu günü çıkar">Çıkar</button>';
+      r.innerHTML='<input type="date" name="ek_gun" aria-label="Ek gün" min="'+gIn.min+'"><button type="button" aria-label="Bu günü çıkar">Çıkar</button>';
       r.querySelector('button').addEventListener('click',function(){r.remove()});
       liste.appendChild(r);
       if(deger) r.querySelector('input').value=deger; else r.querySelector('input').focus({preventScroll:true});
