@@ -30,8 +30,10 @@
     if(!gIn||!gOut) return;
     var t=new Date(), bugun=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
     gIn.min=bugun; gOut.min=gIn.value||bugun;
-    function ayarla(){ if(!gIn.value) return; gOut.min=gIn.value; if(gOut.value&&gOut.value<gIn.value) gOut.value=gIn.value; }
+    var elle=!!gOut.value;
+    function ayarla(){ if(!gIn.value) return; gOut.min=gIn.value; if(!elle||!gOut.value||gOut.value<gIn.value){gOut.value=gIn.value;gOut.dispatchEvent(new Event('change'));} }
     gIn.addEventListener('change',ayarla); gIn.addEventListener('input',ayarla);
+    gOut.addEventListener('input',function(){ if(gOut.value) elle=true; });
   })();
   if(gIn&&gOut&&kutu){
     var liste=document.getElementById('r-ekgunler');

@@ -33,26 +33,24 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
     root.querySelectorAll('[data-step]').forEach(function(b){b.addEventListener('click',function(){
       n=Math.min(10,Math.max(1,n+(+b.dataset.step))); out.textContent=n; calc();})});
     ['.c-in','.c-out','.c-time'].forEach(function(c){q(c).addEventListener('input',calc);q(c).addEventListener('change',calc)});
-    var d=new Date(); d.setDate(d.getDate()+1); q('.c-in').value=iso(d);
-    var d2=new Date(d); d2.setDate(d2.getDate()+3); q('.c-out').value=iso(d2);
-    /* geçmiş gün seçilemez; çıkış, girişten önce olamaz. Giriş değişince çıkış aradaki gece sayısını koruyarak kayar */
-    var bugun=iso(new Date()); q('.c-in').min=bugun; q('.c-out').min=q('.c-in').value;
-    var oncekiGiris=q('.c-in').value;
+    /* tarihler boş başlar; kişinin yerine karar vermeyiz.
+       Giriş seçilince çıkış aynı güne gelir; çıkışa kişi dokunmadıkça girişi izler.
+       Kişi çıkışı kendisi seçtiyse yalnızca girişten önceye düşerse girişe çekilir. Geçmiş gün seçilemez. */
+    var bugun=iso(new Date()), cikisElle=false;
+    q('.c-in').min=bugun; q('.c-out').min=bugun;
+    function cikisDegisti(){ if(q('.c-out').value) cikisElle=true; }
     function girisDegisti(){
       var a=q('.c-in').value, o=q('.c-out');
       if(!a) return;
       o.min=a;
-      if(o.value && o.value<a){
-        var ara=oncekiGiris&&o.value>=oncekiGiris?nights(oncekiGiris,o.value):0;
-        var x=new Date(a+'T12:00'); x.setDate(x.getDate()+ara); o.value=iso(x);
-      }
-      oncekiGiris=a; calc();
-      [].forEach.call(root.querySelectorAll('.c-ek input'),function(i){i.min=bugun});
+      if(!cikisElle || !o.value || o.value<a) o.value=a;
+      calc();
     }
+    q('.c-out').addEventListener('change',cikisDegisti); q('.c-out').addEventListener('input',cikisDegisti);
     q('.c-in').addEventListener('change',girisDegisti); q('.c-in').addEventListener('input',girisDegisti);
     function calc(){
       var a=q('.c-in').value,b=q('.c-out').value,t=q('.c-time').value||'12:00';
-      if(!a||!b){res.innerHTML='';return}
+      if(!a||!b){res.innerHTML='';kutu.hidden=true;return}
       var g=nights(a,b);
       if(g<0){res.innerHTML='<p class="err">Çıkış günü, giriş gününden önce olamaz.</p>';return}
       var h='',per=0,sinir=FIYAT.teslimSiniri.replace(':','.');
