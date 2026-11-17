@@ -30,13 +30,16 @@
     var liste=document.getElementById('r-ekgunler');
     function bak(){kutu.hidden=!(gIn.value&&gIn.value===gOut.value)}
     gIn.addEventListener('change',bak);gOut.addEventListener('change',bak);gIn.addEventListener('input',bak);gOut.addEventListener('input',bak);bak();
-    document.getElementById('r-ekle').addEventListener('click',function(){
+    function ekle(deger){
       if(liste.children.length>=14) return;
       var r=document.createElement('div'); r.className='ek-gun';
       r.innerHTML='<input type="date" name="ek_gun" aria-label="Ek gün"><button type="button" aria-label="Bu günü çıkar">Çıkar</button>';
       r.querySelector('button').addEventListener('click',function(){r.remove()});
-      liste.appendChild(r); r.querySelector('input').focus({preventScroll:true});
-    });
+      liste.appendChild(r);
+      if(deger) r.querySelector('input').value=deger; else r.querySelector('input').focus({preventScroll:true});
+    }
+    document.getElementById('r-ekle').addEventListener('click',function(){ekle()});
+    (u.get('ek')||'').split(',').filter(function(x){return /^\d{4}-\d{2}-\d{2}$/.test(x)}).forEach(ekle);
   }
 
   document.querySelectorAll('form[data-form]').forEach(function(f){

@@ -95,3 +95,13 @@
 .sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .sheet-head .grab{width:40px;height:4px;border-radius:2px;background:var(--rule);position:absolute;top:8px;left:50%;transform:translateX(-50%)}
 .calc-sheet .calc{margin-top:8px;border:none;padding:0}
+
+/* kreş: birden çok gün */
+.c-gunler{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.c-gunler[hidden]{display:none}
+.c-ek,.ek-gunler{display:flex;flex-direction:column;gap:10px}
+.ek-gun{display:flex;gap:10px;align-items:center}
+.ek-gun input{flex:1;min-width:0;font:inherit;font-family:var(--display);font-size:var(--t-metin);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:11px 13px;min-height:48px;-webkit-appearance:none;appearance:none}
+.ek-gun button{font:inherit;font-family:var(--display);font-size:var(--t-kucuk);color:var(--muted);background:none;border:0;padding:8px 4px;cursor:pointer}
+.ek-gun button:hover{color:var(--ink)}
+.ek-ekle{align-self:flex-start}
