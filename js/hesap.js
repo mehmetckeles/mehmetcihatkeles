@@ -25,7 +25,7 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
     kutu.querySelector('.ek-ekle').addEventListener('click',function(){
       if(ekListe.children.length>=14) return;
       var r=document.createElement('div'); r.className='ek-gun';
-      r.innerHTML='<input type="date" aria-label="Kreş günü" min="'+iso(new Date())+'"><button type="button" aria-label="Bu günü çıkar">Çıkar</button>';
+      r.innerHTML='<input type="date" aria-label="Kreş günü"'+(('odeme' in root.dataset)?'':' min="'+iso(new Date())+'"')+'><button type="button" aria-label="Bu günü çıkar">Çıkar</button>';
       r.querySelector('input').addEventListener('change',calc); r.querySelector('input').addEventListener('input',calc);
       r.querySelector('button').addEventListener('click',function(){r.remove();calc()});
       ekListe.appendChild(r); r.querySelector('input').focus({preventScroll:true});
@@ -37,7 +37,8 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
        Giriş seçilince çıkış aynı güne gelir; çıkışa kişi dokunmadıkça girişi izler.
        Kişi çıkışı kendisi seçtiyse yalnızca girişten önceye düşerse girişe çekilir. Geçmiş gün seçilemez. */
     var bugun=iso(new Date()), cikisElle=false;
-    q('.c-in').min=bugun; q('.c-out').min=bugun;
+    var gecmisSerbest='odeme' in root.dataset; /* ödeme sayfasında geçmiş konaklama da hesaplanır */
+    if(!gecmisSerbest){q('.c-in').min=bugun; q('.c-out').min=bugun;}
     function cikisDegisti(){ if(q('.c-out').value) cikisElle=true; }
     function girisDegisti(){
       var a=q('.c-in').value, o=q('.c-out');
@@ -79,9 +80,9 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
       if(kres){var z=Math.round(sub*kres/100);tot-=z;h+=row(gunler.length+' günlük kreş indirimi (%'+kres+')','−'+tl(z),'minus');}
       h+=row('Toplam',tl(tot),'total');
       if(g===0&&kresNot) h+=kresNot;
-      h+='<p class="fine">Tutarı ön rezervasyondan sonra telefonda birlikte teyit ederiz.</p>';
+      if(!('odeme' in root.dataset)) h+='<p class="fine">Tutarı ön rezervasyondan sonra telefonda birlikte teyit ederiz.</p>';
       var ekq=(g===0&&gunler.length>1)?'&ek='+gunler.filter(function(x){return x!==a}).join(','):'';
-      h+='<div class="actions"><a class="btn ghost" href="'+rezLink+'?giris='+a+'&cikis='+b+ekq+'">'+(g>0?'Bu tarihlerle ön rezervasyon':(gunler.length>1?'Bu günler için ön rezervasyon':'Bu gün için ön rezervasyon'))+' <span class="ar">→</span></a></div>';
+      if(!('odeme' in root.dataset)) h+='<div class="actions"><a class="btn ghost" href="'+rezLink+'?giris='+a+'&cikis='+b+ekq+'">'+(g>0?'Bu tarihlerle ön rezervasyon':(gunler.length>1?'Bu günler için ön rezervasyon':'Bu gün için ön rezervasyon'))+' <span class="ar">→</span></a></div>';
       res.innerHTML=h;
     }
     calc();
