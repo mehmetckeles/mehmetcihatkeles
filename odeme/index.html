@@ -40,6 +40,22 @@
 .karar-sonuc{margin-top:14px;padding-top:4px;border-top:1px solid var(--rule)}
 .result .row.karar-son{border-top:none;margin-top:4px;padding-top:12px}
 .karar-metin{margin-top:10px;color:var(--ink-2);font-size:var(--t-metin);line-height:1.65}
+.adim{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:500;font-size:var(--t-giris);color:var(--ink)}
+.adim span{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:var(--t-kucuk);font-weight:600;flex:none}
+.tutar-blok{padding-top:4px}
+.tutar-satir{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-top:12px;flex-wrap:wrap}
+.tutar strong{display:block;font-family:var(--display);font-weight:600;font-size:clamp(2rem,9vw,2.6rem);letter-spacing:-.02em;line-height:1.05;color:var(--ink)}
+.tutar s{display:block;margin-top:4px;font-family:var(--display);font-size:var(--t-metin);color:var(--muted)}
+.karar{margin:2px 0 0}
+.dokum{margin-top:18px;border-top:1px solid var(--rule);padding-top:10px}
+.dokum summary{cursor:pointer;font-family:var(--display);font-size:var(--t-kucuk);color:var(--muted);padding:6px 0;list-style:none}
+.dokum summary::-webkit-details-marker{display:none}
+.dokum summary::before{content:'+ '}
+.dokum[open] summary::before{content:'− '}
+.kopyalar [hidden]{display:none}
+.kopyalar{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.hesap .kopyalar .kopyala{margin-top:0}
+#gonder dd span{font-size:clamp(1.4rem,6vw,1.7rem);font-weight:600}
 </style>
 </head>
 <body>
@@ -84,7 +100,7 @@
 
 <div class="odeme-grid">
 <form class="calc" novalidate data-calc data-odeme onsubmit="return false">
-  <h3>Ücret hesaplama</h3>
+  <p class="adim"><span>1</span>Tarihleri girin</p>
   <p>Köpeğinizi bıraktığınız günü, aldığınız gün ile saati girin.</p>
   <div class="grid-in">
     <div class="field"><label for="c-in">Bıraktığınız gün</label><input type="date" id="c-in" class="c-in"></div>
@@ -99,13 +115,14 @@
 </form>
 
 <section class="hesap" aria-labelledby="hesap-h">
-  <p class="label" id="hesap-h">Hesap bilgileri</p>
+  <p class="adim" id="hesap-h"><span>3</span>Ödeme</p>
   <dl>
+    <div id="gonder" hidden><dt>Gönderilecek tutar</dt><dd><span id="gonder-tutar"></span></dd></div>
     <div><dt>Alıcı</dt><dd>Mehmet Cihat Keleş</dd></div>
     <div><dt>Banka</dt><dd>Türk Ekonomi Bankası TEB</dd></div>
     <div><dt>IBAN</dt><dd><span class="iban" id="iban">TR76 0003 2000 0000 0075 0022 51</span></dd></div>
   </dl>
-  <button class="btn ghost kopyala" type="button" id="kopyala">IBAN’ı kopyala</button>
+  <div class="kopyalar"><button class="btn ghost kopyala" type="button" id="kopyala">IBAN’ı kopyala</button><button class="btn ghost kopyala" type="button" id="kopyala-tutar" hidden>Tutarı kopyala</button></div>
 </section>
 </div>
 </div>
@@ -131,11 +148,19 @@
 <script src="../js/hesap.js"></script>
 <script>
 (function(){
-  var b=document.getElementById('kopyala'), iban='TR760003200000000075002251', yazi=b.textContent;
-  function tamam(){b.textContent='Kopyalandı';setTimeout(function(){b.textContent=yazi},1800)}
-  b.addEventListener('click',function(){
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(iban).then(tamam,eski)}else eski();
-    function eski(){var t=document.createElement('textarea');t.value=iban;t.setAttribute('readonly','');t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');tamam()}catch(e){}t.remove()}
+  var tutar=null;
+  function kopyala(btn,metin){
+    var yazi=btn.textContent;
+    function tamam(){btn.textContent='Kopyalandı';setTimeout(function(){btn.textContent=yazi},1800)}
+    function eski(){var t=document.createElement('textarea');t.value=metin;t.setAttribute('readonly','');t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');tamam()}catch(e){}t.remove()}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(metin).then(tamam,eski)}else eski();
+  }
+  document.getElementById('kopyala').addEventListener('click',function(){kopyala(this,'TR760003200000000075002251')});
+  var kt=document.getElementById('kopyala-tutar'), g=document.getElementById('gonder'), gt=document.getElementById('gonder-tutar');
+  kt.addEventListener('click',function(){ if(tutar!==null) kopyala(this,String(tutar)); });
+  document.addEventListener('odeme-tutar',function(e){
+    var d=e.detail; tutar=d?d.tutar:null;
+    g.hidden=kt.hidden=!d; if(d) gt.textContent=d.yazi;
   });
 })();
 </script>

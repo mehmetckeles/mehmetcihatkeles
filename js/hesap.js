@@ -58,9 +58,9 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
     q('.c-in').addEventListener('change',girisDegisti); q('.c-in').addEventListener('input',girisDegisti);
     function calc(){
       var a=q('.c-in').value,b=q('.c-out').value,t=q('.c-time').value||'12:00';
-      if(!a||!b){res.innerHTML='';kutu.hidden=true;return}
+      if(!a||!b){res.innerHTML='';kutu.hidden=true;if(odeme)document.dispatchEvent(new CustomEvent('odeme-tutar',{detail:null}));return}
       var g=nights(a,b);
-      if(g<0){res.innerHTML='<p class="err">Alacağınız gün, bırakacağınız günden önce olamaz.</p>';return}
+      if(g<0){if(odeme)document.dispatchEvent(new CustomEvent('odeme-tutar',{detail:null}));res.innerHTML='<p class="err">Alacağınız gün, bırakacağınız günden önce olamaz.</p>';return}
       var h='',per=0,sinir=FIYAT.teslimSiniri.replace(':','.');
       kutu.hidden=g!==0;
       var gunler=[a], kres=0;
@@ -85,26 +85,30 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
       if(kd){var x=Math.round(sub*kd/100);tot-=x;h+=row(n+' köpek indirimi (%'+kd+')','−'+tl(x),'minus');}
       if(gd){var y=Math.round(sub*gd/100);tot-=y;h+=row(g+' gece indirimi (%'+gd+')','−'+tl(y),'minus');}
       if(kres){var z=Math.round(sub*kres/100);tot-=z;h+=row(gunler.length+' günlük kreş indirimi (%'+kres+')','−'+tl(z),'minus');}
-      h+=row('Toplam',tl(tot),'total');
+      if(!odeme) h+=row('Toplam',tl(tot),'total');
       if(odeme){
+        /* ödeme sayfası: tek büyük rakam, döküm kapalı, − / + rakamın yanında */
         var son=Math.round(tot*(100+oran)/100), isaret=oran>0?'+%'+oran:'−%'+(-oran);
-        h+='<div class="karar">'
-          +(oran!==0?'<output class="karar-oran">'+isaret+'</output>':'')
+        var dokum='<details class="dokum"><summary>Hesap dökümü</summary>'+h+row('Toplam',tl(tot),'total')+'</details>';
+        h='<div class="tutar-blok">'
+          +'<p class="adim"><span>2</span>Ödeyeceğiniz tutar</p>'
+          +'<div class="tutar-satir"><div class="tutar"><strong>'+tl(son)+'</strong>'+(oran!==0?'<s>'+tl(tot)+'</s>':'')+'</div>'
+          +'<div class="karar">'+(oran!==0?'<output class="karar-oran">'+isaret+'</output>':'')
           +'<button type="button" class="karar-btn" data-karar="-1" aria-label="Tutarı %5 azalt"'+(oran<=FIYAT.karar.alt?' disabled':'')+'>−</button>'
           +'<button type="button" class="karar-btn" data-karar="1" aria-label="Tutarı %5 artır"'+(oran>=FIYAT.karar.ust?' disabled':'')+'>+</button>'
-          +'</div>';
-        if(oran!==0){
-          h+='<div class="karar-sonuc">'+row('Ödeyeceğiniz tutar',tl(son),'total karar-son')
-            +(oran<0?'<p class="karar-metin">Hesaplanan tutarın %'+(-oran)+' altında: '+tl(tot-son)+' eksik. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor. Bu seçenek, ücreti kendi koşullarınıza göre ayarlayabilmeniz için var.</p>'
-              :'<p class="karar-metin">Hesaplanan tutarın %'+oran+' üzerinde: '+tl(son-tot)+' fazla. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor; aradaki fark da bu giderlere ekleniyor.</p>')
-            +'</div>';
-        }
+          +'</div></div>'
+          +(oran<0?'<p class="karar-metin">Hesaplanan tutarın %'+(-oran)+' altında: '+tl(tot-son)+' eksik. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor. Bu seçenek, ücreti kendi koşullarınıza göre ayarlayabilmeniz için var.</p>'
+            :oran>0?'<p class="karar-metin">Hesaplanan tutarın %'+oran+' üzerinde: '+tl(son-tot)+' fazla. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor; aradaki fark da bu giderlere ekleniyor.</p>':'')
+          +'</div>'+dokum;
+        document.dispatchEvent(new CustomEvent('odeme-tutar',{detail:{tutar:son,yazi:tl(son)}}));
       }
       if(g===0&&kresNot) h+=kresNot;
       if(!('odeme' in root.dataset)) h+='<p class="fine">Tutarı ön rezervasyondan sonra telefonda birlikte teyit ederiz.</p>';
       var ekq=(g===0&&gunler.length>1)?'&ek='+gunler.filter(function(x){return x!==a}).join(','):'';
       if(!('odeme' in root.dataset)) h+='<div class="actions"><a class="btn ghost" href="'+rezLink+'?giris='+a+'&cikis='+b+ekq+'">'+(g>0?'Bu tarihlerle ön rezervasyon':(gunler.length>1?'Bu günler için ön rezervasyon':'Bu gün için ön rezervasyon'))+' <span class="ar">→</span></a></div>';
+      var dk=res.querySelector('.dokum'), dkAcik=dk&&dk.open;
       res.innerHTML=h;
+      if(dkAcik&&res.querySelector('.dokum')) res.querySelector('.dokum').open=true;
     }
     calc();
   }
