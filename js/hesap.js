@@ -3,6 +3,8 @@
 var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
   /* kreş: üç ay içinde en az 4 gün planlayan ailelere */
   kresIndirimi:function(gun,aralik){return (gun>=4&&aralik<=92)?20:0},
+  /* ödeme sayfasında kişinin kendi kararı: %5'lik adımlarla −%5 ile +%20 arası */
+  karar:{adim:5,alt:-5,ust:20},
   kopekIndirimi:function(n){return n>=3?15:(n===2?10:0)},
   geceIndirimi:function(g){return g>=10?10:(g>=5?5:0)}};
 
@@ -17,6 +19,11 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
   function init(root){
     var q=function(c){return root.querySelector(c)};
     var n=1, out=q('.c-n'), res=q('.c-res'), rezLink=root.dataset.rez||'on-rezervasyon/';
+    var oran=0, odeme=('odeme' in root.dataset);
+    if(odeme) res.addEventListener('click',function(e){
+      var b=e.target.closest('[data-karar]'); if(!b) return;
+      oran=Math.min(FIYAT.karar.ust,Math.max(FIYAT.karar.alt,oran+(+b.dataset.karar)*FIYAT.karar.adim)); calc();
+    });
     /* aynı gün seçilince: kreş için başka günler eklenebilir */
     var kutu=document.createElement('div'); kutu.className='c-gunler'; kutu.hidden=true;
     kutu.innerHTML='<div class="c-ek"></div><button type="button" class="btn ghost ek-ekle">+ Bir gün daha ekle</button>';
@@ -79,6 +86,19 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
       if(gd){var y=Math.round(sub*gd/100);tot-=y;h+=row(g+' gece indirimi (%'+gd+')','−'+tl(y),'minus');}
       if(kres){var z=Math.round(sub*kres/100);tot-=z;h+=row(gunler.length+' günlük kreş indirimi (%'+kres+')','−'+tl(z),'minus');}
       h+=row('Toplam',tl(tot),'total');
+      if(odeme){
+        var son=Math.round(tot*(100+oran)/100), isaret=oran>0?'+%'+oran:(oran<0?'−%'+(-oran):'%0');
+        h+='<div class="karar">'
+
+          +'<div class="stepper karar-adim" role="group" aria-label="Tutarı değiştir">'
+          +'<button type="button" data-karar="-1" aria-label="%5 azalt"'+(oran<=FIYAT.karar.alt?' disabled':'')+'>−</button>'
+          +'<output>'+isaret+'</output>'
+          +'<button type="button" data-karar="1" aria-label="%5 artır"'+(oran>=FIYAT.karar.ust?' disabled':'')+'>+</button></div>'
+          +row('Ödeyeceğiniz tutar',tl(son),'total karar-son')
+          +(oran<0?'<p class="karar-metin">Hesaplanan tutarın %'+(-oran)+' altında: '+tl(tot-son)+' eksik. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor. Bu seçenek, ücreti kendi koşullarınıza göre ayarlayabilmeniz için var.</p>'
+            :oran>0?'<p class="karar-metin">Hesaplanan tutarın %'+oran+' üzerinde: '+tl(son-tot)+' fazla. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor; aradaki fark da bu giderlere ekleniyor.</p>':'')
+          +'</div>';
+      }
       if(g===0&&kresNot) h+=kresNot;
       if(!('odeme' in root.dataset)) h+='<p class="fine">Tutarı ön rezervasyondan sonra telefonda birlikte teyit ederiz.</p>';
       var ekq=(g===0&&gunler.length>1)?'&ek='+gunler.filter(function(x){return x!==a}).join(','):'';
