@@ -1,0 +1,166 @@
+# Ücret hesaplama, formlar ve ödeme sayfası için uçtan uca test.
+# Çalıştırma: depo klasöründe 'python3 -m http.server 8767' açıkken 'python3 _testler/hesap_testi.py'.
+# Google Form'a gerçek talep gitmez; gönderimler test sırasında yakalanır.
+# Tarihler testin çalıştığı güne göre kurulur; fiyatlar değişirse beklenen rakamlar da güncellenmeli.
+import json, urllib.parse, datetime as dt
+from playwright.sync_api import sync_playwright
+BASE='http://localhost:8767'
+SONUC=[]
+def ok(ad,kosul,ayrinti=''):
+    SONUC.append((ad,bool(kosul),ayrinti)); print(('GEÇTİ ' if kosul else 'HATA  ')+ad+(' — '+str(ayrinti) if ayrinti else ''))
+def rows(f): return [r.inner_text().replace('\n',' | ') for r in f.locator('.c-res .row').all()]
+def val(f,label):
+    for r in f.locator('.c-res .row').all():
+        t=r.inner_text().split('\n')
+        if t[0].startswith(label): return t[-1]
+    return None
+TODAY=dt.date.today(); D=lambda n:(TODAY+dt.timedelta(days=n)).isoformat()
+with sync_playwright() as p:
+    b=p.chromium.launch(executable_path='/usr/bin/google-chrome')
+    ctx=b.new_context(viewport={'width':390,'height':844},permissions=['clipboard-read','clipboard-write'])
+    errs=[]
+    def page():
+        pg=ctx.new_page(); pg.on('pageerror',lambda e:errs.append(str(e)))
+        sent=[]; pg.route('**/formResponse',lambda r:(sent.append(r.request.post_data),r.fulfill(status=200,body=''))); pg.sent=sent
+        return pg
+    # ---------- KONAKLAMA (açılır panel) ----------
+    pg=page(); pg.goto(BASE+'/konaklama.html#hesapla'); pg.wait_for_timeout(700)
+    f=pg.locator('#hesap-panel form.calc'); I,O,T=f.locator('.c-in'),f.locator('.c-out'),f.locator('.c-time')
+    ok('Konaklama: tarihler boş açılır', I.input_value()=='' and O.input_value()=='')
+    ok('Konaklama: sonuç alanı boş', f.locator('.c-res').inner_text().strip()=='')
+    ok('Konaklama: geçmiş gün seçilemez (min=bugün)', I.get_attribute('min')==TODAY.isoformat(), I.get_attribute('min'))
+    I.fill(D(10)); pg.wait_for_timeout(80)
+    ok('Bırakılan gün seçilince alınan gün aynı güne gelir', O.input_value()==D(10))
+    ok('Aynı gün: gündüz misafirliği 1.900 TL', val(f,'Toplam')=='1.900 TL', rows(f))
+    ok('Aynı gün: "+ Bir gün daha ekle" görünür', f.locator('.c-gunler').is_visible())
+    ok('Aynı gün: düğme "Bu gün için ön rezervasyon"', 'Bu gün için' in f.locator('.c-res a.btn').inner_text())
+    I.fill(D(12)); pg.wait_for_timeout(80)
+    ok('Alınan güne dokunulmadıysa bırakılan günü izler', O.input_value()==D(12))
+    O.fill(D(15)); pg.wait_for_timeout(80)
+    ok('3 gece, 12:00: 7.650 TL', val(f,'Toplam')=='7.650 TL', rows(f))
+    ok('3 gece: "15.00\'ten önce alıyorsunuz 0 TL"', any("15.00'ten önce alıyorsunuz | 0 TL" in r for r in rows(f)))
+    ok('Geceli konaklamada kreş kutusu gizli', not f.locator('.c-gunler').is_visible())
+    T.fill('18:00'); pg.wait_for_timeout(80)
+    ok('3 gece, 18:00: +1.900 gündüz = 9.550 TL', val(f,'Toplam')=='9.550 TL', rows(f))
+    T.fill('12:00'); I.fill(D(13)); pg.wait_for_timeout(80)
+    ok('Alınan gün elle seçildiyse giriş değişince yerinde kalır', O.input_value()==D(15))
+    I.fill(D(20)); pg.wait_for_timeout(80)
+    ok('Giriş, alınan günün ötesine geçerse alınan gün girişe çekilir', O.input_value()==D(20))
+    I.fill(D(10)); O.fill(D(15)); pg.wait_for_timeout(80)
+    ok('5 gece: %5 indirim → 12.112 TL', val(f,'Toplam')=='12.112 TL' and val(f,'5 gece ve üzeri indirimi (%5)')=='−638 TL', rows(f))
+    O.fill(D(20)); pg.wait_for_timeout(80)
+    ok('10 gece: %10 indirim → 22.950 TL', val(f,'Toplam')=='22.950 TL' and val(f,'10 gece ve üzeri indirimi (%10)')=='−2.550 TL', rows(f))
+    O.fill(D(13)); f.locator('[data-step="1"]').click(); pg.wait_for_timeout(80)
+    ok('2 köpek, 3 gece: %10 → 13.770 TL', val(f,'Toplam')=='13.770 TL' and val(f,'2 köpek indirimi (%10)')=='−1.530 TL', rows(f))
+    f.locator('[data-step="1"]').click(); O.fill(D(16)); pg.wait_for_timeout(80)
+    ok('3 köpek, 6 gece: %15 + %5 → 36.720 TL', val(f,'Toplam')=='36.720 TL', rows(f))
+    for _ in range(12): f.locator('[data-step="1"]').click()
+    ok('Köpek sayısı en fazla 10', f.locator('.c-n').inner_text()=='10')
+    for _ in range(12): f.locator('[data-step="-1"]').click()
+    ok('Köpek sayısı en az 1', f.locator('.c-n').inner_text()=='1')
+    # kreş
+    I.fill(D(30)); O.fill(D(30)); pg.wait_for_timeout(80)
+    def ekle(d):
+        f.locator('.ek-ekle').click(); f.locator('.c-ek input').last.fill(d); pg.wait_for_timeout(60)
+    ekle(D(32)); ekle(D(37))
+    ok('Kreş 3 gün: 5.700 TL, indirim yok', val(f,'Toplam')=='5.700 TL', rows(f))
+    ekle(D(32))
+    ok('Aynı gün iki kez eklenirse bir kez sayılır', val(f,'Toplam')=='5.700 TL', rows(f))
+    f.locator('.c-ek input').last.fill(D(44)); pg.wait_for_timeout(80)
+    ok('Kreş 4 gün (3 ay içinde): %20 → 6.080 TL', val(f,'Toplam')=='6.080 TL' and val(f,'4 gün ve üzeri kreş indirimi (%20)')=='−1.520 TL', rows(f))
+    btn=f.locator('.c-res a.btn'); href=btn.get_attribute('href')
+    ok('Kreş: düğme "Bu günler için ön rezervasyon", ek günler bağlantıda', 'Bu günler için' in btn.inner_text() and 'ek=' in href, href)
+    f.locator('[data-step="1"]').click(); pg.wait_for_timeout(80)
+    ok('Kreş 4 gün, 2 köpek: %10 + %20 → 10.640 TL', val(f,'Toplam')=='10.640 TL', rows(f))
+    f.locator('[data-step="-1"]').click()
+    f.locator('.c-ek input').last.fill(D(140)); pg.wait_for_timeout(80)
+    ok('Kreş 4 gün ama 3 aydan geniş: indirim yok, not çıkar', val(f,'Toplam')=='7.600 TL' and 'üç ay içindeki' in f.locator('.c-res').inner_text(), rows(f))
+    f.locator('.c-ek .ek-gun button').last.click(); pg.wait_for_timeout(80)
+    ok('"Çıkar" ile gün silinir', val(f,'Toplam')=='5.700 TL', rows(f))
+    ok('Eklenen kreş günlerinde de geçmiş seçilemez', f.locator('.c-ek input').first.get_attribute('min')==TODAY.isoformat())
+    # sayfadaki ikinci hesaplayıcı da çalışıyor mu
+    f2=pg.locator('#ucret form.calc'); f2.locator('.c-in').fill(D(10)); f2.locator('.c-out').fill(D(13)); pg.wait_for_timeout(80)
+    ok('Konaklama sayfasındaki ikinci (sayfa içi) hesaplayıcı da çalışır', val(f2,'Toplam')=='7.650 TL')
+    # ---------- ÜCRET SAYFASI ----------
+    pg=page(); pg.goto(BASE+'/ucret/'); pg.wait_for_timeout(600)
+    f=pg.locator('form.calc'); f.locator('.c-in').fill(D(10)); f.locator('.c-out').fill(D(13)); pg.wait_for_timeout(80)
+    ok('Ücret sayfası: hesap 7.650 TL', val(f,'Toplam')=='7.650 TL')
+    h=f.locator('.c-res a.btn').get_attribute('href')
+    ok('Ücret sayfası: ön rezervasyon bağlantısı doğru', h.startswith('../on-rezervasyon/?giris='+D(10)), h)
+    ok('Ücret sayfası: tanışma ve ön rezervasyon kartları', pg.locator('a[href="../tanisma-gorusmesi/"]').count()==1 and pg.locator('.paths a[href="../on-rezervasyon/"]').count()==1)
+    ok('Ücret sayfasında ödeme aracı yok', f.locator('.karar').count()==0)
+    # ---------- ÖN REZERVASYON ----------
+    pg=page(); pg.goto(BASE+'/on-rezervasyon/?giris='+D(30)+'&cikis='+D(30)+'&ek='+D(32)+','+D(37)+','+D(44)); pg.wait_for_timeout(600)
+    ok('Form: hesaplayıcıdan tarihler gelir', pg.input_value('#r-in')==D(30) and pg.input_value('#r-out')==D(30))
+    ok('Form: ek kreş günleri gelir', [i.input_value() for i in pg.locator('#r-ekgunler input').all()]==[D(32),D(37),D(44)])
+    ok('Form: gündüz kutusu görünür', pg.locator('#r-gunduz').is_visible())
+    pg.click('button[type=submit]'); pg.wait_for_timeout(200)
+    ok('Form: zorunlu alan eksikse uyarı çıkar, gönderilmez', pg.locator('.warn').is_visible() and len(pg.sent)==0, pg.inner_text('.warn'))
+    pg.fill('#r-ad','Test'); pg.fill('#r-tel','05000000000'); pg.fill('#r-kopek','Test'); pg.fill('#r-alerji','yok')
+    pg.click('button[type=submit]'); pg.wait_for_timeout(500)
+    d=urllib.parse.parse_qs(pg.sent[0]) if pg.sent else {}
+    tr=lambda x:'.'.join(reversed(x.split('-')))
+    ok('Form (kreş): talep "Gündüz: …" olarak gider', d.get('entry.130478542',[''])[0]=='Gündüz: '+', '.join(tr(x) for x in [D(30),D(32),D(37),D(44)]), d.get('entry.130478542'))
+    ok('Form: teşekkür ekranı', pg.locator('#tesekkur').is_visible())
+    pg=page(); pg.goto(BASE+'/on-rezervasyon/'); pg.wait_for_timeout(500)
+    pg.fill('#r-in',D(10)); pg.wait_for_timeout(60)
+    ok('Form: bırakılan gün seçilince alınan gün aynı güne gelir', pg.input_value('#r-out')==D(10))
+    pg.fill('#r-out',D(14)); pg.wait_for_timeout(60)
+    ok('Form: geceli konaklamada gündüz kutusu gizli', not pg.locator('#r-gunduz').is_visible())
+    pg.fill('#r-ad','Test'); pg.fill('#r-tel','05000000000'); pg.fill('#r-kopek','Test'); pg.fill('#r-alerji','yok')
+    pg.click('button[type=submit]'); pg.wait_for_timeout(500)
+    d=urllib.parse.parse_qs(pg.sent[0]) if pg.sent else {}
+    ok('Form (geceli): talep "giriş → çıkış" olarak gider', d.get('entry.130478542',[''])[0]==tr(D(10))+' → '+tr(D(14)), d.get('entry.130478542'))
+    # tanışma formu
+    pg=page(); pg.goto(BASE+'/tanisma-gorusmesi/'); pg.wait_for_timeout(500)
+    for el in pg.locator('form [required]').all():
+        tag=el.evaluate('e=>e.tagName'); typ=el.get_attribute('type')
+        if typ=='radio': el.check(force=True)
+        elif tag=='SELECT': el.select_option(index=1)
+        elif typ=='date': el.fill(D(20))
+        elif typ=='tel': el.fill('05000000000')
+        else: el.fill('Test')
+    pg.click('button[type=submit]'); pg.wait_for_timeout(500)
+    d=urllib.parse.parse_qs(pg.sent[0]) if pg.sent else {}
+    ok('Tanışma formu gönderilir ("Tanışma" türüyle)', d.get('entry.1679659265',[''])[0]=='Tanışma' and pg.locator('#tesekkur').is_visible())
+    # ---------- ÖDEME ----------
+    pg=page(); pg.goto(BASE+'/odeme/'); pg.wait_for_timeout(700)
+    f=pg.locator('form.calc'); I,O=f.locator('.c-in'),f.locator('.c-out')
+    ok('Ödeme: tarihsiz açılışta 2. adım görünür', 'Tarihleri girince tutar burada görünür' in f.inner_text())
+    ok('Ödeme: gönderilecek tutar ve "Tutarı kopyala" gizli', pg.locator('#gonder').is_hidden() and pg.locator('#kopyala-tutar').is_hidden())
+    ok('Ödeme: geçmiş günler seçilebilir', I.get_attribute('min') is None)
+    I.fill(D(-14)); O.fill(D(-1)); pg.wait_for_timeout(100)
+    big=lambda: pg.inner_text('.tutar strong')
+    ok('Ödeme: 13 gece → 29.835 TL tek büyük rakam', big()=='29.835 TL', big())
+    ok('Ödeme: ön rezervasyon düğmesi ve teyit notu yok', f.locator('.c-res a.btn').count()==0 and 'teyit' not in f.inner_text())
+    ok('Ödeme: dokunulmadan metin ve yüzde yok', f.locator('.karar-metin').count()==0 and f.locator('.karar-oran').count()==0)
+    ok('Ödeme: gönderilecek tutar 29.835 TL', pg.inner_text('#gonder-tutar')=='29.835 TL')
+    pg.click('[data-karar="-1"]'); pg.wait_for_timeout(80)
+    ok('−: 28.343 TL, eski tutar üstü çizili', big()=='28.343 TL' and pg.inner_text('.tutar s')=='29.835 TL')
+    ok('−: en fazla %5 (− düğmesi kapanır)', pg.is_disabled('[data-karar="-1"]'))
+    ok('−: tarafsız metin', pg.inner_text('.karar-metin').startswith('Hesaplanan tutarın %5 altında: 1.492 TL eksik.'))
+    pg.click('.dokum summary')
+    ok('Döküm: otomatik indirim koşuluyla yazar', any('10 gece ve üzeri indirimi (%10)' in r for r in rows(f)))
+    ok('Döküm: "Kendi indiriminiz (−%5)" ayrı satır', any('Kendi indiriminiz (−%5) | −1.492 TL' in r for r in rows(f)), rows(f))
+    ok('Gönderilecek tutar güncellenir', pg.inner_text('#gonder-tutar')=='28.343 TL')
+    pg.click('#kopyala-tutar'); ok('Tutarı kopyala: 28343', pg.evaluate('navigator.clipboard.readText()')=='28343')
+    pg.click('#kopyala'); ok('IBAN kopyala: TR760003200000000075002251', pg.evaluate('navigator.clipboard.readText()')=='TR760003200000000075002251')
+    for _ in range(5): pg.click('[data-karar="1"]')
+    ok('+: en fazla %20 (+ düğmesi kapanır)', pg.is_disabled('[data-karar="1"]') and pg.inner_text('.karar-oran')=='+%20')
+    ok('+%20: 35.802 TL', big()=='35.802 TL', big())
+    ok('Döküm açık kalır, "Kendi eklemeniz (+%20)"', pg.evaluate("document.querySelector('.dokum').open") and any('Kendi eklemeniz (+%20) | +5.967 TL' in r for r in rows(f)), rows(f))
+    for _ in range(4): pg.click('[data-karar="-1"]')
+    ok('%0\'a dönünce yüzde ve metin kaybolur', f.locator('.karar-oran').count()==0 and f.locator('.karar-metin').count()==0 and big()=='29.835 TL')
+    bx=lambda: [round(pg.locator('[data-karar="%s"]'%k).bounding_box()['x']) for k in ('-1','1')]
+    a=bx(); pg.click('[data-karar="1"]'); bb=bx()
+    ok('− ve + düğmeleri yerinden oynamaz', a==bb, (a,bb))
+    pg.click('[data-karar="-1"]')
+    I.fill(D(-1)); O.fill(D(-1)); pg.wait_for_timeout(80)
+    f.locator('.ek-ekle').click(); f.locator('.c-ek input').last.fill(D(-3)); pg.wait_for_timeout(60)
+    ok('Ödeme: geçmiş kreş günü eklenebilir', big()=='3.800 TL', big())
+    O.fill(D(-5)); pg.wait_for_timeout(80)
+    ok('Alınan gün bırakılandan önceyse hata, tutar gizlenir', 'önce olamaz' in f.inner_text() and pg.locator('#gonder').is_hidden())
+    ok('Hiçbir sayfada betik hatası yok', not errs, errs)
+    b.close()
+print('\nTOPLAM', sum(1 for s in SONUC if s[1]),'/',len(SONUC))
+json.dump(SONUC,open('/tmp/qa/sonuc.json','w'),ensure_ascii=False)
