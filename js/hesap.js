@@ -58,9 +58,10 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
     q('.c-in').addEventListener('change',girisDegisti); q('.c-in').addEventListener('input',girisDegisti);
     function calc(){
       var a=q('.c-in').value,b=q('.c-out').value,t=q('.c-time').value||'12:00';
-      if(!a||!b){res.innerHTML='';kutu.hidden=true;if(odeme)document.dispatchEvent(new CustomEvent('odeme-tutar',{detail:null}));return}
+      var bosAdim='<div class="tutar-blok"><p class="adim"><span>2</span>Ödeyeceğiniz tutar</p><p class="tutar-bos">Tarihleri girince tutar burada görünür.</p></div>';
+      if(!a||!b){res.innerHTML=odeme?bosAdim:'';kutu.hidden=true;if(odeme)document.dispatchEvent(new CustomEvent('odeme-tutar',{detail:null}));return}
       var g=nights(a,b);
-      if(g<0){if(odeme)document.dispatchEvent(new CustomEvent('odeme-tutar',{detail:null}));res.innerHTML='<p class="err">Alacağınız gün, bırakacağınız günden önce olamaz.</p>';return}
+      if(g<0){if(odeme)document.dispatchEvent(new CustomEvent('odeme-tutar',{detail:null}));res.innerHTML=(odeme?bosAdim:'')+'<p class="err">Alacağınız gün, bırakacağınız günden önce olamaz.</p>';return}
       var h='',per=0,sinir=FIYAT.teslimSiniri.replace(':','.');
       kutu.hidden=g!==0;
       var gunler=[a], kres=0;
