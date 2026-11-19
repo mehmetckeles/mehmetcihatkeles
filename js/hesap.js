@@ -83,14 +83,15 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
       if(n>1) h+=row(n+' köpek','× '+n);
       if(kd||gd||kres||n>1) h+=row('Ara toplam',tl(sub));
       var tot=sub;
-      if(kd){var x=Math.round(sub*kd/100);tot-=x;h+=row(n+' köpek indirimi (%'+kd+')','−'+tl(x),'minus');}
-      if(gd){var y=Math.round(sub*gd/100);tot-=y;h+=row(g+' gece indirimi (%'+gd+')','−'+tl(y),'minus');}
-      if(kres){var z=Math.round(sub*kres/100);tot-=z;h+=row(gunler.length+' günlük kreş indirimi (%'+kres+')','−'+tl(z),'minus');}
+      if(kd){var x=Math.round(sub*kd/100);tot-=x;h+=row((n>=3?'3 ve daha fazla köpek':'2 köpek')+' indirimi (%'+kd+')','−'+tl(x),'minus');}
+      if(gd){var y=Math.round(sub*gd/100);tot-=y;h+=row((g>=10?'10':'5')+' gece ve üzeri indirimi (%'+gd+')','−'+tl(y),'minus');}
+      if(kres){var z=Math.round(sub*kres/100);tot-=z;h+=row('4 gün ve üzeri kreş indirimi (%'+kres+')','−'+tl(z),'minus');}
       if(!odeme) h+=row('Toplam',tl(tot),'total');
       if(odeme){
         /* ödeme sayfası: tek büyük rakam, döküm kapalı, − / + rakamın yanında */
         var son=Math.round(tot*(100+oran)/100), isaret=oran>0?'+%'+oran:'−%'+(-oran);
-        var dokum='<details class="dokum"><summary>Hesap dökümü</summary>'+h+row('Toplam',tl(tot),'total')+'</details>';
+        var dokum='<details class="dokum"><summary>Hesap dökümü</summary>'+h+row('Hesaplanan tutar',tl(tot),oran!==0?'':'total')
+          +(oran!==0?row((oran<0?'Kendi indiriminiz':'Kendi eklemeniz')+' ('+isaret+')',(oran<0?'−':'+')+tl(Math.abs(son-tot)),oran<0?'minus':'')+row('Ödeyeceğiniz tutar',tl(son),'total'):'')+'</details>';
         h='<div class="tutar-blok">'
           +'<p class="adim"><span>2</span>Ödeyeceğiniz tutar</p>'
           +'<div class="tutar-satir"><div class="tutar"><strong>'+tl(son)+'</strong>'+(oran!==0?'<s>'+tl(tot)+'</s>':'')+'</div>'
