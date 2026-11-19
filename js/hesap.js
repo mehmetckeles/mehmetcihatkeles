@@ -87,17 +87,18 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
       if(kres){var z=Math.round(sub*kres/100);tot-=z;h+=row(gunler.length+' günlük kreş indirimi (%'+kres+')','−'+tl(z),'minus');}
       h+=row('Toplam',tl(tot),'total');
       if(odeme){
-        var son=Math.round(tot*(100+oran)/100), isaret=oran>0?'+%'+oran:(oran<0?'−%'+(-oran):'%0');
+        var son=Math.round(tot*(100+oran)/100), isaret=oran>0?'+%'+oran:'−%'+(-oran);
         h+='<div class="karar">'
-
-          +'<div class="stepper karar-adim" role="group" aria-label="Tutarı değiştir">'
-          +'<button type="button" data-karar="-1" aria-label="%5 azalt"'+(oran<=FIYAT.karar.alt?' disabled':'')+'>−</button>'
-          +'<output>'+isaret+'</output>'
-          +'<button type="button" data-karar="1" aria-label="%5 artır"'+(oran>=FIYAT.karar.ust?' disabled':'')+'>+</button></div>'
-          +row('Ödeyeceğiniz tutar',tl(son),'total karar-son')
-          +(oran<0?'<p class="karar-metin">Hesaplanan tutarın %'+(-oran)+' altında: '+tl(tot-son)+' eksik. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor. Bu seçenek, ücreti kendi koşullarınıza göre ayarlayabilmeniz için var.</p>'
-            :oran>0?'<p class="karar-metin">Hesaplanan tutarın %'+oran+' üzerinde: '+tl(son-tot)+' fazla. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor; aradaki fark da bu giderlere ekleniyor.</p>':'')
+          +(oran!==0?'<output class="karar-oran">'+isaret+'</output>':'')
+          +'<button type="button" class="karar-btn" data-karar="-1" aria-label="Tutarı %5 azalt"'+(oran<=FIYAT.karar.alt?' disabled':'')+'>−</button>'
+          +'<button type="button" class="karar-btn" data-karar="1" aria-label="Tutarı %5 artır"'+(oran>=FIYAT.karar.ust?' disabled':'')+'>+</button>'
           +'</div>';
+        if(oran!==0){
+          h+='<div class="karar-sonuc">'+row('Ödeyeceğiniz tutar',tl(son),'total karar-son')
+            +(oran<0?'<p class="karar-metin">Hesaplanan tutarın %'+(-oran)+' altında: '+tl(tot-son)+' eksik. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor. Bu seçenek, ücreti kendi koşullarınıza göre ayarlayabilmeniz için var.</p>'
+              :'<p class="karar-metin">Hesaplanan tutarın %'+oran+' üzerinde: '+tl(son-tot)+' fazla. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor; aradaki fark da bu giderlere ekleniyor.</p>')
+            +'</div>';
+        }
       }
       if(g===0&&kresNot) h+=kresNot;
       if(!('odeme' in root.dataset)) h+='<p class="fine">Tutarı ön rezervasyondan sonra telefonda birlikte teyit ederiz.</p>';
