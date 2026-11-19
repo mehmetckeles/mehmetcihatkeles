@@ -33,3 +33,9 @@ Sitedeki bütün yazı boyutları `css/site.css` dosyasının başındaki dokuz 
 ## Dil
 
 Müşteriye dönük her kelime, müşterinin yerinden ve onun yaptığı işle yazılır; işletmenin iç terimi yazılmaz. Sitede bir zamanlar "Teslim saati" yazıyordu. Müşteri bunu "köpeğimi size teslim edeceğim saat" diye okudu, oysa kastedilen köpeği geri alacağı saatti. Bu yüzden hesaplamada ve formlarda "Bırakacağınız gün", "Alacağınız gün", "Alacağınız saat" yazar. Yeni bir metin eklerken şunu sorun: Bunu ilk kez okuyan biri kendi kafasında hangi sahneyi kuruyor?
+
+## Ücret ve ödeme sistemi
+
+Bütün hesaplar `js/hesap.js` içindeki `FIYAT` bloğundan çalışır: gecelik ve gündüz ücreti, 15.00 sınırı, köpek, gece ve kreş indirimleri, ödeme sayfasındaki −%5 / +%20 ayarı. Bazı rakamlar sayfalarda düz yazı olarak da geçer (konaklama ve ücret sayfasındaki indirim satırları, "2026 boyunca sabit", fiyat geçmişi tablosu); fiyat değişince onlar da elle güncellenir. Ayrıntılı çalışma dosyası: https://claude.ai/artifact/K44dQGpXiZu4YuAqFWQL21
+
+Her değişiklikten sonra uçtan uca test: depo klasöründe `python3 -m http.server 8767` açıkken `python3 _testler/hesap_testi.py` (19 Kasım 2026: 66/66).
