@@ -64,6 +64,7 @@
 .hz-link{margin-top:14px;font-family:var(--mono);font-size:var(--t-kucuk);color:var(--muted);word-break:break-all}
 .hz-ad{margin-top:16px}
 .hz-ad input{font:inherit;font-family:var(--display);font-size:var(--t-metin);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:11px 13px;min-height:48px;width:100%}
+.lead.kisisel{margin-top:22px;padding:16px 18px;border-left:3px solid var(--hl);background:color-mix(in srgb,var(--hl) 12%,transparent);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -206,17 +207,17 @@
 </script>
 <script>
 /* hazır bağlantı (tarih taşıyan): giriş metni hesabın hazır olduğunu söyler */
-(function(){ var u=new URLSearchParams(location.search); if(u.get('giris')&&!u.has('hazirla')) { document.getElementById('odeme-giris').textContent='Hesabınızı sizin için hazırladım. Bilgilere bir göz atmanızı rica ederim; ödemeyi size uygun bir zamanda yapabilirsiniz. Aklınıza takılan bir şey olursa bana yazın.';
+(function(){ var u=new URLSearchParams(location.search); if(u.get('giris')&&!u.has('hazirla')) { document.getElementById('odeme-giris').classList.add('kisisel'); document.getElementById('odeme-giris').textContent='Hesabınızı sizin için hazırladım. Bilgilere bir göz atmanızı rica ederim; ödemeyi size uygun bir zamanda yapabilirsiniz. Aklınıza takılan bir şey olursa bana yazın.';
   var a1=document.getElementById('adim1'); a1.lastChild.textContent='Tarihler'; document.getElementById('adim1-not').hidden=true; } })();
 /* kişiye seslenen başlık: ?ad=Ali Bey → "Ali Bey, şimdiden teşekkürler." */
 window.baslikAdi=function(ad){
-  var h=document.getElementById('odeme-baslik'); ad=(ad||'').trim().slice(0,40);
+  var h=document.getElementById('odeme-baslik'); ad=(ad||'').trim().slice(0,40).split(/\s+/).map(function(k){return k?k.charAt(0).toLocaleUpperCase('tr-TR')+k.slice(1):k}).join(' ');
   h.textContent='';
   if(ad){ h.appendChild(document.createTextNode(ad+', şimdiden ')); }
   else h.appendChild(document.createTextNode('Şimdiden '));
   var b=document.createElement('b'); b.textContent='teşekkürler.'; h.appendChild(b);
 };
-(function(){ var ad=new URLSearchParams(location.search).get('ad'); if(ad) baslikAdi(ad); })();
+(function(){ var u=new URLSearchParams(location.search), ad=u.get('ad'); if(ad){ baslikAdi(ad); if(!u.has('hazirla')) document.getElementById('odeme-giris').classList.add('kisisel'); } })();
 </script>
 </body>
 </html>
