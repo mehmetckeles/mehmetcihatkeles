@@ -4,7 +4,7 @@
  * Formdan yeni bir talep düştüğünde Mehmet'e e-posta gönderir: kişinin adı,
  * köpeği, tarihleri ve hazır mesajla açılan "WhatsApp'ta yanıtla" düğmesi.
  *
- * Ayrıca "Site talepleri" takviminde anında bir hatırlatma açar (telefon öter) ve
+ * Ayrıca "Site talepleri" takviminde anında bir hatırlatma açar (telefon öter; ertesi gece silinir) ve
  * tek dokunuşla günleri "Misafirler" takvimine yazan "Takvime işle" bağlantısı verir.
  *
  * Kurulum: Uzantılar → Apps Script → bu dosyayı yapıştır → kur() çalıştır →
@@ -43,9 +43,10 @@ var WEB_URL = 'https://script.google.com/macros/s/AKfycbzMsFg2F_QOtQ-WPgHzruVZZf
 function kur() {
   var ss = SpreadsheetApp.getActive();
   ScriptApp.getProjectTriggers().forEach(function (t) {
-    if (t.getHandlerFunction() === 'talepGeldi') ScriptApp.deleteTrigger(t);
+    if (['talepGeldi', 'temizle'].indexOf(t.getHandlerFunction()) > -1) ScriptApp.deleteTrigger(t);
   });
   ScriptApp.newTrigger('talepGeldi').forSpreadsheet(ss).onFormSubmit().create();
+  ScriptApp.newTrigger('temizle').timeBased().everyDays(1).atHour(3).inTimezone('Europe/Istanbul').create();
   takvim(TAKVIM_BILDIRIM, '#d50000');
   takvim(TAKVIM_MISAFIR, '#0b8043');
   anahtar();
@@ -124,6 +125,16 @@ function hatirlat(t, b) {
   var ev = takvim(TAKVIM_BILDIRIM, '#d50000').createEvent(b.konu, bas, son, { description: acik });
   ev.removeAllReminders();
   ev.addPopupReminder(0);
+}
+
+/* Her gece 03.00 civarı: "Site talepleri" takvimindeki önceki günlerin hatırlatmalarını siler.
+   Talebin kendisi e-postada ve tabloda kalır; "Misafirler" takvimine dokunulmaz. */
+function temizle() {
+  var bugun = new Date(); bugun.setHours(0, 0, 0, 0);
+  var bas = new Date(bugun.getTime() - 60 * 24 * 60 * 60 * 1000);
+  takvim(TAKVIM_BILDIRIM, '#d50000').getEvents(bas, bugun).forEach(function (ev) {
+    if (ev.getEndTime() <= bugun) ev.deleteEvent();
+  });
 }
 
 function gunTarihi(d) { return new Date(d.y, d.a - 1, d.g); }
