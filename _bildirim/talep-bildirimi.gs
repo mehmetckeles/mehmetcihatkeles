@@ -4,8 +4,12 @@
  * Formdan yeni bir talep düştüğünde Mehmet'e e-posta gönderir: kişinin adı,
  * köpeği, tarihleri ve hazır mesajla açılan "WhatsApp'ta yanıtla" düğmesi.
  *
- * Kurulum: Uzantılar → Apps Script → bu dosyayı yapıştır → kur() çalıştır.
- * Deneme: sonTalebiGonder() tablodaki son talep için e-postayı yeniden yollar.
+ * Ayrıca "Site talepleri" takviminde anında bir hatırlatma açar (telefon öter) ve
+ * tek dokunuşla günleri "Misafirler" takvimine yazan "Takvime işle" bağlantısı verir.
+ *
+ * Kurulum: Uzantılar → Apps Script → bu dosyayı yapıştır → kur() çalıştır →
+ *   Dağıt → Yeni dağıtım → Web uygulaması (Çalıştıran: ben, Erişim: yalnızca ben).
+ * Deneme: sonTalebiGonder() tablodaki son talep için bildirimi yeniden yollar.
  */
 
 var AYLAR = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
@@ -30,12 +34,21 @@ var ERKEK = ('ahmet mehmet mustafa ali hüseyin hasan ibrahim ismail osman yusuf
   'alper arda atakan aydın bekir burhan cüneyt dursun egemen eyüp ferdi gürkan hilmi ihsan irfan kutay mithat nedim '+
   'necip nevzat oğuzhan önder rüştü sadık sait sefa selçuk sertaç tufan ümit taylan yasir yener').split(' ');
 
+var TAKVIM_BILDIRIM = 'Site talepleri';
+var TAKVIM_MISAFIR = 'Misafirler';
+var SUTUN_TAKVIM = 8; // H sütunu: "Takvime işlendi" damgası
+
 function kur() {
   var ss = SpreadsheetApp.getActive();
   ScriptApp.getProjectTriggers().forEach(function (t) {
     if (t.getHandlerFunction() === 'talepGeldi') ScriptApp.deleteTrigger(t);
   });
   ScriptApp.newTrigger('talepGeldi').forSpreadsheet(ss).onFormSubmit().create();
+  takvim(TAKVIM_BILDIRIM, '#d50000');
+  takvim(TAKVIM_MISAFIR, '#0b8043');
+  anahtar();
+  var sayfa = ss.getSheets()[0];
+  if (!sayfa.getRange(1, SUTUN_TAKVIM).getValue()) sayfa.getRange(1, SUTUN_TAKVIM).setValue('Takvim');
 }
 
 function talepGeldi(e) {
@@ -52,6 +65,7 @@ function sonTalebiGonder() {
 function satiriGonder(sayfa, satir) {
   var v = sayfa.getRange(satir, 1, 1, 7).getDisplayValues()[0];
   var t = talepOku(v);
+  t.isleLink = isleLinki(t, satir);
   var b = bildirim(t, sayfa.getParent().getUrl());
   MailApp.sendEmail({
     to: Session.getEffectiveUser().getEmail(),
@@ -60,6 +74,90 @@ function satiriGonder(sayfa, satir) {
     htmlBody: b.html,
     name: 'Site talepleri'
   });
+  hatirlat(t, b);
+}
+
+/* ---------- takvim ---------- */
+
+function takvim(ad, renk) {
+  var p = PropertiesService.getScriptProperties();
+  var id = p.getProperty('takvim:' + ad);
+  var c = id ? CalendarApp.getCalendarById(id) : null;
+  if (!c) {
+    var bul = CalendarApp.getOwnedCalendarsByName(ad);
+    c = bul.length ? bul[0] : CalendarApp.createCalendar(ad, { color: renk, timeZone: 'Europe/Istanbul' });
+    p.setProperty('takvim:' + ad, c.getId());
+  }
+  return c;
+}
+
+function anahtar() {
+  var p = PropertiesService.getScriptProperties();
+  var k = p.getProperty('anahtar');
+  if (!k) { k = Utilities.getUuid() + Utilities.getUuid(); p.setProperty('anahtar', k); }
+  return k;
+}
+
+function imza(satir) {
+  var b = Utilities.computeHmacSha256Signature(String(satir), anahtar());
+  return Utilities.base64EncodeWebSafe(b).slice(0, 16);
+}
+
+function isleLinki(t, satir) {
+  var gunVar = (t.cesit === 'gunduz' && t.gunler && t.gunler.length) || (t.cesit === 'konaklama' && t.giris && t.cikis);
+  var url = ScriptApp.getService().getUrl();
+  if (!gunVar || !url) return '';
+  return url + '?s=' + satir + '&k=' + imza(satir);
+}
+
+/* Talep gelir gelmez: "Site talepleri" takviminde iki dakika sonrasına kısa bir kayıt; telefon takvimin sesiyle uyarır. */
+function hatirlat(t, b) {
+  var bas = new Date(Date.now() + 2 * 60 * 1000);
+  var son = new Date(bas.getTime() + 15 * 60 * 1000);
+  var baglantilar = [t.wa ? 'WhatsApp\'ta yanıtla: ' + b.link : 'Telefon okunamadı: ' + t.tel];
+  if (t.isleLink) baglantilar.push('Takvime işle: ' + t.isleLink);
+  var bilgi = ['Telefon: ' + t.tel, 'Köpek: ' + t.kopek, 'Tarihler: ' + t.tarihler];
+  if (t.ayrinti) bilgi.push(t.ayrinti);
+  var acik = [b.metin, baglantilar.join('\n'), bilgi.join('\n')].join('\n\n');
+  var ev = takvim(TAKVIM_BILDIRIM, '#d50000').createEvent(b.konu, bas, son, { description: acik });
+  ev.removeAllReminders();
+  ev.addPopupReminder(0);
+}
+
+function gunTarihi(d) { return new Date(d.y, d.a - 1, d.g); }
+
+/* "Takvime işle" bağlantısı: yalnızca Mehmet'in hesabıyla açılır (web uygulaması, erişim: yalnızca ben). */
+function doGet(e) {
+  var satir = parseInt(e.parameter.s, 10);
+  if (!satir || e.parameter.k !== imza(satir)) return sayfaYaz('Bağlantı geçersiz', 'Bu bağlantı tanınmadı.');
+  var sayfa = SpreadsheetApp.getActive().getSheets()[0];
+  var damga = sayfa.getRange(satir, SUTUN_TAKVIM).getDisplayValue();
+  var t = talepOku(sayfa.getRange(satir, 1, 1, 7).getDisplayValues()[0]);
+  var kim = (t.kopekAdi || 'Köpek') + ' · ';
+  if (damga) return sayfaYaz('Zaten işlenmiş', t.adSoyad + ' talebi daha önce takvime işlenmiş (' + damga + ').');
+  var c = takvim(TAKVIM_MISAFIR, '#0b8043');
+  var acik = [t.adSoyad, 'Telefon: ' + t.tel, 'Köpek: ' + t.kopek, t.ayrinti].join('\n');
+  var yazilan;
+  if (t.cesit === 'gunduz' && t.gunler && t.gunler.length) {
+    t.gunler.forEach(function (d) { c.createAllDayEvent(kim + 'gündüz · ' + t.adSoyad, gunTarihi(d), { description: acik }); });
+    yazilan = liste(t.gunler.map(function (d) { return tarihYaz(d, t.buYil); })) + ' (' + t.gunler.length + ' gün, gündüz misafirliği)';
+  } else if (t.cesit === 'konaklama' && t.giris && t.cikis) {
+    var bitis = gunTarihi(t.cikis); bitis.setDate(bitis.getDate() + 1);
+    c.createAllDayEvent(kim + 'konaklama · ' + t.adSoyad, gunTarihi(t.giris), bitis, { description: acik });
+    yazilan = tarihYaz(t.giris, t.buYil) + ' – ' + tarihYaz(t.cikis, t.buYil) + ' (konaklama)';
+  } else {
+    return sayfaYaz('Tarih yok', 'Bu talepte takvime yazılacak belli bir gün yok.');
+  }
+  sayfa.getRange(satir, SUTUN_TAKVIM).setValue('Takvime işlendi · ' + Utilities.formatDate(new Date(), 'Europe/Istanbul', 'dd.MM.yyyy HH:mm'));
+  return sayfaYaz('Takvime işlendi', t.adSoyad + ' · ' + (t.kopekAdi || '') + '<br>' + esc(yazilan) + '<br><br>"Misafirler" takviminde.');
+}
+
+function sayfaYaz(baslik, metin) {
+  var html = '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:460px;margin:12vh auto;padding:0 22px;color:#1a1a1a">' +
+    '<h1 style="font-size:26px;margin:0 0 14px">' + esc(baslik) + '</h1>' +
+    '<p style="font-size:18px;line-height:1.5;margin:0">' + metin + '</p></div>';
+  return HtmlService.createHtmlOutput(html).setTitle(baslik);
 }
 
 /* ---------- talebi okuma ---------- */
@@ -175,7 +273,7 @@ function bildirim(t, tabloUrl) {
   ].filter(function (r) { return String(r[1]).trim(); });
 
   var duz = konu + '\n\n' + satirlar.map(function (r) { return r[0] + ': ' + r[1]; }).join('\n') +
-    '\n\nHazır yanıt:\n' + metin + (link ? '\n\nWhatsApp\'ta yanıtla: ' + link : '') + '\n\nTablo: ' + tabloUrl;
+    '\n\nHazır yanıt:\n' + metin + (link ? '\n\nWhatsApp\'ta yanıtla: ' + link : '') + (t.isleLink ? '\nTakvime işle: ' + t.isleLink : '') + '\n\nTablo: ' + tabloUrl;
 
   var tr = satirlar.map(function (r) {
     var deger = r[0] === 'Telefon' && t.wa
@@ -197,8 +295,10 @@ function bildirim(t, tabloUrl) {
     '<table style="border-collapse:collapse;margin:0 0 20px">' + tr + '</table>' +
     '<p style="margin:0 0 6px;color:#777;font-size:13px">Hazır yanıt</p>' +
     '<div style="background:#f3f1ea;border-radius:10px;padding:12px 14px;margin:0 0 18px;color:#1a1a1a">' + esc(metin) + '</div>' +
-    dugme +
-    '<p style="margin:22px 0 0;font-size:13px;color:#777">Düğme WhatsApp\'ı bu mesajla açar; göndermeden önce değiştirebilirsiniz. ' +
+    dugme + (t.isleLink ? ' &nbsp; <a href="' + t.isleLink + '" style="display:inline-block;background:#fff;color:#0b8043;' +
+      'border:2px solid #0b8043;text-decoration:none;font-weight:600;font-size:17px;padding:12px 22px;border-radius:10px">Takvime işle</a>' : '') +
+    '<p style="margin:22px 0 0;font-size:13px;color:#777">WhatsApp düğmesi bu mesajla açar; göndermeden önce değiştirebilirsiniz.' +
+    (t.isleLink ? ' Takvime işle, günleri "Misafirler" takvimine yazar. ' : ' ') +
     '<a href="' + tabloUrl + '" style="color:#777">Tüm talepler</a></p>' +
     '</div>';
 
