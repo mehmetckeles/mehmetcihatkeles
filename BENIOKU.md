@@ -43,3 +43,7 @@ Her değişiklikten sonra uçtan uca test: depo klasöründe `python3 -m http.se
 ## Panel
 
 mehmetcihatkeles.com/panel: yalnızca Mehmet için, arama motorlarına kapalı (robots.txt ve noindex) paylaşım paneli. Sayfaların listesi panel/index.html içindeki G nesnesinde; yeni bir sayfa eklenince oraya bir satır eklenir. Tarihten Köpekler'in en yeni yazısını articles.json'dan kendisi bulur. Ana ekrana eklenebilir (panel/manifest.webmanifest).
+
+## Talep bildirimi
+
+Ön rezervasyon ve tanışma formları Google Form'a, oradan Drive'daki "Site talepleri · mehmetcihatkeles.com" tablosuna düşer. Tabloya bağlı "Talep bildirimi" adlı Apps Script (Uzantılar → Apps Script) her yeni satırda cihatk@gmail.com'a "Yeni talep · Ad Soyad · …" başlıklı bir e-posta yollar: ad, telefon, köpek, tarihler, ayrıntılar ve hazır mesajla WhatsApp'ı açan "WhatsApp'ta yanıtla" düğmesi. Kodun bir kopyası _bildirim/talep-bildirimi.gs; değişiklik önce orada yapılır, sonra Apps Script'e yapıştırılır. kur() tetikleyiciyi kurar, sonTalebiGonder() son talep için e-postayı yeniden yollar. Hazır mesajlar: gündüz misafirliği ve konaklama "… tarihlerindeki … talebinizi aldım. Görüşmek üzere.", tanışma "… tanışma talebinizi aldım. Uygun bir günü birlikte belirlemek için sizi arayacağım." Hitap ("Özge Hanım / Ali Bey") sık kullanılan adlardan tahmin edilir, tahmin edilemezse yalnız ad yazılır.

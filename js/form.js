@@ -1,4 +1,5 @@
-/* Talep formları: Google Form'a gider, Drive'daki "Site talepleri" tablosuna düşer, e-posta bildirimi gelir. */
+/* Talep formları: Google Form'a gider, Drive'daki "Site talepleri" tablosuna düşer.
+   Tabloya bağlı "Talep bildirimi" Apps Script'i her yeni talepte e-posta yollar (_bildirim/talep-bildirimi.gs). */
 (function(){
   var FORM='https://docs.google.com/forms/d/e/1FAIpQLSdfu0jZr6BJRK3GxRTbwdAbm5t7yUwNxJz2gHfAoy1aWvlW6g/formResponse';
   var ALAN={tur:'entry.1679659265',ad:'entry.1228144126',tel:'entry.1329993373',kopek:'entry.2127242662',tarih:'entry.130478542',ayrinti:'entry.71232531'};
