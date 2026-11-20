@@ -11,12 +11,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('mck-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <link rel="stylesheet" href="../css/site.css">
 <style>
 body{padding-bottom:48px}
 .pn{max-width:40rem;margin:0 auto;padding:clamp(22px,5vw,40px) clamp(18px,5vw,28px)}
 .pn-ust{display:flex;align-items:center;gap:12px}
 .pn-ust img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.pn-tema{margin-left:auto}
 .pn-ust h1{font-family:var(--display);font-weight:600;font-size:var(--t-giris);line-height:1.2}
 .pn-ust p{font-family:var(--mono);font-size:var(--t-etiket);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .grup{margin-top:30px}
@@ -35,7 +37,7 @@ body{padding-bottom:48px}
 </head>
 <body>
 <main class="pn">
-  <div class="pn-ust"><img src="/img/portre-kucuk.jpg" alt=""><div><h1>Panel</h1><p>Paylaşmak için bağlantılar</p></div></div>
+  <div class="pn-ust"><img src="/img/portre-kucuk.jpg" alt=""><div><h1>Panel</h1><p>Paylaşmak için bağlantılar</p></div><button class="theme pn-tema" type="button" data-theme-toggle>Gece</button></div>
 
   <section class="grup"><p class="label">Konaklama</p><div id="g-konaklama"></div></section>
   <section class="grup"><p class="label">Okullar</p><div id="g-okullar"></div></section>
@@ -44,6 +46,12 @@ body{padding-bottom:48px}
   <p class="not">Bu sayfa arama motorlarında görünmez. Telefonun tarayıcı menüsünden "Ana ekrana ekle" derseniz bir uygulama gibi açılır.</p>
 </main>
 <script>
+(function(){
+  var root=document.documentElement;
+  function tema(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-toggle]').forEach(function(b){b.textContent=t==='dark'?'Gündüz':'Gece'});try{localStorage.setItem('mck-theme',t)}catch(e){}}
+  tema(root.getAttribute('data-theme')||'light');
+  document.querySelectorAll('[data-theme-toggle]').forEach(function(b){b.addEventListener('click',function(){tema(root.getAttribute('data-theme')==='dark'?'light':'dark')})});
+})();
 (function(){
   var K=location.origin;
   var G={
