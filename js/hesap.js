@@ -8,6 +8,8 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
   kopekIndirimi:function(n){return n>=3?15:(n===2?10:0)},
   geceIndirimi:function(g){return g>=10?10:(g>=5?5:0)}};
 
+/* ödeme sayfasının 3. adımı son tutarı buradan okur */
+function odemeTutar(o){window.sonOdemeTutar=o.detail;document.dispatchEvent(new CustomEvent('odeme-tutar',o));}
 (function(){
   var tl=function(n){return n.toLocaleString('tr-TR')+' TL'};
   document.querySelectorAll('[data-price="night"]').forEach(function(e){e.textContent=tl(FIYAT.gece)});
@@ -29,14 +31,16 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
     kutu.innerHTML='<div class="c-ek"></div><button type="button" class="btn ghost ek-ekle">+ Bir gün daha ekle</button>';
     q('.grid-in').after(kutu);
     var ekListe=kutu.querySelector('.c-ek');
-    kutu.querySelector('.ek-ekle').addEventListener('click',function(){
+    function ekGun(deger){
       if(ekListe.children.length>=14) return;
       var r=document.createElement('div'); r.className='ek-gun';
       r.innerHTML='<input type="date" aria-label="Kreş günü"'+(('odeme' in root.dataset)?'':' min="'+iso(new Date())+'"')+'><button type="button" aria-label="Bu günü çıkar">Çıkar</button>';
       r.querySelector('input').addEventListener('change',calc); r.querySelector('input').addEventListener('input',calc);
       r.querySelector('button').addEventListener('click',function(){r.remove();calc()});
-      ekListe.appendChild(r); r.querySelector('input').focus({preventScroll:true});
-    });
+      ekListe.appendChild(r);
+      if(deger) r.querySelector('input').value=deger; else r.querySelector('input').focus({preventScroll:true});
+    }
+    kutu.querySelector('.ek-ekle').addEventListener('click',function(){ekGun()});
     root.querySelectorAll('[data-step]').forEach(function(b){b.addEventListener('click',function(){
       n=Math.min(10,Math.max(1,n+(+b.dataset.step))); out.textContent=n; calc();})});
     ['.c-in','.c-out','.c-time'].forEach(function(c){q(c).addEventListener('input',calc);q(c).addEventListener('change',calc)});
@@ -59,9 +63,9 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
     function calc(){
       var a=q('.c-in').value,b=q('.c-out').value,t=q('.c-time').value||'12:00';
       var bosAdim='<div class="tutar-blok"><p class="adim"><span>2</span>Ödeyeceğiniz tutar</p><p class="tutar-bos">Tarihleri girince tutar burada görünür.</p></div>';
-      if(!a||!b){res.innerHTML=odeme?bosAdim:'';kutu.hidden=true;if(odeme)document.dispatchEvent(new CustomEvent('odeme-tutar',{detail:null}));return}
+      if(!a||!b){res.innerHTML=odeme?bosAdim:'';kutu.hidden=true;if(odeme)odemeTutar({detail:null});return}
       var g=nights(a,b);
-      if(g<0){if(odeme)document.dispatchEvent(new CustomEvent('odeme-tutar',{detail:null}));res.innerHTML=(odeme?bosAdim:'')+'<p class="err">Alacağınız gün, bırakacağınız günden önce olamaz.</p>';return}
+      if(g<0){if(odeme)odemeTutar({detail:null});res.innerHTML=(odeme?bosAdim:'')+'<p class="err">Alacağınız gün, bırakacağınız günden önce olamaz.</p>';return}
       var h='',per=0,sinir=FIYAT.teslimSiniri.replace(':','.');
       kutu.hidden=g!==0;
       var gunler=[a], kres=0;
@@ -102,7 +106,7 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
           +(oran<0?'<p class="karar-metin">Hesaplanan tutarın %'+(-oran)+' altında: '+tl(tot-son)+' eksik. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor. Bu seçenek, ücreti kendi koşullarınıza göre ayarlayabilmeniz için var.</p>'
             :oran>0?'<p class="karar-metin">Hesaplanan tutarın %'+oran+' üzerinde: '+tl(son-tot)+' fazla. Ödediğiniz ücret evin kira, fatura ve bakım giderlerini karşılıyor; aradaki fark da bu giderlere ekleniyor.</p>':'')
           +'</div>'+dokum;
-        document.dispatchEvent(new CustomEvent('odeme-tutar',{detail:{tutar:son,yazi:tl(son)}}));
+        odemeTutar({detail:{tutar:son,yazi:tl(son)}});
       }
       if(g===0&&kresNot) h+=kresNot;
       if(!('odeme' in root.dataset)) h+='<p class="fine">Tutarı ön rezervasyondan sonra telefonda birlikte teyit ederiz.</p>';
@@ -112,6 +116,30 @@ var FIYAT={gece:2550, gunduz:1900, teslimSiniri:"15:00",
       res.innerHTML=h;
       if(dkAcik&&res.querySelector('.dokum')) res.querySelector('.dokum').open=true;
     }
+    /* bağlantıyla gelen hazır hesap: ?giris=YYYY-AA-GG&cikis=…&saat=SS:DD&kopek=2&ek=…,…&oran=-5 */
+    (function(){
+      var u=new URLSearchParams(location.search), tarih=/^\d{4}-\d{2}-\d{2}$/;
+      if(tarih.test(u.get('giris')||'')){ q('.c-in').value=u.get('giris'); if(!odeme) q('.c-out').min=u.get('giris'); }
+      if(tarih.test(u.get('cikis')||'')){ q('.c-out').value=u.get('cikis'); cikisElle=true; }
+      else if(q('.c-in').value) q('.c-out').value=q('.c-in').value;
+      if(/^\d{2}:\d{2}$/.test(u.get('saat')||'')) q('.c-time').value=u.get('saat');
+      var k=parseInt(u.get('kopek'),10); if(k>=1&&k<=10){ n=k; out.textContent=n; }
+      (u.get('ek')||'').split(',').filter(function(x){return tarih.test(x)}).forEach(ekGun);
+      var o=parseInt(u.get('oran'),10);
+      if(odeme&&!isNaN(o)&&o%FIYAT.karar.adim===0) oran=Math.min(FIYAT.karar.ust,Math.max(FIYAT.karar.alt,o));
+    })();
+    /* hazırlama ekranı (/odeme?hazirla) için o anki hesabın bağlantısı */
+    root.baglanti=function(){
+      var p=new URLSearchParams(), a=q('.c-in').value, b=q('.c-out').value;
+      if(!a||!b) return null;
+      p.set('giris',a); p.set('cikis',b);
+      if(q('.c-time').value&&q('.c-time').value!=='12:00') p.set('saat',q('.c-time').value);
+      if(n>1) p.set('kopek',n);
+      var ek=[].map.call(ekListe.querySelectorAll('input'),function(i){return i.value}).filter(Boolean);
+      if(a===b&&ek.length) p.set('ek',ek.join(','));
+      if(oran) p.set('oran',oran);
+      return location.origin+location.pathname+'?'+p.toString().replace(/%2C/g,',').replace(/%3A/g,':');
+    };
     calc();
   }
   document.querySelectorAll('[data-calc]').forEach(init);
