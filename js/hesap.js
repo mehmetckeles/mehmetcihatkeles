@@ -80,8 +80,8 @@ function odemeTutar(o){window.sonOdemeTutar=o.detail;document.dispatchEvent(new 
       }
       else{
         per=g*FIYAT.gece; h+=row(g+' gece × '+tl(FIYAT.gece),tl(g*FIYAT.gece));
-        if(t>FIYAT.teslimSiniri){per+=FIYAT.gunduz;h+=row(sinir+"'ten sonra alıyorsunuz · gündüz misafirliği",tl(FIYAT.gunduz));}
-        else h+=row(sinir+"'ten önce alıyorsunuz",'0 TL');
+        if(t>FIYAT.teslimSiniri){per+=FIYAT.gunduz;h+=row(sinir+(odeme?"'ten sonra aldınız":"'ten sonra alıyorsunuz")+" · gündüz misafirliği",tl(FIYAT.gunduz));}
+        else h+=row(sinir+(odeme?"'ten önce aldınız":"'ten önce alıyorsunuz"),'0 TL');
       }
       var sub=per*n, kd=FIYAT.kopekIndirimi(n), gd=g>0?FIYAT.geceIndirimi(g):0;
       if(n>1) h+=row(n+' köpek','× '+n);

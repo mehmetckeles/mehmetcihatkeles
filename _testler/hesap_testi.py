@@ -178,7 +178,7 @@ with sync_playwright() as p:
     pg.fill('#bag-ad','Ayşe Hanım'); pg.wait_for_timeout(80); pg.click('#bag-kopyala'); l=pg.evaluate('navigator.clipboard.readText()')
     ok('Yalnızca adla bağlantı oluşur', l.endswith('/odeme/?ad=Ay%C5%9Fe+Han%C4%B1m'), l)
     m=page(); m.goto(l); m.wait_for_timeout(500)
-    ok('Adla açılan sayfa: "Ayşe Hanım, şimdiden teşekkürler.", tarihler boş, giriş metni her zamanki', m.inner_text('#odeme-baslik')=='Ayşe Hanım, şimdiden teşekkürler.' and m.locator('form.calc .c-in').input_value()=='' and m.inner_text('#odeme-giris').startswith('Lütfen tutarı'))
+    ok('Adla açılan sayfa: "Ayşe Hanım, şimdiden teşekkürler.", tarihler boş, giriş metni her zamanki', m.inner_text('#odeme-baslik')=='Ayşe Hanım, şimdiden teşekkürler.' and m.locator('form.calc .c-in').input_value()=='' and m.inner_text('#odeme-giris').startswith('Tutarı aşağıda tarihlerinize göre'))
     m.goto(BASE+'/odeme/?ad=%3Cb%3EX%3C%2Fb%3E'); m.wait_for_timeout(300)
     ok('Addaki etiketler yazı olarak gösterilir', '&lt;b&gt;' in m.inner_html('#odeme-baslik'))
     ok('Hiçbir sayfada betik hatası yok', not errs, errs)
