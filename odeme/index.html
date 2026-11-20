@@ -62,9 +62,6 @@
 .hazirla[hidden]{display:none}
 .hz-not{margin-top:10px;color:var(--ink-2);font-size:var(--t-metin);line-height:1.6}
 .hz-link{margin-top:14px;font-family:var(--mono);font-size:var(--t-kucuk);color:var(--muted);word-break:break-all}
-.hazir-not{margin:0 0 20px;padding:14px 16px;border-left:3px solid var(--hl);background:color-mix(in srgb,var(--hl) 12%,transparent);color:var(--ink);font-size:var(--t-metin);line-height:1.6}
-.hazir-not[hidden]{display:none}
-.calc > p.hazir-not{color:var(--ink);margin-top:0}
 .hz-ad{margin-top:16px}
 .hz-ad input{font:inherit;font-family:var(--display);font-size:var(--t-metin);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:11px 13px;min-height:48px;width:100%}
 </style>
@@ -107,13 +104,12 @@
 <div class="wrap">
 <p class="label">Ödeme</p>
 <h1 id="odeme-baslik">Şimdiden <b>teşekkürler.</b></h1>
-<p class="lead">Lütfen tutarı aşağıdaki araçla hesaplayıp ödemenizi yapın. Aklınıza takılan bir şey olursa bana yazın.</p>
+<p class="lead" id="odeme-giris">Lütfen tutarı aşağıdaki araçla hesaplayıp ödemenizi yapın. Aklınıza takılan bir şey olursa bana yazın.</p>
 
 <div class="odeme-grid">
 <form class="calc" novalidate data-calc data-odeme onsubmit="return false">
-  <p class="hazir-not" id="hazir-not" hidden>Bu hesabı sizin için ben hazırladım; lütfen bilgileri kontrol edin.</p>
-  <p class="adim"><span>1</span>Tarihleri girin</p>
-  <p>Köpeğinizi bıraktığınız günü, aldığınız gün ile saati girin.</p>
+  <p class="adim" id="adim1"><span>1</span>Tarihleri girin</p>
+  <p id="adim1-not">Köpeğinizi bıraktığınız günü, aldığınız gün ile saati girin.</p>
   <div class="grid-in">
     <div class="field"><label for="c-in">Bıraktığınız gün</label><input type="date" id="c-in" class="c-in"></div>
     <div class="field"><label for="c-out">Aldığınız gün</label><input type="date" id="c-out" class="c-out"></div>
@@ -209,7 +205,9 @@
 })();
 </script>
 <script>
-(function(){ var u=new URLSearchParams(location.search); if(u.get('giris')&&!u.has('hazirla')) document.getElementById('hazir-not').hidden=false; })();
+/* hazır bağlantı (tarih taşıyan): giriş metni hesabın hazır olduğunu söyler */
+(function(){ var u=new URLSearchParams(location.search); if(u.get('giris')&&!u.has('hazirla')) { document.getElementById('odeme-giris').textContent='Hesabınızı sizin için hazırladım. Bilgilere bir göz atmanızı rica ederim; ödemeyi size uygun bir zamanda yapabilirsiniz. Aklınıza takılan bir şey olursa bana yazın.';
+  var a1=document.getElementById('adim1'); a1.lastChild.textContent='Tarihler'; document.getElementById('adim1-not').hidden=true; } })();
 /* kişiye seslenen başlık: ?ad=Ali Bey → "Ali Bey, şimdiden teşekkürler." */
 window.baslikAdi=function(ad){
   var h=document.getElementById('odeme-baslik'); ad=(ad||'').trim().slice(0,40);
