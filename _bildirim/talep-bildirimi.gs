@@ -115,11 +115,12 @@ function isleLinki(t, satir) {
 function hatirlat(t, b) {
   var bas = new Date(Date.now() + 2 * 60 * 1000);
   var son = new Date(bas.getTime() + 15 * 60 * 1000);
-  var baglantilar = [t.wa ? 'WhatsApp\'ta yanıtla: ' + b.link : 'Telefon okunamadı: ' + t.tel];
-  if (t.isleLink) baglantilar.push('Takvime işle: ' + t.isleLink);
+  // Takvim açıklamada HTML bağlantıyı gösterir: uzun adresler yerine iki kısa, dokunulabilir satır.
+  var baglantilar = [t.wa ? '<a href="' + b.link + '">WhatsApp\'ta yanıtla</a>' : 'Telefon okunamadı: ' + esc(t.tel)];
+  if (t.isleLink) baglantilar.push('<a href="' + t.isleLink + '">Takvime işle</a>');
   var bilgi = ['Telefon: ' + t.tel, 'Köpek: ' + t.kopek, 'Tarihler: ' + t.tarihler];
   if (t.ayrinti) bilgi.push(t.ayrinti);
-  var acik = [b.metin, baglantilar.join('\n'), bilgi.join('\n')].join('\n\n');
+  var acik = esc(b.metin) + '<br><br>' + baglantilar.join('<br>') + '<br><br>' + esc(bilgi.join('\n')).replace(/\n/g, '<br>');
   var ev = takvim(TAKVIM_BILDIRIM, '#d50000').createEvent(b.konu, bas, son, { description: acik });
   ev.removeAllReminders();
   ev.addPopupReminder(0);
