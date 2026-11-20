@@ -189,9 +189,13 @@
   var kb=document.getElementById('bag-kopyala'), pb=document.getElementById('bag-paylas');
   hz.hidden=false; if(navigator.share) pb.hidden=false;
   var adAlan=document.getElementById('bag-ad');
-  function link(){ var l=calc.baglanti&&calc.baglanti(); var ad=adAlan.value.trim(); if(l&&ad) l+='&ad='+encodeURIComponent(ad).replace(/%20/g,'+'); return l; }
+  function link(){
+    var l=calc.baglanti&&calc.baglanti(), ad=adAlan.value.trim(), adq=ad?'ad='+encodeURIComponent(ad).replace(/%20/g,'+'):'';
+    if(l) return adq?l+'&'+adq:l;
+    return adq?location.origin+location.pathname+'?'+adq:null;   /* yalnızca ad: hesabı kişi kendisi yapar */
+  }
   adAlan.addEventListener('input',function(){ baslikAdi(adAlan.value); goster(); });
-  function goster(){ var l=link(); yazi.textContent=l||'Önce tarihleri girin.'; kb.disabled=pb.disabled=!l; }
+  function goster(){ var l=link(); yazi.textContent=l||'Tarihleri girin ya da yalnızca bir ad yazın.'; kb.disabled=pb.disabled=!l; }
   document.addEventListener('odeme-tutar',function(){ setTimeout(goster,0); });
   calc.addEventListener('click',function(){ setTimeout(goster,0); });
   calc.addEventListener('change',function(){ setTimeout(goster,0); });
