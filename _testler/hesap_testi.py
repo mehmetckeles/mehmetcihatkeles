@@ -164,7 +164,8 @@ with sync_playwright() as p:
     pg=page(); pg.goto(BASE+'/odeme/?hazirla'); pg.wait_for_timeout(600)
     ok('Hazırlama ekranı: "Müşteriye gönder" bölümü görünür', pg.locator('#hazirla').is_visible())
     f=pg.locator('form.calc'); f.locator('.c-in').fill(D(-8)); f.locator('.c-out').fill(D(-4)); f.locator('.c-time').fill('18:00'); f.locator('[data-step="1"]').click(); pg.click('[data-karar="-1"]'); pg.wait_for_timeout(120)
-    sahip=pg.inner_text('.tutar strong'); pg.click('#bag-kopyala'); link=pg.evaluate('navigator.clipboard.readText()')
+    sahip=pg.inner_text('.tutar strong'); pg.click('#bag-kopyala'); metin=pg.evaluate('navigator.clipboard.readText()'); link=metin.split('\n')[-1]
+    ok('Kopyala: hazır mesaj + bağlantı (hesap hazır)', metin.startswith('Merhaba, hesabınızı sizin için hazırladım.'), metin)
     ok('Bağlantı tarih, saat, köpek ve oranı taşır', all(x in link for x in ['giris='+D(-8),'cikis='+D(-4),'saat=18:00','kopek=2','oran=-5']) and 'hazirla' not in link, link)
     m=page(); m.goto(link); m.wait_for_timeout(600)
     ok('Müşteri aynı tutarı görür', m.inner_text('.tutar strong')==sahip, (sahip, m.inner_text('.tutar strong')))
@@ -176,8 +177,11 @@ with sync_playwright() as p:
     m.goto(BASE+'/odeme/?giris=xx&oran=-7&kopek=50'); m.wait_for_timeout(400)
     ok('Bozuk bağlantı değerleri yok sayılır', m.locator('form.calc .c-in').input_value()=='' and m.inner_text('.c-n')=='1')
     pg=page(); pg.goto(BASE+'/odeme/?hazirla'); pg.wait_for_timeout(500)
-    pg.fill('#bag-ad','Ayşe Hanım'); pg.wait_for_timeout(80); pg.click('#bag-kopyala'); l=pg.evaluate('navigator.clipboard.readText()')
-    ok('Yalnızca adla bağlantı oluşur', l.endswith('/odeme/?ad=Ay%C5%9Fe+Han%C4%B1m'), l)
+    pg.fill('#bag-ad','ayşe hanım'); pg.wait_for_timeout(80); pg.click('#bag-kopyala'); metin=pg.evaluate('navigator.clipboard.readText()'); l=metin.split('\n')[-1]
+    ok('Kopyala: yalnız ad mesajı "Merhaba Ayşe Hanım, ödeme sayfasının…"', metin.startswith('Merhaba Ayşe Hanım, ödeme sayfasının bağlantısını gönderiyorum.'), metin)
+    ok('Yalnızca adla bağlantı oluşur', l.endswith('/odeme/?ad=ay%C5%9Fe+han%C4%B1m'), l)
+    pg.fill('#bag-mesaj','Selam, bağlantı:'); pg.fill('#bag-ad','Ali'); pg.wait_for_timeout(60); pg.click('#bag-kopyala')
+    ok('Elle değiştirilen mesaj korunur', pg.evaluate('navigator.clipboard.readText()').startswith('Selam, bağlantı:\n'))
     m=page(); m.goto(l); m.wait_for_timeout(500)
     ok('Adla açılan sayfa: "Ayşe Hanım, şimdiden teşekkürler.", tarihler boş, giriş metni her zamanki', m.inner_text('#odeme-baslik')=='Ayşe Hanım, şimdiden teşekkürler.' and m.locator('form.calc .c-in').input_value()=='' and m.inner_text('#odeme-giris').startswith('Tutarı aşağıda tarihlerinize göre'))
     m.goto(BASE+'/odeme/?ad=ali+bey'); m.wait_for_timeout(300)

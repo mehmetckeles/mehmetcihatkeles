@@ -65,6 +65,8 @@
 .hz-ad{margin-top:16px}
 .hz-ad input{font:inherit;font-family:var(--display);font-size:var(--t-metin);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:11px 13px;min-height:48px;width:100%}
 .lead.kisisel{margin-top:22px;padding:16px 18px;border-left:3px solid var(--hl);background:color-mix(in srgb,var(--hl) 12%,transparent);color:var(--ink)}
+.hz-mesaj{margin-top:16px}
+.hz-mesaj textarea{font:inherit;font-family:var(--serif);font-size:var(--t-metin);line-height:1.55;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:11px 13px;width:100%;resize:vertical}
 </style>
 </head>
 <body>
@@ -137,7 +139,8 @@
   <p class="adim" id="hz-h"><span>✎</span>Müşteriye gönder</p>
   <p class="hz-not">Bu bölümü yalnızca siz görüyorsunuz. Hesabı yukarıda hazırlayın; bağlantıyı açan kişi sayfayı aynı bilgilerle dolu görür.</p>
   <div class="field hz-ad"><label for="bag-ad">Kime gönderiyorsunuz?</label><input id="bag-ad" maxlength="40" placeholder="Ali Bey" autocomplete="off"></div>
-  <div class="kopyalar"><button class="btn ghost" type="button" id="bag-kopyala">Bağlantıyı kopyala</button><button class="btn ghost" type="button" id="bag-paylas" hidden>Paylaş</button></div>
+  <div class="field hz-mesaj"><label for="bag-mesaj">Mesaj</label><textarea id="bag-mesaj" rows="4"></textarea></div>
+  <div class="kopyalar"><button class="btn ghost" type="button" id="bag-paylas" hidden>Paylaş</button><button class="btn ghost" type="button" id="bag-kopyala">Kopyala</button></div>
   <p class="hz-link" id="bag-yazi"></p>
 </section>
 </div>
@@ -192,16 +195,25 @@
     return adq?location.origin+location.pathname+'?'+adq:null;   /* yalnızca ad: hesabı kişi kendisi yapar */
   }
   adAlan.addEventListener('input',function(){ baslikAdi(adAlan.value); goster(); });
-  function goster(){ var l=link(); yazi.textContent=l||'Tarihleri girin ya da yalnızca bir ad yazın.'; kb.disabled=pb.disabled=!l; }
+  var mesaj=document.getElementById('bag-mesaj'), elle=false;
+  mesaj.addEventListener('input',function(){ elle=true; });
+  function buyuk(ad){ return ad.trim().split(/\s+/).map(function(k){return k?k.charAt(0).toLocaleUpperCase('tr-TR')+k.slice(1):k}).join(' '); }
+  function hazirMesaj(){
+    var ad=adAlan.value.trim(), selam=ad?'Merhaba '+buyuk(ad)+',':'Merhaba,', hesapVar=!!(calc.baglanti&&calc.baglanti());
+    return hesapVar ? selam+' hesabınızı sizin için hazırladım. Tutarı ve hesap bilgilerini bu bağlantıda bulabilirsiniz:'
+                    : selam+' ödeme sayfasının bağlantısını gönderiyorum. Tarihleri girdiğinizde tutar kendiliğinden hesaplanıyor; hesap bilgileri de aynı sayfada:';
+  }
+  function tamMetin(){ var l=link(); return l ? mesaj.value.trim()+'\n'+l : null; }
+  function goster(){ var l=link(); if(!elle) mesaj.value=hazirMesaj(); yazi.textContent=l||'Tarihleri girin ya da yalnızca bir ad yazın.'; kb.disabled=pb.disabled=!l; }
   document.addEventListener('odeme-tutar',function(){ setTimeout(goster,0); });
   calc.addEventListener('click',function(){ setTimeout(goster,0); });
   calc.addEventListener('change',function(){ setTimeout(goster,0); });
   kb.addEventListener('click',function(){
-    var l=link(); if(!l) return; var y=kb.textContent;
+    var t=tamMetin(); if(!t) return; var y=kb.textContent;
     function tamam(){kb.textContent='Kopyalandı';setTimeout(function(){kb.textContent=y},1800)}
-    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(l).then(tamam);
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(tamam);
   });
-  pb.addEventListener('click',function(){ var l=link(); if(l) navigator.share({url:l}).catch(function(){}); });
+  pb.addEventListener('click',function(){ var t=tamMetin(); if(t) navigator.share({text:t}).catch(function(){}); });
   setTimeout(goster,0);
 })();
 </script>
