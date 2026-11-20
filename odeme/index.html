@@ -62,6 +62,9 @@
 .hazirla[hidden]{display:none}
 .hz-not{margin-top:10px;color:var(--ink-2);font-size:var(--t-metin);line-height:1.6}
 .hz-link{margin-top:14px;font-family:var(--mono);font-size:var(--t-kucuk);color:var(--muted);word-break:break-all}
+.hazir-not{margin:0 0 20px;padding:14px 16px;border-left:3px solid var(--hl);background:color-mix(in srgb,var(--hl) 12%,transparent);color:var(--ink);font-size:var(--t-metin);line-height:1.6}
+.hazir-not[hidden]{display:none}
+.calc > p.hazir-not{color:var(--ink);margin-top:0}
 </style>
 </head>
 <body>
@@ -106,6 +109,7 @@
 
 <div class="odeme-grid">
 <form class="calc" novalidate data-calc data-odeme onsubmit="return false">
+  <p class="hazir-not" id="hazir-not" hidden>Bu hesabı sizin için ben hazırladım; lütfen bilgileri kontrol edin.</p>
   <p class="adim"><span>1</span>Tarihleri girin</p>
   <p>Köpeğinizi bıraktığınız günü, aldığınız gün ile saati girin.</p>
   <div class="grid-in">
@@ -194,6 +198,9 @@
   pb.addEventListener('click',function(){ var l=link(); if(l) navigator.share({url:l}).catch(function(){}); });
   setTimeout(goster,0);
 })();
+</script>
+<script>
+(function(){ var u=new URLSearchParams(location.search); if(u.get('giris')&&!u.has('hazirla')) document.getElementById('hazir-not').hidden=false; })();
 </script>
 </body>
 </html>
