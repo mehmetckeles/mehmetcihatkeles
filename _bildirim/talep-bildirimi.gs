@@ -37,6 +37,8 @@ var ERKEK = ('ahmet mehmet mustafa ali hüseyin hasan ibrahim ismail osman yusuf
 var TAKVIM_BILDIRIM = 'Site talepleri';
 var TAKVIM_MISAFIR = 'Misafirler';
 var SUTUN_TAKVIM = 8; // H sütunu: "Takvime işlendi" damgası
+// "Takvime işle" web uygulamasının adresi (Dağıt → Dağıtımları yönet). doGet değişirse aynı dağıtıma yeni sürüm verilir.
+var WEB_URL = 'https://script.google.com/macros/s/AKfycbzMsFg2F_QOtQ-WPgHzruVZZfko1cSL3pE_WgezOQSErTZiNLHieQbFsgXsG4VsBlm3/exec';
 
 function kur() {
   var ss = SpreadsheetApp.getActive();
@@ -105,9 +107,8 @@ function imza(satir) {
 
 function isleLinki(t, satir) {
   var gunVar = (t.cesit === 'gunduz' && t.gunler && t.gunler.length) || (t.cesit === 'konaklama' && t.giris && t.cikis);
-  var url = ScriptApp.getService().getUrl();
-  if (!gunVar || !url) return '';
-  return url + '?s=' + satir + '&k=' + imza(satir);
+  if (!gunVar) return '';
+  return WEB_URL + '?s=' + satir + '&k=' + imza(satir);
 }
 
 /* Talep gelir gelmez: "Site talepleri" takviminde iki dakika sonrasına kısa bir kayıt; telefon takvimin sesiyle uyarır. */
