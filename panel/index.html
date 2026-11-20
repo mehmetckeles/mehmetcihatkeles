@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel · Mehmet Cihat Keleş</title>
+<link rel="manifest" href="/panel/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/panel/simge-192.png">
+<meta name="theme-color" content="#151515">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/site.css">
+<style>
+body{padding-bottom:48px}
+.pn{max-width:40rem;margin:0 auto;padding:clamp(22px,5vw,40px) clamp(18px,5vw,28px)}
+.pn-ust{display:flex;align-items:center;gap:12px}
+.pn-ust img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.pn-ust h1{font-family:var(--display);font-weight:600;font-size:var(--t-giris);line-height:1.2}
+.pn-ust p{font-family:var(--mono);font-size:var(--t-etiket);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.grup{margin-top:30px}
+.grup>.label{margin-bottom:10px}
+.kalem{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;padding:14px 0;border-top:1px solid var(--rule)}
+.kalem:last-child{border-bottom:1px solid var(--rule)}
+.kalem a.ad{font-family:var(--display);font-weight:500;font-size:var(--t-metin);color:var(--ink);text-decoration:none;line-height:1.3}
+.kalem .yol{grid-column:1;font-family:var(--mono);font-size:var(--t-etiket);color:var(--muted);word-break:break-all}
+.kalem .dugmeler{grid-row:1/span 2;grid-column:2;display:flex;gap:8px}
+.kalem button,.kalem .git{font-family:var(--display);font-size:var(--t-kucuk);font-weight:500;color:var(--ink);background:transparent;border:1px solid var(--ink);border-radius:99px;padding:9px 14px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.kalem button.pay{background:var(--hl);color:var(--hl-ink);border-color:var(--hl-ink)}
+.ek{grid-column:1/-1;margin-top:4px}
+.ek .git{display:inline-block}
+.not{margin-top:30px;color:var(--muted);font-size:var(--t-kucuk);line-height:1.6}
+</style>
+</head>
+<body>
+<main class="pn">
+  <div class="pn-ust"><img src="/img/portre-kucuk.jpg" alt=""><div><h1>Panel</h1><p>Paylaşmak için bağlantılar</p></div></div>
+
+  <section class="grup"><p class="label">Konaklama</p><div id="g-konaklama"></div></section>
+  <section class="grup"><p class="label">Okullar</p><div id="g-okullar"></div></section>
+  <section class="grup"><p class="label">Ben</p><div id="g-ben"></div></section>
+
+  <p class="not">Bu sayfa arama motorlarında görünmez. Telefonun tarayıcı menüsünden "Ana ekrana ekle" derseniz bir uygulama gibi açılır.</p>
+</main>
+<script>
+(function(){
+  var K=location.origin;
+  var G={
+    'g-konaklama':[
+      {ad:'Ücret',yol:'/ucret/'},
+      {ad:'Konaklama',yol:'/konaklama.html'},
+      {ad:'Tanışma formu',yol:'/tanisma-gorusmesi/'},
+      {ad:'Ön rezervasyon formu',yol:'/on-rezervasyon/'},
+      {ad:'Ödeme',yol:'/odeme/',ek:{yazi:'Hesabı hazırlayıp gönder →',yol:'/odeme/?hazirla'}}
+    ],
+    'g-okullar':[
+      {ad:'Okullar',yol:'/okullar.html'},
+      {ad:'Köpeksel Bilgiler Okulası',yol:'/okula/'},
+      {ad:'Tarihten Köpekler',yol:'/tarihten/'},
+      {ad:'Tarihten Köpekler · bugünün yazısı',yol:null,id:'bugun'},
+      {ad:'Finansal Bilgiler Okulası',yol:'/finansal/'}
+    ],
+    'g-ben':[
+      {ad:'Ana sayfa',yol:'/'},
+      {ad:'Temel Uyum Terapisi',yol:'/tut.html'},
+      {ad:'Yazılar',yol:'/yazilar.html'},
+      {ad:'CV',yol:'/cv.html'}
+    ]
+  };
+  function kopyala(btn,url){
+    var y=btn.textContent;
+    function tamam(){btn.textContent='Kopyalandı';setTimeout(function(){btn.textContent=y},1600)}
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(tamam);
+  }
+  function kalem(k){
+    var d=document.createElement('div'); d.className='kalem'; if(k.id) d.id=k.id;
+    d.innerHTML='<a class="ad" target="_blank" rel="noopener"></a><span class="yol"></span>'
+      +'<div class="dugmeler"><button type="button" class="pay">Paylaş</button><button type="button" class="kop">Kopyala</button></div>';
+    d.querySelector('.ad').textContent=k.ad;
+    function ayarla(yol,baslik){
+      var url=K+yol; d.dataset.url=url; d.dataset.baslik=baslik||k.ad;
+      d.querySelector('.ad').href=url; d.querySelector('.yol').textContent=url.replace(/^https?:\/\//,'');
+    }
+    if(k.yol) ayarla(k.yol); else d.querySelector('.yol').textContent='yükleniyor…';
+    d.ayarla=ayarla;
+    d.querySelector('.pay').addEventListener('click',function(){
+      if(!d.dataset.url) return;
+      if(navigator.share) navigator.share({title:d.dataset.baslik,url:d.dataset.url}).catch(function(){});
+      else kopyala(this,d.dataset.url);
+    });
+    d.querySelector('.kop').addEventListener('click',function(){ if(d.dataset.url) kopyala(this,d.dataset.url); });
+    if(k.ek){ var e=document.createElement('div'); e.className='ek'; e.innerHTML='<a class="git"></a>'; e.firstChild.textContent=k.ek.yazi; e.firstChild.href=k.ek.yol; d.appendChild(e); }
+    return d;
+  }
+  Object.keys(G).forEach(function(id){ var kap=document.getElementById(id); G[id].forEach(function(k){ kap.appendChild(kalem(k)); }); });
+  /* Tarihten Köpekler'in en yeni yazısı */
+  fetch('/tarihten/articles.json').then(function(r){return r.json()}).then(function(liste){
+    var son=liste.slice().sort(function(a,b){return a.date<b.date?1:-1})[0], d=document.getElementById('bugun');
+    d.ayarla('/tarihten/#/'+son.slug, son.title);
+    d.querySelector('.ad').textContent='Tarihten Köpekler · '+son.title;
+  }).catch(function(){ document.querySelector('#bugun .yol').textContent='şu an alınamadı'; });
+})();
+</script>
+</body>
+</html>
