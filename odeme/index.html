@@ -65,6 +65,8 @@
 .hazir-not{margin:0 0 20px;padding:14px 16px;border-left:3px solid var(--hl);background:color-mix(in srgb,var(--hl) 12%,transparent);color:var(--ink);font-size:var(--t-metin);line-height:1.6}
 .hazir-not[hidden]{display:none}
 .calc > p.hazir-not{color:var(--ink);margin-top:0}
+.hz-ad{margin-top:16px}
+.hz-ad input{font:inherit;font-family:var(--display);font-size:var(--t-metin);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:11px 13px;min-height:48px;width:100%}
 </style>
 </head>
 <body>
@@ -104,7 +106,7 @@
 <main class="form-page odeme">
 <div class="wrap">
 <p class="label">Ödeme</p>
-<h1>Şimdiden <b>teşekkürler.</b></h1>
+<h1 id="odeme-baslik">Şimdiden <b>teşekkürler.</b></h1>
 <p class="lead">Lütfen tutarı aşağıdaki araçla hesaplayıp ödemenizi yapın. Aklınıza takılan bir şey olursa bana yazın.</p>
 
 <div class="odeme-grid">
@@ -137,6 +139,7 @@
 <section class="hazirla" id="hazirla" hidden aria-labelledby="hz-h">
   <p class="adim" id="hz-h"><span>✎</span>Müşteriye gönder</p>
   <p class="hz-not">Bu bölümü yalnızca siz görüyorsunuz. Hesabı yukarıda hazırlayın; bağlantıyı açan kişi sayfayı aynı bilgilerle dolu görür.</p>
+  <div class="field hz-ad"><label for="bag-ad">Kime gönderiyorsunuz?</label><input id="bag-ad" maxlength="40" placeholder="Ali Bey" autocomplete="off"></div>
   <div class="kopyalar"><button class="btn ghost" type="button" id="bag-kopyala">Bağlantıyı kopyala</button><button class="btn ghost" type="button" id="bag-paylas" hidden>Paylaş</button></div>
   <p class="hz-link" id="bag-yazi"></p>
 </section>
@@ -185,7 +188,9 @@
   var hz=document.getElementById('hazirla'), calc=document.querySelector('form.calc[data-calc]'), yazi=document.getElementById('bag-yazi');
   var kb=document.getElementById('bag-kopyala'), pb=document.getElementById('bag-paylas');
   hz.hidden=false; if(navigator.share) pb.hidden=false;
-  function link(){ return calc.baglanti&&calc.baglanti(); }
+  var adAlan=document.getElementById('bag-ad');
+  function link(){ var l=calc.baglanti&&calc.baglanti(); var ad=adAlan.value.trim(); if(l&&ad) l+='&ad='+encodeURIComponent(ad).replace(/%20/g,'+'); return l; }
+  adAlan.addEventListener('input',function(){ baslikAdi(adAlan.value); goster(); });
   function goster(){ var l=link(); yazi.textContent=l||'Önce tarihleri girin.'; kb.disabled=pb.disabled=!l; }
   document.addEventListener('odeme-tutar',function(){ setTimeout(goster,0); });
   calc.addEventListener('click',function(){ setTimeout(goster,0); });
@@ -201,6 +206,15 @@
 </script>
 <script>
 (function(){ var u=new URLSearchParams(location.search); if(u.get('giris')&&!u.has('hazirla')) document.getElementById('hazir-not').hidden=false; })();
+/* kişiye seslenen başlık: ?ad=Ali Bey → "Ali Bey, şimdiden teşekkürler." */
+window.baslikAdi=function(ad){
+  var h=document.getElementById('odeme-baslik'); ad=(ad||'').trim().slice(0,40);
+  h.textContent='';
+  if(ad){ h.appendChild(document.createTextNode(ad+', şimdiden ')); }
+  else h.appendChild(document.createTextNode('Şimdiden '));
+  var b=document.createElement('b'); b.textContent='teşekkürler.'; h.appendChild(b);
+};
+(function(){ var ad=new URLSearchParams(location.search).get('ad'); if(ad) baslikAdi(ad); })();
 </script>
 </body>
 </html>
